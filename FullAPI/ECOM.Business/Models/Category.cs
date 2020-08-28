@@ -9,9 +9,6 @@ namespace ECOM.API.Models
 {
     public class Category : Entity
     {
-        [Column(TypeName = "varchar(36)")]
-        public Guid ProductId { get; set; }
-
         [Required]
         public string Name { get; set; }
 

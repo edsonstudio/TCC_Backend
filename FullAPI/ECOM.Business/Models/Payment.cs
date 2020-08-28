@@ -7,9 +7,9 @@ namespace ECOM.API.Models
 {
     public class Payment : Entity
     {
-        public enum EStatus { get; set; }
+        public string  EStatus { get; set; }
 
-        public enum EType { get; set; }
+        public string EType { get; set; }
 
     }
 }

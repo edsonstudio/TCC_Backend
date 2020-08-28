@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ECOM.API.Models
 {
@@ -16,8 +14,12 @@ namespace ECOM.API.Models
         
         [Required]
         public string Phone { get; set; }
+        public Guid UserId { get; set; }
 
         /*EF Relation*/
+        [Required]
+        public User User { get; set; }
+
         [Required]
         public IEnumerable<Address> Address { get; set; }
 

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ECOM.API.Models
 {
@@ -15,7 +12,7 @@ namespace ECOM.API.Models
         [Required]
         public string Name { get; set; }
 
-        public enum EStatus { get; set; }
+        public string Status { get; set; }
 
         [Required]
         public string Description { get; set; }
@@ -27,6 +24,7 @@ namespace ECOM.API.Models
         public string Brand { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(9,2)")]
         public decimal Price { get; set; }
 
         [Required]
@@ -36,5 +34,6 @@ namespace ECOM.API.Models
         public string Image { get; set; }
 
         public Category Category { get; set; }
+
     }
 }
