@@ -15,7 +15,10 @@ namespace ECOM.Data.Configuration
             builder.Property(p => p.Brand).IsRequired();
             builder.Property(p => p.Price).IsRequired().HasColumnType("decimal(9,2)");
             builder.Property(p => p.Amount).IsRequired();
-            // estou terminando ...
+            builder.Property(p => p.Image).IsRequired().HasColumnType("varbinary(MAX)");
+            builder.Property(p => p.CategoryId).IsRequired().HasColumnType("varchar(36)");
+            builder.Property(p => p.Status).IsRequired();
+            builder.HasOne(p => p.Category);
         }
     }
 }
