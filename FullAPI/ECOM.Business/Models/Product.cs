@@ -6,33 +6,30 @@ namespace ECOM.API.Models
 {
     public class Product : Entity
     {
-        [Column(TypeName = "varchar(36)")]
+      //[Column(TypeName = "varchar(36)")]
         public Guid CategoryId { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
-        public string Status { get; set; }
+        public bool Active { get; set; } //Status
 
-        [Required]
         public string Description { get; set; }
 
-        [Required]
         public string Model { get; set; }
 
-        [Required]
         public string Brand { get; set; }
 
-        [Required]
-        [Column(TypeName = "decimal(9,2)")]
+        //[Column(TypeName = "decimal(9,2)")]
         public decimal Price { get; set; }
 
-        [Required]
         public int Amount { get; set; }
 
-        [Column(TypeName = "varbinary(MAX)")]
+        //[Column(TypeName = "varbinary(MAX)")]
         public string Image { get; set; }
 
+        public DateTime RegisterDate { get; set; } //Data de cadastro do produto
+
+        /* EF Relations */
         public Category Category { get; set; }
 
     }
