@@ -10,26 +10,25 @@ using System.Threading.Tasks;
 
 namespace ECOM.Data.Repository
 {
-    public class ProductRepository : Repository<Product>//, IProductRepository
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
         public ProductRepository(InitialDbContext context) : base(context) { }
 
-        /*
-        public async Task<Product> ObterProdutoFornecedor(Guid id)
+
+        public async Task<Product> ObterProdutoPorId(Guid id)
         {
             return await Db.Products.AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<IEnumerable<Product>> ObterProdutosFornecedores()
+        public async Task<IEnumerable<Product>> ObterProdutos()
         {
             return await Db.Products.AsNoTracking().OrderBy(p => p.Name).ToListAsync();
         }
 
-        public async Task<IEnumerable<Produto>> ObterProdutosPorFornecedor(Guid fornecedorId)
+        public async Task<IEnumerable<Product>> ObterProdutosPorCategoria(Guid categoryId)
         {
-            return await Buscar(p => p.FornecedorId == fornecedorId);
+            return await Buscar(p => p.CategoryId == categoryId);
         }
-        */
     }
 }

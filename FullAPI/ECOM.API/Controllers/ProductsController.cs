@@ -26,8 +26,6 @@ namespace ECOM.API.Controllers
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
 
-        // private readonly InitialDbContext _context;
-
         public ProductsController(INotificador notificador,
                                     IProductRepository productRepository,
                                     IProductService productService,
@@ -44,8 +42,6 @@ namespace ECOM.API.Controllers
         public async Task<IEnumerable<ProductViewModel>> ObterTodos()
         {
             return _mapper.Map<IEnumerable<ProductViewModel>>(await _productRepository.ObterProdutos()); //Testar com o método ObterTodos();
-
-            //return await _context.Products.ToListAsync();
         }
 
         // GET: api/Products/5
@@ -57,15 +53,6 @@ namespace ECOM.API.Controllers
             if (productViewModel == null) return NotFound();
 
             return productViewModel;
-
-            //var product = await _context.Products.FindAsync(id);
-
-            //if (product == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return product;
         }
 
         // PUT: api/Products/5
