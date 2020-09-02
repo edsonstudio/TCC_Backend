@@ -7,9 +7,8 @@ namespace ECOM.Business.Interfaces
 {
     public interface IProductRepository : IRepository<Product>
     {
-        Task<IEnumerable<Product>> ObterProdutosPorFornecedor(Guid fornecedorId);
-        Task<IEnumerable<Product>> ObterProdutosFornecedores();
-        Task<Product> ObterProdutoFornecedor(Guid id);
-        Task<IEnumerable<Product>> ObterProdutos(); //Testar
+        Task<Product> ObterProdutoPorId(Guid id);
+        Task<IEnumerable<Product>> ObterProdutos();
+        Task<IEnumerable<Product>> ObterProdutosPorCategoria(Guid categoryId);
     }
 }
