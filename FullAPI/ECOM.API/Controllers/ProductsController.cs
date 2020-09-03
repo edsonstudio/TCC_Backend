@@ -103,12 +103,19 @@ namespace ECOM.API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [ClaimsAuthorize("Product","Adicionar")]
         public async Task<ActionResult<ProductViewModel>> Adicionar(ProductViewModel productViewModel)
         {
-            //_context.Products.Add(product);
-            //await _context.SaveChangesAsync();
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            //return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            var imageName = Guid.NewGuid() + "_" + productViewModel.Image;
+
+            if (!UploadArquivo(productViewModel.ImageUpload, imageName)) return CustomResponse(productViewModel);
+
+            productViewModel.Image = imageName;
+
+            await _productService.Adicionar(_mapper.Map<Product>(productViewModel));
+
             return CustomResponse(productViewModel);
 
         }
