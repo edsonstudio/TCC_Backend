@@ -13,26 +13,27 @@ namespace ECOM.API.Controllers
     [ApiController]
     public abstract class MainController : ControllerBase
     {
-        private readonly INotificador _notificador;
-        public readonly IUser AppUser;
+        //private readonly INotificador _notificador;
+        //public readonly IUser AppUser;
 
         protected Guid UserId { get; set; }
         protected bool UserAuthenticated { get; set; }
 
-        public MainController(INotificador notificador, IUser appUser)
+        public MainController()
         {
-            _notificador = notificador;
-            AppUser = appUser;
-            if (appUser.IsAuthenticated())
+            //_notificador = notificador;
+            //AppUser = appUser;
+            /*if (appUser.IsAuthenticated())
             {
                 UserId = appUser.GetUserId();
                 UserAuthenticated = true;
-            }
+            }*/
         }
 
         protected bool OperacaoValida()
         {
-            return !_notificador.TemNotificacao();
+            //return !_notificador.TemNotificacao();
+            return true;
         }
 
         protected ActionResult CustomResponse(object result = null)
@@ -49,17 +50,17 @@ namespace ECOM.API.Controllers
             return BadRequest(new
             {
                 success = false,
-                errors = _notificador.ObterNotificacoes().Select(n => n.Mensagem)
+                errors =  result//_notificador.ObterNotificacoes().Select(n => n.Mensagem)
             });
         }
 
         protected ActionResult CustomResponse(ModelStateDictionary modelState)
         {
-            if (!modelState.IsValid) NotificarErroModelInvalida(modelState);
+            //if (!modelState.IsValid) NotificarErroModelInvalida(modelState);
             return CustomResponse();
         }
 
-        protected void NotificarErroModelInvalida(ModelStateDictionary modelState)
+        /*protected void NotificarErroModelInvalida(ModelStateDictionary modelState)
         {
             var erros = modelState.Values.SelectMany(e => e.Errors);
             foreach (var erro in erros)
@@ -67,11 +68,11 @@ namespace ECOM.API.Controllers
                 var errorMsg = erro.Exception == null ? erro.ErrorMessage : erro.Exception.Message;
                 NotificarErro(errorMsg);
             }
-        }
-
+        }*/
+        /*
         protected void NotificarErro(string mensagem)
         {
             _notificador.Handle(new Notificacao(mensagem));
-        }
+        }*/
     }
 }
