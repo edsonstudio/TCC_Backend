@@ -46,12 +46,8 @@ namespace ECOM.API.ViewModels
         [ScaffoldColumn(false)]
         public DateTime RegisterDate { get; set; } //Data de cadastro do produto
 
-        /* EF Relations */
-        public Category Category { get; set; }
-
-        //--------Adicionar na Segunda Etapa------
-        //[ScaffoldColumn(false)]
-        //public string NomeFornecedor { get; set; }
+        [ScaffoldColumn(false)]
+        public string CategoryName { get; set; }
 
     }
 }

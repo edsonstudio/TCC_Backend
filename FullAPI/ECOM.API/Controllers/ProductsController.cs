@@ -114,6 +114,7 @@ namespace ECOM.API.Controllers
         }
 
         // DELETE: api/Products/5
+        [ClaimsAuthorize("Product", "Excluir")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<ProductViewModel>> Excluir(Guid id)
         {

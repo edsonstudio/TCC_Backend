@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECOM.Data.Migrations
 {
     [DbContext(typeof(InitialDbContext))]
-    [Migration("20200828003237_initial")]
-    partial class initial
+    [Migration("20200903003100_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -196,6 +196,9 @@ namespace ECOM.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(36)");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
@@ -212,6 +215,7 @@ namespace ECOM.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Image")
+                        .IsRequired()
                         .HasColumnType("varbinary(MAX)");
 
                     b.Property<string>("Model")
@@ -228,8 +232,8 @@ namespace ECOM.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(9,2)");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("RegisterDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
