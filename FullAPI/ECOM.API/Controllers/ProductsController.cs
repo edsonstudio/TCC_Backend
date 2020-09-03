@@ -17,7 +17,7 @@ using ECOM.API.Extensions;
 
 namespace ECOM.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : MainController
@@ -26,11 +26,10 @@ namespace ECOM.API.Controllers
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
 
-        public ProductsController(INotificador notificador,
-                                    IProductRepository productRepository,
+        public ProductsController(  IProductRepository productRepository,
                                     IProductService productService,
-                                    IMapper mapper,
-                                    IUser user) : base(notificador, user)
+                                    IMapper mapper
+                                    ) 
         {
             _productRepository = productRepository;
             _productService = productService;
@@ -58,13 +57,13 @@ namespace ECOM.API.Controllers
         // PUT: api/Products/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [ClaimsAuthorize("Product", "Atualizar")]
+        //[ClaimsAuthorize("Product", "Atualizar")]
         [HttpPut("{id:guid}")] //Edson
         public async Task<IActionResult> Atualizar(Guid id, ProductViewModel productViewModel)
         {
             if (id != productViewModel.Id)
             {
-                NotificarErro("Os ids informados não são iguais!");
+                //NotificarErro("Os ids informados não são iguais!");
                 return CustomResponse();
             }
 
@@ -103,7 +102,7 @@ namespace ECOM.API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        [ClaimsAuthorize("Product","Adicionar")]
+        //[ClaimsAuthorize("Product","Adicionar")]
         public async Task<ActionResult<ProductViewModel>> Adicionar(ProductViewModel productViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -121,7 +120,7 @@ namespace ECOM.API.Controllers
         }
 
         // DELETE: api/Products/5
-        [ClaimsAuthorize("Product", "Excluir")]
+        //[ClaimsAuthorize("Product", "Excluir")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<ProductViewModel>> Excluir(Guid id)
         {
@@ -143,17 +142,17 @@ namespace ECOM.API.Controllers
         {
             if (string.IsNullOrEmpty(arquivo))
             {
-                NotificarErro("Forneça uma imagem para este produto!");
+                //NotificarErro("Forneça uma imagem para este produto!");
                 return false;
             }
 
             var imageDataByteArray = Convert.FromBase64String(arquivo);
 
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imgNome);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imgNome);   
 
             if (System.IO.File.Exists(filePath))
             {
-                NotificarErro("Já existe um arquivo com este nome!");
+                //NotificarErro("Já existe um arquivo com este nome!");
                 return false;
             }
 

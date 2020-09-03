@@ -12,14 +12,14 @@ namespace ECOM.Business.Services
     public class ProductService : BaseService, IProductService
     {
         private readonly IProductRepository _productRepository;
-        private readonly IUser _user;
+        //private readonly IUser _user;
 
         public ProductService (IProductRepository productRepository,
-                                INotificador notificador,
-                                IUser user) : base(notificador)
+                                INotificador notificador
+                                /*IUser user*/) : base(notificador)
         {
             _productRepository = productRepository;
-            _user = user;
+            //_user = user;
         }
 
         public async Task Adicionar(Product product)
