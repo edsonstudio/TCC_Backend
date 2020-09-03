@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ECOM.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -67,13 +67,14 @@ namespace ECOM.Data.Migrations
                     Id = table.Column<string>(type: "varchar(36)", nullable: false),
                     CategoryId = table.Column<string>(type: "varchar(36)", nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Status = table.Column<string>(nullable: true),
+                    Active = table.Column<bool>(nullable: false),
                     Description = table.Column<string>(nullable: false),
                     Model = table.Column<string>(nullable: false),
                     Brand = table.Column<string>(nullable: false),
                     Price = table.Column<decimal>(type: "decimal(9,2)", nullable: false),
                     Amount = table.Column<int>(nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(MAX)", nullable: true),
+                    Image = table.Column<byte[]>(type: "varbinary(MAX)", nullable: false),
+                    RegisterDate = table.Column<DateTime>(nullable: false),
                     OrderItemsId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
