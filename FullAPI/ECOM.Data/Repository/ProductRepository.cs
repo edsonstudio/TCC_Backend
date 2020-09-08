@@ -17,13 +17,13 @@ namespace ECOM.Data.Repository
 
         public async Task<Product> ObterProdutoPorId(Guid id)
         {
-            return await Db.Products.AsNoTracking()
+            return await Db.Products.AsNoTracking().Include(pr => pr.Category)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IEnumerable<Product>> ObterProdutos()
         {
-            return await Db.Products.AsNoTracking().OrderBy(p => p.Name).ToListAsync();
+            return await Db.Products.AsNoTracking().Include(pr => pr.Category).OrderBy(p => p.Name).ToListAsync();
         }
 
         public async Task<IEnumerable<Product>> ObterProdutosPorCategoria(Guid categoryId)
