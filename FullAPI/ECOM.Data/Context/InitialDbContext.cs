@@ -3,7 +3,10 @@ using ECOM.Data.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ECOM.Data.Context
 {
@@ -28,5 +31,23 @@ namespace ECOM.Data.Context
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             base.OnModelCreating(modelBuilder);
         }
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("RegisterDate") != null))
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Property("RegisterDate").CurrentValue = DateTime.Now;
+                }
+
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.Property("RegisterDate").IsModified = false;
+                }
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
     }
 }

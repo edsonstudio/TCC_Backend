@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+
 namespace ECOM.API
 {
     public class Startup
@@ -36,6 +37,8 @@ namespace ECOM.API
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<INotificador, Notificador>();
+
+            services.AddControllers().AddNewtonsoftJson(option => option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddAutoMapper(typeof(Startup));
 
