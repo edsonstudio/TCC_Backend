@@ -9,7 +9,6 @@ namespace ECOM.API.Models
 {
     public class Category : Entity
     {
-        [Required]
         public string Name { get; set; }
 
         /*EF Relation*/

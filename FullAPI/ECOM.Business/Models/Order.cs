@@ -1,12 +1,11 @@
-﻿using ECOM.Business.Enums;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECOM.API.Models
 {
     public class Order : Entity
     {
-        public EStatus Status { get; set; }
+        public string Status { get; set; }
 
         public Guid ClientId { get; set; }
         public Guid OrderItemsId { get; set; }

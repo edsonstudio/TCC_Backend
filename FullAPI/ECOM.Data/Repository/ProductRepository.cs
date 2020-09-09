@@ -21,7 +21,7 @@ namespace ECOM.Data.Repository
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<IEnumerable<Product>> ObterProdutos()
+        public async Task<IEnumerable<Product>> ObterProdutosCategorias()
         {
             return await Db.Products.AsNoTracking().Include(pr => pr.Category).OrderBy(p => p.Name).ToListAsync();
         }
