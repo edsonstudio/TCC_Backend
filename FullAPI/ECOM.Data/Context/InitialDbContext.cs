@@ -1,5 +1,5 @@
 ﻿using ECOM.API.Models;
-using ECOM.Data.Configuration;
+using ECOM.Data.Mappings;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,7 +28,9 @@ namespace ECOM.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // mapeando das configurações para o banco de dados
-            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductMapping());
+            modelBuilder.ApplyConfiguration(new CategoryMapping());
+
             base.OnModelCreating(modelBuilder);
         }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

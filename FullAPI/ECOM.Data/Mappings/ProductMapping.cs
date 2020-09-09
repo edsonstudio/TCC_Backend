@@ -1,10 +1,13 @@
 ﻿using ECOM.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace ECOM.Data.Configuration
+namespace ECOM.Data.Mappings
 {
-    public class ProductConfiguration : IEntityTypeConfiguration<Product>
+    public class ProductMapping : IEntityTypeConfiguration<Product>
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
@@ -18,8 +21,9 @@ namespace ECOM.Data.Configuration
             builder.Property(p => p.Image).IsRequired().HasColumnType("varbinary(MAX)");
             builder.Property(p => p.CategoryId).IsRequired().HasColumnType("varchar(36)");
             builder.Property(p => p.Active).IsRequired();
-            builder.Property(p => p.RegisterDate).IsRequired();
             builder.HasOne(p => p.Category);
+
+            builder.ToTable("Products");
         }
     }
 }

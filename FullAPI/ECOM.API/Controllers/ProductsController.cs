@@ -19,7 +19,7 @@ namespace ECOM.API.Controllers
 {
     //[Authorize]
     [Route("api/[controller]")]
-    [ApiController]
+    //[ApiController]
     public class ProductsController : MainController
     {
         private readonly IProductRepository _productRepository;
@@ -28,8 +28,7 @@ namespace ECOM.API.Controllers
 
         public ProductsController(  IProductRepository productRepository,
                                     IProductService productService,
-                                    IMapper mapper
-                                    ) 
+                                    IMapper mapper) 
         {
             _productRepository = productRepository;
             _productService = productService;
@@ -37,14 +36,14 @@ namespace ECOM.API.Controllers
         }
 
         // GET: api/Products
-        [HttpGet] //Edson
+        [HttpGet]
         public async Task<IEnumerable<ProductViewModel>> ObterTodos()
         {
-            return _mapper.Map<IEnumerable<ProductViewModel>>(await _productRepository.ObterProdutos()); //Testar com o método ObterTodos();
+            return _mapper.Map<IEnumerable<ProductViewModel>>(await _productRepository.ObterProdutosCategorias());
         }
 
         // GET: api/Products/5
-        [HttpGet("{id:guid}")] //Edson
+        [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProductViewModel>> ObterPorId(Guid id)
         {
             var productViewModel = await ObterProduto(id);
@@ -58,7 +57,7 @@ namespace ECOM.API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         //[ClaimsAuthorize("Product", "Atualizar")]
-        [HttpPut("{id:guid}")] //Edson
+        [HttpPut("{id:guid}")]
         public async Task<IActionResult> Atualizar(Guid id, ProductViewModel productViewModel)
         {
             if (id != productViewModel.Id)
@@ -135,7 +134,7 @@ namespace ECOM.API.Controllers
 
         private async Task<ProductViewModel> ObterProduto(Guid id)
         {
-            return _mapper.Map<ProductViewModel>(await _productRepository.ObterProdutos());
+            return _mapper.Map<ProductViewModel>(await _productRepository.ObterProdutoPorId(id));
         }
 
         private bool UploadArquivo(string arquivo, string imgNome)
