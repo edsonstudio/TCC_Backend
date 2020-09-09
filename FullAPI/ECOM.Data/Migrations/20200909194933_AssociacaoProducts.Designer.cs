@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECOM.Data.Migrations
 {
     [DbContext(typeof(InitialDbContext))]
-    [Migration("20200903003100_Initial")]
-    partial class Initial
+    [Migration("20200909194933_AssociacaoProducts")]
+    partial class AssociacaoProducts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,7 +85,7 @@ namespace ECOM.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("Id");
 
@@ -144,8 +144,8 @@ namespace ECOM.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(9,2)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -193,7 +193,6 @@ namespace ECOM.Data.Migrations
             modelBuilder.Entity("ECOM.API.Models.Product", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(36)");
 
                     b.Property<bool>("Active")
@@ -267,6 +266,27 @@ namespace ECOM.Data.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ECOM.Business.Models.ProductsProducts", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varchar(36)");
+
+                    b.Property<string>("ProductFatherId")
+                        .HasColumnType("varchar(36)");
+
+                    b.Property<string>("ProductSonId")
+                        .HasColumnType("varchar(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductFatherId");
+
+                    b.HasIndex("ProductSonId");
+
+                    b.ToTable("ProductsProducts");
+                });
+
             modelBuilder.Entity("ECOM.API.Models.Address", b =>
                 {
                     b.HasOne("ECOM.API.Models.Client", null)
@@ -306,9 +326,26 @@ namespace ECOM.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ECOM.Business.Models.ProductsProducts", "ProductsProducts")
+                        .WithMany("Products")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ECOM.API.Models.OrderItems", null)
                         .WithMany("Products")
                         .HasForeignKey("OrderItemsId");
+                });
+
+            modelBuilder.Entity("ECOM.Business.Models.ProductsProducts", b =>
+                {
+                    b.HasOne("ECOM.API.Models.Product", "ProductFather")
+                        .WithMany()
+                        .HasForeignKey("ProductFatherId");
+
+                    b.HasOne("ECOM.API.Models.Product", "ProductSon")
+                        .WithMany()
+                        .HasForeignKey("ProductSonId");
                 });
 #pragma warning restore 612, 618
         }

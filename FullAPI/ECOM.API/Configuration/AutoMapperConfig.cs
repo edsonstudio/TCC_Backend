@@ -13,6 +13,7 @@ namespace ECOM.API.Configuration
 
             CreateMap<Product, ProductViewModel>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+                //.ForMember(dest => dest.ProductsProductsId, opt => opt.MapFrom(src => src.ProductsProducts.Id));
         }
     }
 }
