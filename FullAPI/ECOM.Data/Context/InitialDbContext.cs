@@ -1,4 +1,5 @@
 ﻿using ECOM.API.Models;
+using ECOM.Business.Models;
 using ECOM.Data.Mappings;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,12 +25,14 @@ namespace ECOM.Data.Context
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<OrderItems> OrderItems { get; set; }
+        public DbSet<ProductsProducts> ProductsProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // mapeando das configurações para o banco de dados
             modelBuilder.ApplyConfiguration(new ProductMapping());
             modelBuilder.ApplyConfiguration(new CategoryMapping());
+            modelBuilder.ApplyConfiguration(new ProductsProductsMapping());
 
             base.OnModelCreating(modelBuilder);
         }

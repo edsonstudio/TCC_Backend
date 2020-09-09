@@ -22,6 +22,7 @@ namespace ECOM.Data.Mappings
             builder.Property(p => p.CategoryId).IsRequired().HasColumnType("varchar(36)");
             builder.Property(p => p.Active).IsRequired();
             builder.HasOne(p => p.Category);
+            builder.HasOne(p => p.ProductsProducts);
 
             builder.ToTable("Products");
         }

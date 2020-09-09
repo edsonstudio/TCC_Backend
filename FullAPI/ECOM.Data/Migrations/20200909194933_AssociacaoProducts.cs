@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ECOM.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class AssociacaoProducts : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace ECOM.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "varchar(36)", nullable: false),
-                    Name = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(type: "varchar(20)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,40 +58,6 @@ namespace ECOM.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "varchar(36)", nullable: false),
-                    CategoryId = table.Column<string>(type: "varchar(36)", nullable: false),
-                    Name = table.Column<string>(nullable: false),
-                    Active = table.Column<bool>(nullable: false),
-                    Description = table.Column<string>(nullable: false),
-                    Model = table.Column<string>(nullable: false),
-                    Brand = table.Column<string>(nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(9,2)", nullable: false),
-                    Amount = table.Column<int>(nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(MAX)", nullable: false),
-                    RegisterDate = table.Column<DateTime>(nullable: false),
-                    OrderItemsId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Products_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Products_OrderItems_OrderItemsId",
-                        column: x => x.OrderItemsId,
-                        principalTable: "OrderItems",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -148,7 +114,7 @@ namespace ECOM.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "varchar(36)", nullable: false),
-                    Status = table.Column<int>(nullable: false),
+                    Status = table.Column<string>(nullable: true),
                     ClientId = table.Column<string>(nullable: false),
                     OrderItemsId = table.Column<string>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
@@ -170,6 +136,65 @@ namespace ECOM.Data.Migrations
                         principalTable: "OrderItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "varchar(36)", nullable: false),
+                    CategoryId = table.Column<string>(type: "varchar(36)", nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Active = table.Column<bool>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    Model = table.Column<string>(nullable: false),
+                    Brand = table.Column<string>(nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(9,2)", nullable: false),
+                    Amount = table.Column<int>(nullable: false),
+                    Image = table.Column<byte[]>(type: "varbinary(MAX)", nullable: false),
+                    RegisterDate = table.Column<DateTime>(nullable: false),
+                    OrderItemsId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Products_OrderItems_OrderItemsId",
+                        column: x => x.OrderItemsId,
+                        principalTable: "OrderItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductsProducts",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "varchar(36)", nullable: false),
+                    ProductFatherId = table.Column<string>(nullable: true),
+                    ProductSonId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductsProducts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductsProducts_Products_ProductFatherId",
+                        column: x => x.ProductFatherId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProductsProducts_Products_ProductSonId",
+                        column: x => x.ProductSonId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -201,10 +226,40 @@ namespace ECOM.Data.Migrations
                 name: "IX_Products_OrderItemsId",
                 table: "Products",
                 column: "OrderItemsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductsProducts_ProductFatherId",
+                table: "ProductsProducts",
+                column: "ProductFatherId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductsProducts_ProductSonId",
+                table: "ProductsProducts",
+                column: "ProductSonId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Products_ProductsProducts_Id",
+                table: "Products",
+                column: "Id",
+                principalTable: "ProductsProducts",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Products_OrderItems_OrderItemsId",
+                table: "Products");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Products_Categories_CategoryId",
+                table: "Products");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Products_ProductsProducts_Id",
+                table: "Products");
+
             migrationBuilder.DropTable(
                 name: "Addresses");
 
@@ -215,19 +270,22 @@ namespace ECOM.Data.Migrations
                 name: "Payments");
 
             migrationBuilder.DropTable(
-                name: "Products");
-
-            migrationBuilder.DropTable(
                 name: "Clients");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "OrderItems");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "ProductsProducts");
+
+            migrationBuilder.DropTable(
+                name: "Products");
         }
     }
 }

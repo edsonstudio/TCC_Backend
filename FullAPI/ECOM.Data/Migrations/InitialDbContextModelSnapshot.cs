@@ -191,7 +191,6 @@ namespace ECOM.Data.Migrations
             modelBuilder.Entity("ECOM.API.Models.Product", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(36)");
 
                     b.Property<bool>("Active")
@@ -265,6 +264,27 @@ namespace ECOM.Data.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ECOM.Business.Models.ProductsProducts", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varchar(36)");
+
+                    b.Property<string>("ProductFatherId")
+                        .HasColumnType("varchar(36)");
+
+                    b.Property<string>("ProductSonId")
+                        .HasColumnType("varchar(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductFatherId");
+
+                    b.HasIndex("ProductSonId");
+
+                    b.ToTable("ProductsProducts");
+                });
+
             modelBuilder.Entity("ECOM.API.Models.Address", b =>
                 {
                     b.HasOne("ECOM.API.Models.Client", null)
@@ -304,9 +324,26 @@ namespace ECOM.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ECOM.Business.Models.ProductsProducts", "ProductsProducts")
+                        .WithMany("Products")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ECOM.API.Models.OrderItems", null)
                         .WithMany("Products")
                         .HasForeignKey("OrderItemsId");
+                });
+
+            modelBuilder.Entity("ECOM.Business.Models.ProductsProducts", b =>
+                {
+                    b.HasOne("ECOM.API.Models.Product", "ProductFather")
+                        .WithMany()
+                        .HasForeignKey("ProductFatherId");
+
+                    b.HasOne("ECOM.API.Models.Product", "ProductSon")
+                        .WithMany()
+                        .HasForeignKey("ProductSonId");
                 });
 #pragma warning restore 612, 618
         }
