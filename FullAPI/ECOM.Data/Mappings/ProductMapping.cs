@@ -12,17 +12,18 @@ namespace ECOM.Data.Mappings
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.HasKey(p => p.Id);
-            builder.Property(p => p.Name).IsRequired();
-            builder.Property(p => p.Description).IsRequired();
-            builder.Property(p => p.Model).IsRequired();
-            builder.Property(p => p.Brand).IsRequired();
-            builder.Property(p => p.Price).IsRequired().HasColumnType("decimal(9,2)");
-            builder.Property(p => p.Amount).IsRequired();
-            builder.Property(p => p.Image).IsRequired().HasColumnType("varbinary(MAX)");
+            builder.Property(p => p.Name);//.IsRequired();
+            builder.Property(p => p.Description);//.IsRequired();
+            builder.Property(p => p.Model);//.IsRequired();
+            builder.Property(p => p.Brand);//.IsRequired();
+            builder.Property(p => p.Price).HasColumnType("decimal(9,2)");
+            builder.Property(p => p.Amount);//.IsRequired();
+            builder.Property(p => p.Image).HasColumnType("varbinary(MAX)");
             builder.Property(p => p.CategoryId).IsRequired().HasColumnType("varchar(36)");
-            builder.Property(p => p.Active).IsRequired();
+            builder.Property(p => p.Active);//.IsRequired();
             builder.HasOne(p => p.Category);
-            builder.HasOne(p => p.ProductsProducts);
+            builder.HasMany(p => p.ProductsProducts).WithOne(y => y.ProductFather);
+            //builder.HasMany(p => p.ProductsProducts).WithOne(y => y.ProductSon);
 
             builder.ToTable("Products");
         }

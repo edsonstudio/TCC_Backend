@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ECOM.Data.Migrations
 {
-    public partial class AssociacaoProducts : Migration
+    public partial class ProdutosAssociados : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -144,16 +144,17 @@ namespace ECOM.Data.Migrations
                 {
                     Id = table.Column<string>(type: "varchar(36)", nullable: false),
                     CategoryId = table.Column<string>(type: "varchar(36)", nullable: false),
-                    Name = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
-                    Description = table.Column<string>(nullable: false),
-                    Model = table.Column<string>(nullable: false),
-                    Brand = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Model = table.Column<string>(nullable: true),
+                    Brand = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(type: "decimal(9,2)", nullable: false),
                     Amount = table.Column<int>(nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(MAX)", nullable: false),
+                    Image = table.Column<byte[]>(type: "varbinary(MAX)", nullable: true),
                     RegisterDate = table.Column<DateTime>(nullable: false),
-                    OrderItemsId = table.Column<string>(nullable: true)
+                    OrderItemsId = table.Column<string>(nullable: true),
+                    ProductsProductsId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -228,6 +229,11 @@ namespace ECOM.Data.Migrations
                 column: "OrderItemsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_ProductsProductsId",
+                table: "Products",
+                column: "ProductsProductsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductsProducts_ProductFatherId",
                 table: "ProductsProducts",
                 column: "ProductFatherId");
@@ -238,12 +244,12 @@ namespace ECOM.Data.Migrations
                 column: "ProductSonId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Products_ProductsProducts_Id",
+                name: "FK_Products_ProductsProducts_ProductsProductsId",
                 table: "Products",
-                column: "Id",
+                column: "ProductsProductsId",
                 principalTable: "ProductsProducts",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -257,7 +263,7 @@ namespace ECOM.Data.Migrations
                 table: "Products");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Products_ProductsProducts_Id",
+                name: "FK_Products_ProductsProducts_ProductsProductsId",
                 table: "Products");
 
             migrationBuilder.DropTable(

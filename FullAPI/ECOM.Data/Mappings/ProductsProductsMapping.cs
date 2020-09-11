@@ -18,8 +18,10 @@ namespace ECOM.Data.Mappings
 
             //Composite foreign key
 
-            builder.HasMany(x => x.Products).WithOne(y => y.ProductsProducts).HasForeignKey(z => z.Id);
+            //builder.HasMany(x => x.Products).WithOne(y => y.Id);
             builder.ToTable("ProductsProducts");
+
+
 
         }
     }

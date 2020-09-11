@@ -1,5 +1,6 @@
 ﻿using ECOM.Business.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -29,7 +30,7 @@ namespace ECOM.API.Models
 
         /* EF Relations */
         public Category Category { get; set; }
-        public ProductsProducts ProductsProducts { get; set; }
+        public IEnumerable<ProductsProducts> ProductsProducts { get; set; }
 
     }
 }
