@@ -39,7 +39,7 @@ namespace ECOM.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<ProductViewModel>> ObterTodos()
         {
-            return _mapper.Map<IEnumerable<ProductViewModel>>(await _productRepository.ObterProdutosCategorias());
+            return _mapper.Map<IEnumerable<ProductViewModel>>(await _productRepository.ObterTodosProdutos());
         }
 
         // GET: api/Products/5

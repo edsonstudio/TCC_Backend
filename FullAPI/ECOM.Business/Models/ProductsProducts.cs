@@ -5,17 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECOM.Business.Models
 {
-    public class ProductsProducts 
+    public class ProductsProducts : Entity
 
     {
-        protected ProductsProducts()
-        {
-            Id = Guid.NewGuid();
-        }
-
-        [Column(TypeName = "varchar(36)")]
-        [NotMapped]
-        public Guid Id { get; set; }
         public Product ProductFather { get; set; }
 
         public Product ProductSon { get; set; }

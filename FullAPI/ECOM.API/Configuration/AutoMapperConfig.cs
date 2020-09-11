@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ECOM.API.Models;
 using ECOM.API.ViewModels;
+using ECOM.Business.Models;
 
 namespace ECOM.API.Configuration
 {
@@ -10,10 +11,11 @@ namespace ECOM.API.Configuration
         {
             CreateMap<ProductViewModel, Product>();
             CreateMap<CategoryViewModel, Category>().ReverseMap();
+            CreateMap<ProductsProductsViewModel, ProductsProducts>().ReverseMap();
 
             CreateMap<Product, ProductViewModel>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
-                //.ForMember(dest => dest.ProductsProductsId, opt => opt.MapFrom(src => src.ProductsProducts.Id));
+            //Captura o Name da entidade Category e exibe na propriedade CategoryName vinda da entidade Product
         }
     }
 }
