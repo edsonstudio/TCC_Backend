@@ -51,7 +51,6 @@ namespace ECOM.API.ViewModels
         [ScaffoldColumn(false)]
         public string CategoryName { get; set; }
 
-        /* EF Relations */
         public IEnumerable<ProductsProductsViewModel> ProductsProducts { get; set; }
 
     }
