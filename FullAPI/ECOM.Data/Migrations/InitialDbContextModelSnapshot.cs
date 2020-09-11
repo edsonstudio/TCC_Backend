@@ -191,6 +191,7 @@ namespace ECOM.Data.Migrations
             modelBuilder.Entity("ECOM.API.Models.Product", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(36)");
 
                     b.Property<bool>("Active")
@@ -200,7 +201,6 @@ namespace ECOM.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Brand")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CategoryId")
@@ -208,19 +208,15 @@ namespace ECOM.Data.Migrations
                         .HasColumnType("varchar(36)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Image")
-                        .IsRequired()
                         .HasColumnType("varbinary(MAX)");
 
                     b.Property<string>("Model")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OrderItemsId")
@@ -228,6 +224,9 @@ namespace ECOM.Data.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(9,2)");
+
+                    b.Property<string>("ProductsProductsId")
+                        .HasColumnType("varchar(36)");
 
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("datetime2");
@@ -237,6 +236,8 @@ namespace ECOM.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("OrderItemsId");
+
+                    b.HasIndex("ProductsProductsId");
 
                     b.ToTable("Products");
                 });
@@ -324,21 +325,19 @@ namespace ECOM.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ECOM.Business.Models.ProductsProducts", "ProductsProducts")
-                        .WithMany("Products")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ECOM.API.Models.OrderItems", null)
                         .WithMany("Products")
                         .HasForeignKey("OrderItemsId");
+
+                    b.HasOne("ECOM.Business.Models.ProductsProducts", null)
+                        .WithMany("Products")
+                        .HasForeignKey("ProductsProductsId");
                 });
 
             modelBuilder.Entity("ECOM.Business.Models.ProductsProducts", b =>
                 {
                     b.HasOne("ECOM.API.Models.Product", "ProductFather")
-                        .WithMany()
+                        .WithMany("ProductsProducts")
                         .HasForeignKey("ProductFatherId");
 
                     b.HasOne("ECOM.API.Models.Product", "ProductSon")

@@ -15,7 +15,10 @@ namespace ECOM.API.ViewModels
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public Product ProductFather { get; set; }
 
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public IEnumerable<Product> ProductsSon { get; set; }
+        //[Required(ErrorMessage = "O campo {0} é obrigatório")]
+        //public Product ProductSon { get; set; }
+
+        //[Required(ErrorMessage = "O campo {0} é obrigatório")]
+        //public IEnumerable<Product> Products { get; set; }
     }
 }

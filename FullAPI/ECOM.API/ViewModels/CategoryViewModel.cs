@@ -17,5 +17,6 @@ namespace ECOM.API.ViewModels
 
         /*EF Relation*/
         public IEnumerable<ProductViewModel> Products { get; set; }
+
     }
 }
