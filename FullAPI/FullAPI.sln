@@ -4,10 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECOM.API", "ECOM.API\ECOM.API.csproj", "{092B0779-559D-4453-BCB0-09DC68349882}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0BD8EF99-5EF8-45EE-B836-DBB139FEEF92} = {0BD8EF99-5EF8-45EE-B836-DBB139FEEF92}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECOM.Business", "ECOM.Business\ECOM.Business.csproj", "{0BD8EF99-5EF8-45EE-B836-DBB139FEEF92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECOM.Business", "ECOM.Business\ECOM.Business.csproj", "{0BD8EF99-5EF8-45EE-B836-DBB139FEEF92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECOM.Data", "ECOM.Data\ECOM.Data.csproj", "{EC0FA7A5-31EF-47A7-9CFC-AFC39F35CAAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECOM.Data", "ECOM.Data\ECOM.Data.csproj", "{EC0FA7A5-31EF-47A7-9CFC-AFC39F35CAAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

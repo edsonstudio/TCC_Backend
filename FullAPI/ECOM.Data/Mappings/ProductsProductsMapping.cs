@@ -15,10 +15,14 @@ namespace ECOM.Data.Mappings
             //Composite primary key
 
             builder.HasKey(p => p.Id);
+            //builder.Property(p => p.ProductFather);
+            //builder.Property(p => p.ProductSon);
 
-            //Composite foreign key
+            // N: M => ProductsProducts : Product
+            builder.HasMany(c => c.Products);
+                
 
-            //builder.HasMany(x => x.Products).WithOne(y => y.Id);
+            //builder.HasMany(x => x.Products);
             builder.ToTable("ProductsProducts");
 
 
