@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ECOM.Data.Migrations
 {
-    public partial class MelhoriasMapping : Migration
+    public partial class TesteAssociarxaxa : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
