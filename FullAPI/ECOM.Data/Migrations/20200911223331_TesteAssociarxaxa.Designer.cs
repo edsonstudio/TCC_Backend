@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECOM.Data.Migrations
 {
     [DbContext(typeof(InitialDbContext))]
-    [Migration("20200911145814_MelhoriasMapping")]
-    partial class MelhoriasMapping
+    [Migration("20200911223331_TesteAssociarxaxa")]
+    partial class TesteAssociarxaxa
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
