@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ECOM.API.ViewModels
 {
-    public class ProductsProductsViewModel
+    public class AssociatedProductsViewModel
     {
         [Key]
         public Guid Id { get; set; }

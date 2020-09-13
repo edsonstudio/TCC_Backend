@@ -19,7 +19,7 @@ namespace ECOM.Data.Mappings
             builder.Property(p => p.CategoryId).IsRequired().HasColumnType("varchar(36)");
             builder.Property(p => p.Active).IsRequired();
             builder.HasOne(p => p.Category);
-            builder.HasMany(p => p.ProductsProducts).WithOne(y => y.ProductFather);
+            builder.HasMany(p => p.AssociatedProducts).WithOne(y => y.ProductFather);
 
             builder.ToTable("Products");
         }

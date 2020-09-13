@@ -3,7 +3,7 @@ using System;
 
 namespace ECOM.Business.Models
 {
-    public class ProductsProducts : Entity
+    public class AssociatedProducts : Entity
 
     {
         public virtual Product ProductFather { get; set; }

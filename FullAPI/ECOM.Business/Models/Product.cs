@@ -28,7 +28,7 @@ namespace ECOM.API.Models
 
         /* EF Relations */
         public Category Category { get; set; }
-        public IEnumerable<ProductsProducts> ProductsProducts { get; set; }
+        public IEnumerable<AssociatedProducts> AssociatedProducts { get; set; }
 
     }
 }

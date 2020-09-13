@@ -45,7 +45,7 @@ namespace ECOM.API.ViewModels
         [ScaffoldColumn(false)]
         public string CategoryName { get; set; }
 
-        public IEnumerable<ProductsProductsViewModel> ProductsProducts { get; set; }
+        public IEnumerable<AssociatedProductsViewModel> AssociatedProducts { get; set; }
 
     }
 }
