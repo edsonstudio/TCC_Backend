@@ -1,5 +1,6 @@
 ﻿using ECOM.API.Models;
 using ECOM.Business.Models;
+using ECOM.Data.Mappings;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -27,15 +28,15 @@ namespace ECOM.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // mapeando das configurações para o banco de dados
-            //modelBuilder.ApplyConfiguration(new ProductMapping());
-            //modelBuilder.ApplyConfiguration(new CategoryMapping());
-            //modelBuilder.ApplyConfiguration(new ProductsProductsMapping());
+            modelBuilder.ApplyConfiguration(new ProductMapping());
+            modelBuilder.ApplyConfiguration(new CategoryMapping());
+            modelBuilder.ApplyConfiguration(new ProductsProductsMapping());
 
             //Para o caso de esquecer de mapear algo evitando de entrar como nvarchar(MAX)
-            foreach (var property in modelBuilder.Model.GetEntityTypes()
+            /*foreach (var property in modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.GetProperties()
                 .Where(p => p.ClrType == typeof(string))))
-                property.SetColumnType("varchar(100)");
+                property.SetColumnType("varchar(100)");*/
 
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(InitialDbContext).Assembly);

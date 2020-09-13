@@ -1,34 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ECOM.API.Models;
-using ECOM.Data.Context;
 using System.IO;
-using Microsoft.AspNetCore.Authorization;
 using ECOM.Business.Interfaces;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using AutoMapper;
 using ECOM.API.ViewModels;
-using ECOM.API.Extensions;
 
 namespace ECOM.API.Controllers
 {
     //[Authorize]
     [Route("api/[controller]")]
-    //[ApiController]
+    [ApiController]
     public class ProductsController : MainController
     {
         private readonly IProductRepository _productRepository;
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
 
-        public ProductsController(  IProductRepository productRepository,
-                                    IProductService productService,
-                                    IMapper mapper) 
+        public ProductsController(INotificador notificador,
+                                  IProductRepository productRepository,
+                                  IProductService productService,
+                                  IMapper mapper)  : base(notificador)
         {
             _productRepository = productRepository;
             _productService = productService;
@@ -62,7 +56,7 @@ namespace ECOM.API.Controllers
         {
             if (id != productViewModel.Id)
             {
-                //NotificarErro("Os ids informados não são iguais!");
+                NotificarErro("Os ids informados não são iguais!");
                 return CustomResponse();
             }
 
@@ -141,7 +135,7 @@ namespace ECOM.API.Controllers
         {
             if (string.IsNullOrEmpty(arquivo))
             {
-                //NotificarErro("Forneça uma imagem para este produto!");
+                NotificarErro("Forneça uma imagem para este produto!");
                 return false;
             }
 
@@ -151,7 +145,7 @@ namespace ECOM.API.Controllers
 
             if (System.IO.File.Exists(filePath))
             {
-                //NotificarErro("Já existe um arquivo com este nome!");
+                NotificarErro("Já existe um arquivo com este nome!");
                 return false;
             }
 

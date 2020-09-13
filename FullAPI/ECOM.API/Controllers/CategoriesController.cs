@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ECOM.API.Models;
 using ECOM.API.ViewModels;
 using ECOM.Business.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECOM.API.Controllers
 {
     [Route("api/[controller]")]
-    //[ApiController]
+    [ApiController]
     public class CategoriesController : MainController
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
 
-        public CategoriesController(ICategoryRepository categoryRepository,
+        public CategoriesController( INotificador notificador,
+                                    ICategoryRepository categoryRepository,
                                     ICategoryService categoryService,
-                                    IMapper mapper)
+                                    IMapper mapper) : base(notificador)
         {
             _categoryRepository = categoryRepository;
             _categoryService = categoryService;
@@ -63,6 +62,7 @@ namespace ECOM.API.Controllers
         {
             if (id != categoryViewModel.Id)
             {
+                NotificarErro("Os ids informados não são iguais!");
                 return CustomResponse();
             }
 
