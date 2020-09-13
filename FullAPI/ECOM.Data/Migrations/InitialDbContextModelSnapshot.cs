@@ -82,7 +82,7 @@ namespace ECOM.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("ECOM.Business.Models.ProductsProducts", b =>
+            modelBuilder.Entity("ECOM.Business.Models.AssociatedProducts", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,7 +102,7 @@ namespace ECOM.Data.Migrations
 
                     b.HasIndex("ProductSonId");
 
-                    b.ToTable("ProductsProducts");
+                    b.ToTable("AssociatedProducts");
                 });
 
             modelBuilder.Entity("ECOM.API.Models.Product", b =>
@@ -113,10 +113,10 @@ namespace ECOM.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ECOM.Business.Models.ProductsProducts", b =>
+            modelBuilder.Entity("ECOM.Business.Models.AssociatedProducts", b =>
                 {
                     b.HasOne("ECOM.API.Models.Product", "ProductFather")
-                        .WithMany("ProductsProducts")
+                        .WithMany("AssociatedProducts")
                         .HasForeignKey("ProductFatherId")
                         .IsRequired();
 
