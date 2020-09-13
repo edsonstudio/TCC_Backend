@@ -34,6 +34,9 @@ namespace ECOM.API
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
 
+            services.AddScoped<IAssociatedProductsRepository, AssociatedProductsRepository>();
+            services.AddScoped<IAssociatedProductsService, AssociatedProductsService>();
+
             services.AddControllers().AddNewtonsoftJson(option => option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddAutoMapper(typeof(Startup));

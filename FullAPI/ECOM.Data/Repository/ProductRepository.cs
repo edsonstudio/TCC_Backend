@@ -16,15 +16,15 @@ namespace ECOM.Data.Repository
 
         public async Task<Product> ObterProdutoPorId(Guid id)
         {
-            return await Db.Products.AsNoTracking().Include(pr => pr.Category)
-                .Include(psps => psps.ProductsProducts).ThenInclude(pf => pf.ProductSon).ThenInclude(c => c.Category)
+            return await Db.Products.AsNoTracking().Include(p => p.Category)
+                .Include(ap => ap.AssociatedProducts).ThenInclude(ap => ap.ProductSon).ThenInclude(p => p.Category)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IEnumerable<Product>> ObterTodosProdutos()
         {
-            return await Db.Products.AsNoTracking().Include(pr => pr.Category)
-                .Include(psps => psps.ProductsProducts).ThenInclude(pf => pf.ProductSon).ThenInclude(c => c.Category)
+            return await Db.Products.AsNoTracking().Include(p => p.Category)
+                .Include(ap => ap.AssociatedProducts).ThenInclude(ap => ap.ProductSon).ThenInclude(p => p.Category)
                 .OrderBy(p => p.Name).ToListAsync();
         }
 

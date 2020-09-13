@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ECOM.Business.Interfaces
 {
-    public interface IProductsProductsRepository : IRepository<ProductsProducts>
+    public interface IAssociatedProductsRepository : IRepository<AssociatedProducts>
     {
-        Task<ProductsProducts> ObterProdutosProdutosPorId(Guid id);
-        Task<IEnumerable<ProductsProducts>> ObterTodosProdutosProdutos();
+        Task<AssociatedProducts> GetAssociatedProductsById(Guid id);
+        Task<IEnumerable<AssociatedProducts>> GetAssociatedProducts();
 
 
         // VERIFIQUE SE SÃO APENAS ESSES MÉTODOS

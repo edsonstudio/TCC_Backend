@@ -23,14 +23,14 @@ namespace ECOM.Data.Context
         //public DbSet<Address> Addresses { get; set; }
         //public DbSet<Payment> Payments { get; set; }
         //public DbSet<OrderItems> OrderItems { get; set; }
-        public DbSet<ProductsProducts> ProductsProducts { get; set; }
+        public DbSet<AssociatedProducts> AssociatedProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // mapeando das configurações para o banco de dados
             modelBuilder.ApplyConfiguration(new ProductMapping());
             modelBuilder.ApplyConfiguration(new CategoryMapping());
-            modelBuilder.ApplyConfiguration(new ProductsProductsMapping());
+            modelBuilder.ApplyConfiguration(new AssociatedProductsMapping());
 
             //Para o caso de esquecer de mapear algo evitando de entrar como nvarchar(MAX)
             /*foreach (var property in modelBuilder.Model.GetEntityTypes()
