@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ECOM.Data.Repository
@@ -18,14 +17,14 @@ namespace ECOM.Data.Repository
         public async Task<Product> ObterProdutoPorId(Guid id)
         {
             return await Db.Products.AsNoTracking().Include(pr => pr.Category)
-                .Include(psps => psps.ProductsProducts).ThenInclude(pf => pf.ProductSon)
+                .Include(psps => psps.ProductsProducts).ThenInclude(pf => pf.ProductSon).ThenInclude(c => c.Category)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IEnumerable<Product>> ObterTodosProdutos()
         {
             return await Db.Products.AsNoTracking().Include(pr => pr.Category)
-                .Include(psps => psps.ProductsProducts).ThenInclude(pf => pf.ProductSon)
+                .Include(psps => psps.ProductsProducts).ThenInclude(pf => pf.ProductSon).ThenInclude(c => c.Category)
                 .OrderBy(p => p.Name).ToListAsync();
         }
 

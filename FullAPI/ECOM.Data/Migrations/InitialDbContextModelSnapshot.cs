@@ -47,29 +47,30 @@ namespace ECOM.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Brand")
-                        .HasColumnType("varchar(100)");
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("CategoryId")
                         .IsRequired()
                         .HasColumnType("varchar(36)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(100)");
+                        .IsRequired()
+                        .HasColumnType("varchar(1000)");
 
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(MAX)");
 
                     b.Property<string>("Model")
-                        .HasColumnType("varchar(100)");
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(100)");
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(9,2)");
-
-                    b.Property<string>("ProductsProductsId")
-                        .HasColumnType("varchar(36)");
 
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("datetime2");
@@ -77,8 +78,6 @@ namespace ECOM.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("ProductsProductsId");
 
                     b.ToTable("Products");
                 });
@@ -90,9 +89,11 @@ namespace ECOM.Data.Migrations
                         .HasColumnType("varchar(36)");
 
                     b.Property<string>("ProductFatherId")
+                        .IsRequired()
                         .HasColumnType("varchar(36)");
 
                     b.Property<string>("ProductSonId")
+                        .IsRequired()
                         .HasColumnType("varchar(36)");
 
                     b.HasKey("Id");
@@ -110,21 +111,19 @@ namespace ECOM.Data.Migrations
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .IsRequired();
-
-                    b.HasOne("ECOM.Business.Models.ProductsProducts", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ProductsProductsId");
                 });
 
             modelBuilder.Entity("ECOM.Business.Models.ProductsProducts", b =>
                 {
                     b.HasOne("ECOM.API.Models.Product", "ProductFather")
                         .WithMany("ProductsProducts")
-                        .HasForeignKey("ProductFatherId");
+                        .HasForeignKey("ProductFatherId")
+                        .IsRequired();
 
                     b.HasOne("ECOM.API.Models.Product", "ProductSon")
                         .WithMany()
-                        .HasForeignKey("ProductSonId");
+                        .HasForeignKey("ProductSonId")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

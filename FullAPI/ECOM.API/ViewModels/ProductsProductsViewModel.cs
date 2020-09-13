@@ -1,9 +1,5 @@
-﻿using ECOM.API.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ECOM.API.ViewModels
 {
@@ -13,12 +9,6 @@ namespace ECOM.API.ViewModels
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public Product ProductFather { get; set; }
-
-        //[Required(ErrorMessage = "O campo {0} é obrigatório")]
-        //public Product ProductSon { get; set; }
-
-        //[Required(ErrorMessage = "O campo {0} é obrigatório")]
-        //public IEnumerable<Product> Products { get; set; }
+        public ProductViewModel ProductSon { get; set; }
     }
 }

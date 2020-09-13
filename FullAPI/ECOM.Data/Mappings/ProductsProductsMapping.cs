@@ -1,10 +1,6 @@
 ﻿using ECOM.Business.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace ECOM.Data.Mappings
 {
@@ -13,16 +9,12 @@ namespace ECOM.Data.Mappings
         public void Configure(EntityTypeBuilder<ProductsProducts> builder)
         {
             //Composite primary key
+            builder.HasKey(pp => pp.Id);
 
-            builder.HasKey(p => p.Id);
-            //builder.Property(p => p.ProductFather);
-            //builder.Property(p => p.ProductSon);
+            //Properties
+            builder.Property(pp => pp.ProductFatherId).IsRequired().HasColumnType("varchar(36)");
+            builder.Property(pp => pp.ProductSonId).IsRequired().HasColumnType("varchar(36)");
 
-            // N: M => ProductsProducts : Product
-            builder.HasMany(c => c.Products);
-                
-
-            //builder.HasMany(x => x.Products);
             builder.ToTable("ProductsProducts");
 
 
