@@ -2,6 +2,7 @@
 using ECOM.Business.Interfaces;
 using ECOM.Business.Models.Validations;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ECOM.Business.Services
@@ -19,16 +20,18 @@ namespace ECOM.Business.Services
             //_user = user;
         }
 
-        public async Task Adicionar(Product product)
+        public async Task<bool> Adicionar(Product product)
         {
-            if (!ExecutarValidacao(new ProductValidation(), product)) return;
+            if (!ExecutarValidacao(new ProductValidation(), product)) return false;
             await _productRepository.Adicionar(product);
+            return true;
         }
 
-        public async Task Atualizar(Product product)
+        public async Task<bool> Atualizar(Product product)
         {
-            if (!ExecutarValidacao(new ProductValidation(), product)) return;
+            if (!ExecutarValidacao(new ProductValidation(), product)) return false;
             await _productRepository.Atualizar(product);
+            return true;
         }
 
         public void Dispose()
@@ -36,9 +39,18 @@ namespace ECOM.Business.Services
             _productRepository?.Dispose();
         }
 
-        public async Task Remover(Guid id)
+        public async Task<bool> Remover(Guid id)
         {
-            await _productRepository.Remover(id);
+            if (_productRepository.ObterProdutoPorId(id).Result.AssociatedProducts.Any())
+            {
+                Notificar("Este produto possui produtos associados!");
+                return false;
+            }
+            else
+            {
+                await _productRepository.Remover(id);
+                return true;
+            }
         }
     }
 }

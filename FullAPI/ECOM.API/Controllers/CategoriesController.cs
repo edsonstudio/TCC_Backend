@@ -66,14 +66,22 @@ namespace ECOM.API.Controllers
                 return CustomResponse();
             }
 
-            var categoryUpdate = await ObterCategoria(id);
-
             if (!ModelState.IsValid) return CustomResponse(ModelState);
+            
+            var categoryUpdate = new CategoryViewModel();
+            categoryUpdate = await ObterCategoria(id);
 
-            categoryUpdate.Name = categoryViewModel.Name;
-            categoryUpdate.Products = categoryViewModel.Products;
+            if (categoryUpdate == null)
+            {
+                NotificarErro("Incapaz de salvar as alterações. Esta categoria foi excluída por outro usuário.");
+            }
+            else
+            {
+                categoryUpdate.Name = categoryViewModel.Name;
+                categoryUpdate.Products = categoryViewModel.Products;
 
-            await _categoryService.Atualizar(_mapper.Map<Category>(categoryUpdate));
+                await _categoryService.Atualizar(_mapper.Map<Category>(categoryUpdate));
+            }
 
             return CustomResponse(categoryViewModel);
         }

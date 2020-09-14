@@ -15,15 +15,23 @@ namespace ECOM.API.Controllers
     [ApiController]
     public class ProductsController : MainController
     {
+        private readonly IAssociatedProductsRepository _associatedProductsRepository;
+        private readonly IAssociatedProductsService _associatedProductsService;
+
         private readonly IProductRepository _productRepository;
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
 
         public ProductsController(INotificador notificador,
+                                  IAssociatedProductsRepository associatedProductsRepository,
+                                  IAssociatedProductsService associatedProductsService,
                                   IProductRepository productRepository,
                                   IProductService productService,
                                   IMapper mapper)  : base(notificador)
         {
+            _associatedProductsRepository = associatedProductsRepository;
+            _associatedProductsService = associatedProductsService;
+
             _productRepository = productRepository;
             _productService = productService;
             _mapper = mapper;
@@ -59,34 +67,43 @@ namespace ECOM.API.Controllers
                 NotificarErro("Os ids informados não são iguais!");
                 return CustomResponse();
             }
+           
+            var productUpdate = new ProductViewModel();
+            productUpdate = await ObterProduto(id);
 
-            var productUpdate = await ObterProduto(id);
-            if (string.IsNullOrEmpty(productViewModel.Image))
+            if (productUpdate == null)
+            {
+                NotificarErro("Incapaz de salvar as alterações. Este produto foi excluído por outro usuário.");
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(productViewModel.Image))
                 productViewModel.Image = productUpdate.Image;
 
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
+                if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            if (productViewModel.ImageUpload != null)
-            {
-                var imageName = Guid.NewGuid() + "_" + productViewModel.Image;
-                if (!UploadArquivo(productViewModel.ImageUpload, imageName))
+                if (productViewModel.ImageUpload != null)
                 {
-                    return CustomResponse(ModelState);
+                    var imageName = Guid.NewGuid() + "_" + productViewModel.Image;
+                    if (!UploadArquivo(productViewModel.ImageUpload, imageName))
+                    {
+                        return CustomResponse(ModelState);
+                    }
+
+                    productUpdate.Image = imageName;
                 }
 
-                productUpdate.Image = imageName;
+                productUpdate.CategoryId = productViewModel.CategoryId;
+                productUpdate.Name = productViewModel.Name;
+                productUpdate.Description = productViewModel.Description;
+                productUpdate.Price = productViewModel.Price;
+                productUpdate.Brand = productViewModel.Brand;
+                productUpdate.Model = productViewModel.Model;
+                productUpdate.Amount = productViewModel.Amount;
+                productUpdate.Active = productViewModel.Active;
+
+                await _productService.Atualizar(_mapper.Map<Product>(productUpdate));
             }
-
-            productUpdate.CategoryId = productViewModel.CategoryId;
-            productUpdate.Name = productViewModel.Name;
-            productUpdate.Description = productViewModel.Description;
-            productUpdate.Price = productViewModel.Price;
-            productUpdate.Brand = productViewModel.Brand;
-            productUpdate.Model = productViewModel.Model;
-            productUpdate.Amount = productViewModel.Amount;
-            productUpdate.Active = productViewModel.Active;
-
-            await _productService.Atualizar(_mapper.Map<Product>(productUpdate));
 
             return CustomResponse(productViewModel);
         }
@@ -114,16 +131,21 @@ namespace ECOM.API.Controllers
 
         // DELETE: api/Products/5
         //[ClaimsAuthorize("Product", "Excluir")]
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         public async Task<ActionResult<ProductViewModel>> Excluir(Guid id)
         {
-            var product = await ObterProduto(id);
+            var ProductViewModel = await ObterProduto(id);
+            var associetedProduct = await GetAssociatedProduct(id);
+            
+            if (ProductViewModel == null) return NotFound();
 
-            if (product == null) return NotFound();
+            if (associetedProduct == null)
+            {
+                await _productService.Remover(id);
+            }
+                
 
-            await _productService.Remover(id);
-
-            return CustomResponse(product);
+            return CustomResponse(ProductViewModel);
         }
 
         private async Task<ProductViewModel> ObterProduto(Guid id)
@@ -131,6 +153,10 @@ namespace ECOM.API.Controllers
             return _mapper.Map<ProductViewModel>(await _productRepository.ObterProdutoPorId(id));
         }
 
+        private async Task<AssociatedProductsViewModel> GetAssociatedProduct(Guid id)
+        {
+            return _mapper.Map<AssociatedProductsViewModel>(await _associatedProductsRepository.GetAssociatedProductsById(id));
+        }
         private bool UploadArquivo(string arquivo, string imgNome)
         {
             if (string.IsNullOrEmpty(arquivo))
