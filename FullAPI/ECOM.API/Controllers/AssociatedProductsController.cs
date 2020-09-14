@@ -6,6 +6,8 @@ using ECOM.Business.Models;
 using ECOM.Business.Interfaces;
 using AutoMapper;
 using ECOM.API.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace ECOM.API.Controllers
 {
@@ -51,15 +53,27 @@ namespace ECOM.API.Controllers
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> PutAssociatedProducts(Guid id, UpdateAssociatedProductsViewModel updateAssociatedProductsViewModel)
         {
-            if(id != updateAssociatedProductsViewModel.Id)
+            try
             {
-                NotificarErro("Os IDs  informados não são iguais!");
-                return CustomResponse();
-            }
+                if (id != updateAssociatedProductsViewModel.Id)
+                {
+                    NotificarErro("Os IDs  informados não são iguais!");
+                    return CustomResponse();
+                }
 
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-           
-            await _associatedProductsService.Atualizar(_mapper.Map<AssociatedProducts>(updateAssociatedProductsViewModel));           
+                if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+                await _associatedProductsService.Atualizar(_mapper.Map<AssociatedProducts>(updateAssociatedProductsViewModel));
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                var entry = ex.Entries.Single();
+                var databaseEntry = await entry.GetDatabaseValuesAsync();
+                if (databaseEntry == null)
+                {
+                    NotificarErro("Incapaz de salvar as alterações. A associação destes produtos foi excluída por outro usuário.");
+                }
+            }           
 
             return CustomResponse(updateAssociatedProductsViewModel);
         }
