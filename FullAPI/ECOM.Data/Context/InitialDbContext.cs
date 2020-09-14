@@ -39,7 +39,7 @@ namespace ECOM.Data.Context
                 property.SetColumnType("varchar(100)");*/
 
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(InitialDbContext).Assembly);
+            //modelBuilder.ApplyConfigurationsFromAssembly(typeof(InitialDbContext).Assembly);
 
             //Remover o Delete Cascade
             foreach (var relationship in modelBuilder.Model.GetEntityTypes()
