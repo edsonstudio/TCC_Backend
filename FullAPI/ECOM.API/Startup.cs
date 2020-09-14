@@ -1,4 +1,5 @@
 using AutoMapper;
+using ECOM.API.Configuration;
 using ECOM.Business.Interfaces;
 using ECOM.Business.Notificacoes;
 using ECOM.Business.Services;
@@ -26,25 +27,15 @@ namespace ECOM.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IProductService, ProductService>();
-
-            services.AddScoped<INotificador, Notificador>();
-
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<ICategoryService, CategoryService>();
-
-            services.AddScoped<IAssociatedProductsRepository, AssociatedProductsRepository>();
-            services.AddScoped<IAssociatedProductsService, AssociatedProductsService>();
-
+            
             services.AddControllers().AddNewtonsoftJson(option => option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddAutoMapper(typeof(Startup));
+            services.WebApiConfig();
 
             services.AddDbContext<InitialDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddCors(x => x.AddPolicy("dev", p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
-
+            services.ResolveDependencies();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -58,8 +49,6 @@ namespace ECOM.API
 
             app.UseRouting();
 
-            app.UseCors("dev");
-
             app.UseStaticFiles();
 
             //app.UseAuthorization();
@@ -68,6 +57,8 @@ namespace ECOM.API
             {
                 endpoints.MapControllers();
             });
+
+            app.UseMvcConfiguration();
         }
     }
 }

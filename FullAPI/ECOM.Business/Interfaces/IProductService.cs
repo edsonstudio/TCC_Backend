@@ -6,8 +6,8 @@ namespace ECOM.Business.Interfaces
 {
     public interface IProductService : IDisposable
     {
-        Task Adicionar(Product product);
-        Task Atualizar(Product product);
-        Task Remover(Guid id);
+        Task<bool> Adicionar(Product product);
+        Task<bool> Atualizar(Product product);
+        Task<bool> Remover(Guid id);
     }
 }
