@@ -2,9 +2,9 @@
 
 namespace ECOM.Business.Models.Validations
 {
-    public class AssociatedProductsValidation : AbstractValidator<AssociatedProducts>
+    public class InsertAssociatedProductsValidation : AbstractValidator<AssociatedProducts>
     {
-        public AssociatedProductsValidation()
+        public InsertAssociatedProductsValidation()
         {
             RuleFor(ap => ap.ProductFatherId)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido!");

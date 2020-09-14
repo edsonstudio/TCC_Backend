@@ -21,18 +21,13 @@ namespace ECOM.Business.Services
 
 
         public async Task Adicionar(AssociatedProducts associatedProducts)
-        {
-            // Para funcionar esse serviço, a validação precisa estar implementada
-
-            
+        {           
             if (!ExecutarValidacao(new AssociatedProductsValidation(), associatedProducts)) return;
             await _associatedProductsRepository.Adicionar(associatedProducts);
         }
 
         public async Task Atualizar(AssociatedProducts associatedProducts)
         {
-            // Para funcionar esse serviço, a validação precisa estar implementada
-
             if (!ExecutarValidacao(new AssociatedProductsValidation(), associatedProducts)) return;
             await _associatedProductsRepository.Atualizar(associatedProducts);
         }

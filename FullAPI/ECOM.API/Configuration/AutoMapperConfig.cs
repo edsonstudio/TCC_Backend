@@ -11,7 +11,10 @@ namespace ECOM.API.Configuration
         {
             CreateMap<ProductViewModel, Product>();
             CreateMap<CategoryViewModel, Category>().ReverseMap();
+
             CreateMap<AssociatedProductsViewModel, AssociatedProducts>().ReverseMap();
+            CreateMap<InsertAssociatedProductsViewModel, AssociatedProducts>().ReverseMap();
+            CreateMap<UpdateAssociatedProductsViewModel, AssociatedProducts>().ReverseMap();
 
             CreateMap<Product, ProductViewModel>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));

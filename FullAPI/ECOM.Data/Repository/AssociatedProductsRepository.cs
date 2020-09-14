@@ -4,6 +4,7 @@ using ECOM.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ECOM.Data.Repository
@@ -16,7 +17,9 @@ namespace ECOM.Data.Repository
         {
             return await Db.AssociatedProducts.AsNoTracking()
                 .Include(ap => ap.ProductFather)
+                .ThenInclude(c => c.Category)
                 .Include(ap => ap.ProductSon)
+                .ThenInclude(c => c.Category)
                 .FirstOrDefaultAsync(ap => ap.Id == id);
         }
 
@@ -24,7 +27,10 @@ namespace ECOM.Data.Repository
         {
             return await Db.AssociatedProducts.AsNoTracking()
                 .Include(ap => ap.ProductFather)
+                .ThenInclude(c => c.Category)
                 .Include(ap => ap.ProductSon)
+                .ThenInclude(c => c.Category)
+                .OrderBy(ap => ap.ProductFather)
                 .ToListAsync() ;
         }
     }

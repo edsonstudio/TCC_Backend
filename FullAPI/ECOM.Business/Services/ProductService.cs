@@ -2,10 +2,7 @@
 using ECOM.Business.Interfaces;
 using ECOM.Business.Models.Validations;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace ECOM.Business.Services
 {

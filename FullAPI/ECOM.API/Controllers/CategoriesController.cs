@@ -79,7 +79,7 @@ namespace ECOM.API.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         public async Task<ActionResult<CategoryViewModel>> Excluir(Guid id)
         {
             var category = await ObterCategoria(id);

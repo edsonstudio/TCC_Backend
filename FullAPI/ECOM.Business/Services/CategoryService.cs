@@ -1,11 +1,8 @@
 ﻿using ECOM.API.Models;
 using ECOM.Business.Interfaces;
 using ECOM.Business.Models.Validations;
-using FluentValidation.Validators;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ECOM.Business.Services
@@ -24,7 +21,7 @@ namespace ECOM.Business.Services
             if (!ExecutarValidacao(new CategoryValidation(), category)) return false;
             if (_categoryRepository.Buscar(c => c.Name == category.Name).Result.Any())
             {
-                //Notificar("Já existe uma categoria com o nome informado.");
+                Notificar("Já existe uma categoria com o nome informado.");
                 return false;
             }
 
@@ -42,7 +39,7 @@ namespace ECOM.Business.Services
         {
             if (_categoryRepository.GetCategoryProducts(id).Result.Products.Any())
             {
-                //Notificar("A categoria possui produtos cadastrados");
+                Notificar("A categoria possui produtos cadastrados");
                 return false;
             }
             await _categoryRepository.Remover(id);
@@ -55,7 +52,7 @@ namespace ECOM.Business.Services
 
             if(_categoryRepository.Buscar(c => c.Name == category.Name && c.Id != category.Id).Result.Any())
             {
-                //Notificar("Já existe uma categoria com o nome informado.");
+                Notificar("Já existe uma categoria com o nome informado.");
             }
 
             await _categoryRepository.Atualizar(category);
