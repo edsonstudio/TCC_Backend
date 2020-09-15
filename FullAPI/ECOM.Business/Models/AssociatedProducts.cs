@@ -1,5 +1,4 @@
-﻿using ECOM.API.Models;
-using System;
+﻿using System;
 
 namespace ECOM.Business.Models
 {

@@ -1,5 +1,4 @@
-﻿using ECOM.API.Models;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace ECOM.Business.Models.Validations
 {

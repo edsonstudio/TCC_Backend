@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-
-namespace ECOM.API.Models
+namespace ECOM.Business.Models
 {
     public class Address : Entity
     {

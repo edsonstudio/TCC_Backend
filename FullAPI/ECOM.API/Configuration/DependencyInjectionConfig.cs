@@ -4,8 +4,10 @@ using ECOM.Business.Services;
 using ECOM.Data.Context;
 using ECOM.Data.Repository;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace ECOM.API.Configuration
+namespace ECOM.API.Products.Configuration
 {
     public static class DependencyInjectionConfig
     {
@@ -22,6 +24,8 @@ namespace ECOM.API.Configuration
 
             services.AddScoped<IAssociatedProductsRepository, AssociatedProductsRepository>();
             services.AddScoped<IAssociatedProductsService, AssociatedProductsService>();
+
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
             return services;
         }

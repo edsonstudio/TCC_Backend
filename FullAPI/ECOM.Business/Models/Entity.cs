@@ -1,8 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
-namespace ECOM.API.Models
+namespace ECOM.Business.Models
 {
     public abstract class Entity
     {

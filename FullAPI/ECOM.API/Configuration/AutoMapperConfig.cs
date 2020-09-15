@@ -1,16 +1,23 @@
 ﻿using AutoMapper;
-using ECOM.API.Models;
-using ECOM.API.ViewModels;
+using ECOM.API.Products.ViewModels;
 using ECOM.Business.Models;
 
-namespace ECOM.API.Configuration
+namespace ECOM.API.Products.Configuration
 {
     public class AutoMapperConfig : Profile
     {
         public AutoMapperConfig()
         {
             CreateMap<ProductViewModel, Product>();
-            CreateMap<CategoryViewModel, Category>().ReverseMap();
+            CreateMap<InsertProductViewModel, Product>();
+            CreateMap<UpdateProductViewModel, Product>();
+
+
+            CreateMap<Category, CategoryViewModel>().ReverseMap();
+            CreateMap<Category, InsertCategoryViewModel>().ReverseMap();
+            CreateMap<Category, UpdateCategoryViewModel>().ReverseMap();
+
+
 
             CreateMap<AssociatedProductsViewModel, AssociatedProducts>().ReverseMap();
             CreateMap<InsertAssociatedProductsViewModel, AssociatedProducts>().ReverseMap();

@@ -1,9 +1,6 @@
-﻿using ECOM.API.Models;
+﻿using ECOM.Business.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ECOM.Data.Mappings
 {

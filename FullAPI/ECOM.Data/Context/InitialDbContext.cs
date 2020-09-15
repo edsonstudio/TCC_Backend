@@ -1,5 +1,4 @@
-﻿using ECOM.API.Models;
-using ECOM.Business.Models;
+﻿using ECOM.Business.Models;
 using ECOM.Data.Mappings;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,14 +14,8 @@ namespace ECOM.Data.Context
         {
         }
 
-        public DbSet<Product> Products { get; set; }
-        //public DbSet<Client> Clients { get; set; }
-        //public DbSet<User> Users { get; set; }
+        public DbSet<Product> Products { get; set; } 
         public DbSet<Category> Categories { get; set; }
-        //public DbSet<Order> Orders { get; set; }
-        //public DbSet<Address> Addresses { get; set; }
-        //public DbSet<Payment> Payments { get; set; }
-        //public DbSet<OrderItems> OrderItems { get; set; }
         public DbSet<AssociatedProducts> AssociatedProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

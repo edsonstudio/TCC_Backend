@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using ECOM.Business.Models;
-using ECOM.Business.Interfaces;
 using AutoMapper;
-using ECOM.API.ViewModels;
-using ECOM.API.Controllers;
+using ECOM.API.Products.Controllers;
+using ECOM.API.Products.ViewModels;
+using ECOM.Business.Interfaces;
+using ECOM.Business.Models;
+using Microsoft.AspNetCore.Mvc;
 
-namespace ECOM.API.V1.Controllers
+namespace ECOM.API.Products.V1.Controllers
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using ECOM.API.Controllers;
-using ECOM.API.Models;
-using ECOM.API.ViewModels;
+using ECOM.API.Products.Controllers;
+using ECOM.API.Products.ViewModels;
 using ECOM.Business.Interfaces;
+using ECOM.Business.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ECOM.API.V1.Controllers
+namespace ECOM.API.Products.V1.Controllers
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
@@ -49,20 +49,20 @@ namespace ECOM.API.V1.Controllers
 
         // POST: api/Categories
         [HttpPost]
-        public async Task<ActionResult<CategoryViewModel>> Adicionar(CategoryViewModel categoryViewModel)
+        public async Task<ActionResult<InsertCategoryViewModel>> Adicionar(InsertCategoryViewModel insertCategoryViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await _categoryService.Adicionar(_mapper.Map<Category>(categoryViewModel));
+            await _categoryService.Adicionar(_mapper.Map<Category>(insertCategoryViewModel));
 
-            return CustomResponse(categoryViewModel);
+            return CustomResponse(insertCategoryViewModel);
         }
 
         // PUT: api/Categories/5
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Atualizar(Guid id, CategoryViewModel categoryViewModel)
+        public async Task<IActionResult> Atualizar(Guid id, UpdateCategoryViewModel updateCategoryViewModel)
         {
-            if (id != categoryViewModel.Id)
+            if (id != updateCategoryViewModel.Id)
             {
                 NotificarErro("Os ids informados não são iguais!");
                 return CustomResponse();
@@ -70,8 +70,8 @@ namespace ECOM.API.V1.Controllers
 
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var categoryUpdate = new CategoryViewModel();
-            categoryUpdate = await ObterCategoria(id);
+            var categoryUpdate = new UpdateCategoryViewModel();
+            categoryUpdate = await ObterCategoriaUpdate(id);
 
             if (categoryUpdate == null)
             {
@@ -79,13 +79,12 @@ namespace ECOM.API.V1.Controllers
             }
             else
             {
-                categoryUpdate.Name = categoryViewModel.Name;
-                categoryUpdate.Products = categoryViewModel.Products;
+                categoryUpdate.Name = updateCategoryViewModel.Name;
 
                 await _categoryService.Atualizar(_mapper.Map<Category>(categoryUpdate));
             }
 
-            return CustomResponse(categoryViewModel);
+            return CustomResponse(updateCategoryViewModel);
         }
 
         // DELETE: api/ApiWithActions/5
@@ -105,5 +104,10 @@ namespace ECOM.API.V1.Controllers
         {
             return _mapper.Map<CategoryViewModel>(await _categoryRepository.GetCategoryProducts(id));
         }
+
+        private async Task<UpdateCategoryViewModel> ObterCategoriaUpdate(Guid id)
+        {
+            return _mapper.Map<UpdateCategoryViewModel>(await _categoryRepository.GetCategoryProducts(id));
+        }        
     }
 }

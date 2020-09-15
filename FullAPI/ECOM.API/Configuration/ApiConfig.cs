@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ECOM.API.Configuration
+namespace ECOM.API.Products.Configuration
 {
     public static class ApiConfig
     {

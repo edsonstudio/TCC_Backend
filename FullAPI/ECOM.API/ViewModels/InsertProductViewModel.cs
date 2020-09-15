@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECOM.API.Products.ViewModels
 {
-    public class ProductViewModel
+    public class InsertProductViewModel
     {
-        [Key]
-        public Guid Id { get; set; }
-
         public Guid CategoryId { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
@@ -39,17 +34,5 @@ namespace ECOM.API.Products.ViewModels
         public string Image { get; set; }
 
         public string ImageUpload { get; set; }
-        [NotMapped]
-        [ScaffoldColumn(false)]
-        public DateTime RegisterDate { get; set; } //Data de cadastro do produto
-
-        [NotMapped]
-
-        [ScaffoldColumn(false)]
-        public string CategoryName { get; set; }
-
-        [NotMapped]
-        public IEnumerable<AssociatedProductsViewModel> AssociatedProducts { get; set; }
-
     }
 }

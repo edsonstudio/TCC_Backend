@@ -1,9 +1,9 @@
-﻿using ECOM.API.Models;
-using ECOM.Business.Interfaces;
+﻿using ECOM.Business.Interfaces;
 using ECOM.Business.Models.Validations;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using ECOM.Business.Models;
 
 namespace ECOM.Business.Services
 {

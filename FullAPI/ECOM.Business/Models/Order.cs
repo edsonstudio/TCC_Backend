@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ECOM.API.Models
+namespace ECOM.Business.Models
 {
     public class Order : Entity
     {

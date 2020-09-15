@@ -1,39 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using ECOM.API.Models;
 using System.IO;
-using ECOM.Business.Interfaces;
+using System.Threading.Tasks;
 using AutoMapper;
-using ECOM.API.ViewModels;
-using ECOM.API.Controllers;
+using ECOM.API.Products.Controllers;
+using ECOM.API.Products.ViewModels;
+using ECOM.Business.Interfaces;
+using ECOM.Business.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
-namespace ECOM.API.V1.Controllers
+namespace ECOM.API.Products.V1.Controllers
 {
-    //[Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class ProductsController : MainController
     {
-        private readonly IAssociatedProductsRepository _associatedProductsRepository;
-        private readonly IAssociatedProductsService _associatedProductsService;
-
         private readonly IProductRepository _productRepository;
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
 
         public ProductsController(INotificador notificador,
-                                  IAssociatedProductsRepository associatedProductsRepository,
-                                  IAssociatedProductsService associatedProductsService,
                                   IProductRepository productRepository,
                                   IProductService productService,
                                   IMapper mapper) : base(notificador)
         {
-            _associatedProductsRepository = associatedProductsRepository;
-            _associatedProductsService = associatedProductsService;
-
             _productRepository = productRepository;
             _productService = productService;
             _mapper = mapper;
@@ -58,11 +51,8 @@ namespace ECOM.API.V1.Controllers
         }
 
         // PUT: api/Products/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[ClaimsAuthorize("Product", "Atualizar")]
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Atualizar(Guid id, ProductViewModel productViewModel)
+        public async Task<IActionResult> Atualizar(Guid id, UpdateProductViewModel productViewModel)
         {
             if (id != productViewModel.Id)
             {
@@ -111,43 +101,50 @@ namespace ECOM.API.V1.Controllers
         }
 
         // POST: api/Products
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        //[ClaimsAuthorize("Product","Adicionar")]
-        public async Task<ActionResult<ProductViewModel>> Adicionar(ProductViewModel productViewModel)
+        public async Task<ActionResult<InsertProductViewModel>> Adicionar(InsertProductViewModel insertProductViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var imageName = Guid.NewGuid() + "_" + productViewModel.Image;
+            var imageName = Guid.NewGuid() + "_" + insertProductViewModel.Image;
 
-            if (!UploadArquivo(productViewModel.ImageUpload, imageName)) return CustomResponse(productViewModel);
+            if (!UploadArquivo(insertProductViewModel.ImageUpload, imageName)) return CustomResponse(insertProductViewModel);
 
-            productViewModel.Image = imageName;
+            insertProductViewModel.Image = imageName;
 
-            await _productService.Adicionar(_mapper.Map<Product>(productViewModel));
+            await _productService.Adicionar(_mapper.Map<Product>(insertProductViewModel));
 
-            return CustomResponse(productViewModel);
+            return CustomResponse(insertProductViewModel);
 
         }
 
         // DELETE: api/Products/5
-        //[ClaimsAuthorize("Product", "Excluir")]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<ProductViewModel>> Excluir(Guid id)
         {
-            var ProductViewModel = await ObterProduto(id);
-            var associetedProduct = await GetAssociatedProduct(id);
-
-            if (ProductViewModel == null) return NotFound();
-
-            if (associetedProduct == null)
+            var productViewModel = await ObterProduto(id);
+            
+            if (productViewModel == null) return NotFound();
+            try
             {
                 await _productService.Remover(id);
             }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
 
+                if (sqlException != null)
+                {
+                    var number = sqlException.Number;
 
-            return CustomResponse(ProductViewModel);
+                    if (number == 547)
+                    {
+                        NotificarErro("Antes de deletar este produto você deve deletar todas as associações feitas a ele!");
+                    }
+                }
+            }
+
+            return CustomResponse(productViewModel);
         }
 
         private async Task<ProductViewModel> ObterProduto(Guid id)
@@ -155,10 +152,6 @@ namespace ECOM.API.V1.Controllers
             return _mapper.Map<ProductViewModel>(await _productRepository.ObterProdutoPorId(id));
         }
 
-        private async Task<AssociatedProductsViewModel> GetAssociatedProduct(Guid id)
-        {
-            return _mapper.Map<AssociatedProductsViewModel>(await _associatedProductsRepository.GetAssociatedProductsById(id));
-        }
         private bool UploadArquivo(string arquivo, string imgNome)
         {
             if (string.IsNullOrEmpty(arquivo))

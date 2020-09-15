@@ -1,23 +1,20 @@
-﻿using ECOM.API.Models;
-using ECOM.Business.Interfaces;
+﻿using ECOM.Business.Interfaces;
 using ECOM.Business.Models.Validations;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using ECOM.Business.Models;
 
 namespace ECOM.Business.Services
 {
     public class ProductService : BaseService, IProductService
     {
         private readonly IProductRepository _productRepository;
-        //private readonly IUser _user;
 
         public ProductService (IProductRepository productRepository,
-                                INotificador notificador
-                                /*IUser user*/) : base(notificador)
+                               INotificador notificador) : base(notificador)
         {
             _productRepository = productRepository;
-            //_user = user;
         }
 
         public async Task<bool> Adicionar(Product product)
@@ -52,5 +49,6 @@ namespace ECOM.Business.Services
                 return true;
             }
         }
+
     }
 }
