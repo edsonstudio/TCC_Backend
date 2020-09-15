@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using ECOM.API.Controllers;
 using ECOM.API.Models;
 using ECOM.API.ViewModels;
 using ECOM.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ECOM.API.Controllers
+namespace ECOM.API.V1.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class CategoriesController : MainController
     {
@@ -17,7 +19,7 @@ namespace ECOM.API.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
 
-        public CategoriesController( INotificador notificador,
+        public CategoriesController(INotificador notificador,
                                     ICategoryRepository categoryRepository,
                                     ICategoryService categoryService,
                                     IMapper mapper) : base(notificador)
@@ -67,7 +69,7 @@ namespace ECOM.API.Controllers
             }
 
             if (!ModelState.IsValid) return CustomResponse(ModelState);
-            
+
             var categoryUpdate = new CategoryViewModel();
             categoryUpdate = await ObterCategoria(id);
 

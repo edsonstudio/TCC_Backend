@@ -6,10 +6,12 @@ using ECOM.Business.Models;
 using ECOM.Business.Interfaces;
 using AutoMapper;
 using ECOM.API.ViewModels;
+using ECOM.API.Controllers;
 
-namespace ECOM.API.Controllers
+namespace ECOM.API.V1.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class AssociatedProductsController : MainController
     {
