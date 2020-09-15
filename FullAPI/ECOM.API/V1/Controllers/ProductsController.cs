@@ -7,11 +7,13 @@ using System.IO;
 using ECOM.Business.Interfaces;
 using AutoMapper;
 using ECOM.API.ViewModels;
+using ECOM.API.Controllers;
 
-namespace ECOM.API.Controllers
+namespace ECOM.API.V1.Controllers
 {
     //[Authorize]
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class ProductsController : MainController
     {
@@ -27,7 +29,7 @@ namespace ECOM.API.Controllers
                                   IAssociatedProductsService associatedProductsService,
                                   IProductRepository productRepository,
                                   IProductService productService,
-                                  IMapper mapper)  : base(notificador)
+                                  IMapper mapper) : base(notificador)
         {
             _associatedProductsRepository = associatedProductsRepository;
             _associatedProductsService = associatedProductsService;
@@ -67,7 +69,7 @@ namespace ECOM.API.Controllers
                 NotificarErro("Os ids informados não são iguais!");
                 return CustomResponse();
             }
-           
+
             var productUpdate = new ProductViewModel();
             productUpdate = await ObterProduto(id);
 
@@ -78,7 +80,7 @@ namespace ECOM.API.Controllers
             else
             {
                 if (string.IsNullOrEmpty(productViewModel.Image))
-                productViewModel.Image = productUpdate.Image;
+                    productViewModel.Image = productUpdate.Image;
 
                 if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -136,14 +138,14 @@ namespace ECOM.API.Controllers
         {
             var ProductViewModel = await ObterProduto(id);
             var associetedProduct = await GetAssociatedProduct(id);
-            
+
             if (ProductViewModel == null) return NotFound();
 
             if (associetedProduct == null)
             {
                 await _productService.Remover(id);
             }
-                
+
 
             return CustomResponse(ProductViewModel);
         }
@@ -167,7 +169,7 @@ namespace ECOM.API.Controllers
 
             var imageDataByteArray = Convert.FromBase64String(arquivo);
 
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imgNome);   
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imgNome);
 
             if (System.IO.File.Exists(filePath))
             {
