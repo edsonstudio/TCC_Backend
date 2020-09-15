@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ECOM.API.ViewModels
+namespace ECOM.API.Products.ViewModels
 {
     public class AssociatedProductsViewModel
     {

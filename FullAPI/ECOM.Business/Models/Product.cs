@@ -1,8 +1,7 @@
-﻿using ECOM.Business.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace ECOM.API.Models
+namespace ECOM.Business.Models
 {
     public class Product : Entity
     {

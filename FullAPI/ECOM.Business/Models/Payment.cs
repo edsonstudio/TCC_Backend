@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ECOM.API.Models
+﻿namespace ECOM.Business.Models
 {
     public class Payment : Entity
     {

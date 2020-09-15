@@ -1,7 +1,7 @@
-﻿using ECOM.API.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ECOM.Business.Models;
 
 namespace ECOM.Business.Interfaces
 {

@@ -1,19 +1,15 @@
 using AutoMapper;
-using ECOM.API.Configuration;
-using ECOM.Business.Interfaces;
-using ECOM.Business.Notificacoes;
-using ECOM.Business.Services;
+using ECOM.API.Products.Configuration;
 using ECOM.Data.Context;
-using ECOM.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-
-namespace ECOM.API
+namespace ECOM.API.Products
 {
     public class Startup
     {
@@ -31,27 +27,26 @@ namespace ECOM.API
             services.AddControllers().AddNewtonsoftJson(option => option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddAutoMapper(typeof(Startup));
+            
             services.WebApiConfig();
+
+            services.AddSwaggerConfig();
 
             services.AddDbContext<InitialDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.ResolveDependencies();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseStaticFiles();
-
-            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -59,6 +54,8 @@ namespace ECOM.API
             });
 
             app.UseMvcConfiguration();
+
+            app.UseSwaggerConfig(provider);
         }
     }
 }

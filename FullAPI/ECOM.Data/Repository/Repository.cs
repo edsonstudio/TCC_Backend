@@ -1,5 +1,4 @@
-﻿using ECOM.API.Models;
-using ECOM.Business.Interfaces;
+﻿using ECOM.Business.Interfaces;
 using ECOM.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using ECOM.Business.Models;
 
 namespace ECOM.Data.Repository
 {

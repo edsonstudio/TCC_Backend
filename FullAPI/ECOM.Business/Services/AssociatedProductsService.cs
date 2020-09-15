@@ -9,14 +9,11 @@ namespace ECOM.Business.Services
     public class AssociatedProductsService : BaseService, IAssociatedProductsService
     {
         private readonly IAssociatedProductsRepository _associatedProductsRepository;
-        //private readonly IUser _user;
 
         public AssociatedProductsService(IAssociatedProductsRepository associatedProductsRepository,
-                                INotificador notificador
-                                /*IUser user*/) : base(notificador)
+                                         INotificador notificador) : base(notificador)
         {
             _associatedProductsRepository = associatedProductsRepository;
-            //_user = user;
         }
 
 

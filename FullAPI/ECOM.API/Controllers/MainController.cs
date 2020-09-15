@@ -1,17 +1,16 @@
-﻿using ECOM.Business.Interfaces;
+﻿using System;
+using System.Linq;
+using ECOM.Business.Interfaces;
 using ECOM.Business.Notificacoes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
-using System.Linq;
 
-namespace ECOM.API.Controllers
+namespace ECOM.API.Products.Controllers
 {
     [ApiController]
     public abstract class MainController : ControllerBase
     {
         private readonly INotificador _notificador;
-        //public readonly IUser AppUser;
 
         protected Guid UserId { get; set; }
         protected bool UserAuthenticated { get; set; }
@@ -19,12 +18,6 @@ namespace ECOM.API.Controllers
         public MainController(INotificador notificador)
         {
             _notificador = notificador;
-            //AppUser = appUser;
-            /*if (appUser.IsAuthenticated())
-            {
-                UserId = appUser.GetUserId();
-                UserAuthenticated = true;
-            }*/
         }
 
         protected bool OperacaoValida()
