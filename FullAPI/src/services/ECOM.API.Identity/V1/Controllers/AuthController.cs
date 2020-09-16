@@ -3,10 +3,11 @@ using ECOM.API.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ECOM.API.Identity.Controllers
+namespace ECOM.API.Identity.V1.Controllers
 {
-    [Route("api/identity")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/identity")]
     public class AuthController : Controller
     {
         private readonly SignInManager<IdentityUser> _signInManager;
