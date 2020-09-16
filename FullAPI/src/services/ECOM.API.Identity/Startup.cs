@@ -1,3 +1,4 @@
+using ECOM.API.Identity.Configuration;
 using ECOM.API.Identity.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,8 @@ namespace ECOM.API.Identity
                 .AddDefaultTokenProviders();
 
             services.AddControllers();
+            services.WebApiConfig();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -49,6 +52,8 @@ namespace ECOM.API.Identity
             {
                 endpoints.MapControllers();
             });
+
+            app.UseMvcConfiguration();
         }
     }
 }
