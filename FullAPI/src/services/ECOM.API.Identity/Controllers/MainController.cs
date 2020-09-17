@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ECOM.API.Identity.Controllers
 {
@@ -14,7 +13,7 @@ namespace ECOM.API.Identity.Controllers
         {
             if (OperacaoValida())
             {
-                return Ok();
+                return Ok(result);
             }
 
             return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
@@ -36,7 +35,7 @@ namespace ECOM.API.Identity.Controllers
 
         protected bool OperacaoValida()
         {
-            return !EnumerableExtensions.Any(Erros);
+            return !Erros.Any();
         }
 
         protected void AdicionarErroProcessamento(string erro)
