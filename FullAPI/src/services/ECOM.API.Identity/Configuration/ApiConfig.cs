@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using ECOM.WebAPI.Core.Identidade;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,7 +41,7 @@ namespace ECOM.API.Identity.Configuration
 
             app.UseRouting();
 
-            app.UseIdentityConfiguration(); //Localização obrigatória para o funcionamento dos métodos do Identity
+            app.UseAuthConfiguration(); //Localização obrigatória para o funcionamento dos métodos do Identity
 
             app.UseEndpoints(endpoints =>
             {
