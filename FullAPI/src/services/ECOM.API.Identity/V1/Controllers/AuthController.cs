@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using ECOM.API.Identity.Controllers;
 using ECOM.API.Identity.Extensions;
 using ECOM.API.Identity.Models;
 using Microsoft.AspNetCore.Identity;
@@ -13,10 +14,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ECOM.API.Identity.V1.Controllers
 {
-    [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/identity")]
-    public class AuthController : Controller
+    public class AuthController : MainController
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
@@ -34,7 +34,7 @@ namespace ECOM.API.Identity.V1.Controllers
         [HttpPost("new-account")]
         public async Task<ActionResult> Register(UserRegister userRegister)
         {
-            if (!ModelState.IsValid) return BadRequest();
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var user = new IdentityUser
             {
@@ -47,28 +47,39 @@ namespace ECOM.API.Identity.V1.Controllers
 
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false);
-                return Ok(await GerarJWT(userRegister.Email));
+                return CustomResponse(await GerarJWT(userRegister.Email));
             }
 
-            return BadRequest();
+            foreach (var error in result.Errors)
+            {
+                AdicionarErroProcessamento(error.Description);
+            }
+
+            return CustomResponse();
         }
 
         [HttpPost("authenticate")]
 
         public async Task<ActionResult> Login(UserLogin userLogin)
         {
-            if (!ModelState.IsValid) return BadRequest();
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var result =  await _signInManager.PasswordSignInAsync(userLogin.Email, userLogin.Password,
                 false,true);
 
             if (result.Succeeded)
             {
-                return Ok(await GerarJWT(userLogin.Email));
+                return CustomResponse(await GerarJWT(userLogin.Email));
             }
 
-            return BadRequest();
+            if (result.IsLockedOut)
+            {
+                AdicionarErroProcessamento("Usuário temporariamente bloqueado por tentativas inválidas.");
+                return CustomResponse();
+            }
+
+            AdicionarErroProcessamento("Usuário ou Senha incorretos!");
+            return CustomResponse();
         }
 
         private async Task<UsuarioRespostaLogin> GerarJWT(string email)
