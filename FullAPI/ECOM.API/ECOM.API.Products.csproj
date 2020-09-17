@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>6ac2cd11-31aa-49ae-9502-33799adec914</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,12 +31,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Extensions\" />
     <Folder Include="V2\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ECOM.Data\ECOM.Data.csproj" />
+    <ProjectReference Include="..\src\building blocks\ECOM.Core\ECOM.Core.csproj" />
+    <ProjectReference Include="..\src\building blocks\ECOM.WebAPI.Core\ECOM.WebAPI.Core.csproj" />
   </ItemGroup>
 
 

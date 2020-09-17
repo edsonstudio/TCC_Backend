@@ -33,5 +33,9 @@
     <Folder Include="V2\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\ECOM.WebAPI.Core\ECOM.WebAPI.Core.csproj" />
+  </ItemGroup>
+
 
 </Project>

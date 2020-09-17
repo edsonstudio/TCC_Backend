@@ -1,4 +1,4 @@
-﻿namespace ECOM.API.Identity.Extensions
+﻿namespace ECOM.WebAPI.Core.Identidade
 {
     public class AppSettings
     {
