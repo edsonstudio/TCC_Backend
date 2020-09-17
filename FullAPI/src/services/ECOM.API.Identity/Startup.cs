@@ -32,6 +32,7 @@ namespace ECOM.API.Identity
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()
+                .AddErrorDescriber<IdentityMensagensPortugues>() //Sobrescrita das mensagens de erro para a linguagem pt-BR
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
