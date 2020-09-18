@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ECOM.Core.DomainObjects;
 
 namespace ECOM.Business.Models
 {

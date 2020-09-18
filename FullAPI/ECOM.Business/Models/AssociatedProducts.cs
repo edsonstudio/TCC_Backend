@@ -1,4 +1,5 @@
 ﻿using System;
+using ECOM.Core.DomainObjects;
 
 namespace ECOM.Business.Models
 {
