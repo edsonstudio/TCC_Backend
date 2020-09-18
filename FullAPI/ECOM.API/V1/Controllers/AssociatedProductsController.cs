@@ -6,13 +6,15 @@ using ECOM.API.Products.Controllers;
 using ECOM.API.Products.ViewModels;
 using ECOM.Business.Interfaces;
 using ECOM.Business.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static ECOM.WebAPI.Core.Identidade.CustomAuthorization;
 
 namespace ECOM.API.Products.V1.Controllers
 {
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiController]
     public class AssociatedProductsController : MainController
     {
         private readonly IAssociatedProductsRepository _associatedProductsRepository;
@@ -30,6 +32,7 @@ namespace ECOM.API.Products.V1.Controllers
         }
 
         // GET: api/AssociatedProducts
+        [ClaimsAuthorize("Products", "Ler")]
         [HttpGet]
         public async Task<IEnumerable<AssociatedProductsViewModel>> GetAssociatedProducts()
         {
@@ -37,6 +40,7 @@ namespace ECOM.API.Products.V1.Controllers
         }
 
         // GET: api/AssociatedProducts/5
+        [ClaimsAuthorize("Products", "Ler")]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<AssociatedProductsViewModel>> GetAssociatedProducts(Guid id)
         {
@@ -48,8 +52,7 @@ namespace ECOM.API.Products.V1.Controllers
         }
 
         // PUT: api/AssociatedProducts/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [ClaimsAuthorize("Products", "Editar")]
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> PutAssociatedProducts(Guid id, UpdateAssociatedProductsViewModel updateAssociatedProductsViewModel)
         {
@@ -75,8 +78,7 @@ namespace ECOM.API.Products.V1.Controllers
 
 
         // POST: api/AssociatedProducts
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [ClaimsAuthorize("Products", "Adicionar")]
         [HttpPost]
         public async Task<ActionResult<InsertAssociatedProductsViewModel>> PostAssociatedProducts(InsertAssociatedProductsViewModel insertAssociatedProductsViewModel)
         {
@@ -88,6 +90,7 @@ namespace ECOM.API.Products.V1.Controllers
         }
 
         // DELETE: api/AssociatedProducts/5
+        [ClaimsAuthorize("Products", "Excluir")]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<AssociatedProductsViewModel>> DeleteAssociatedProducts(Guid id)
         {

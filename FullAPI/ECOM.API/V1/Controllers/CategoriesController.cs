@@ -6,13 +6,15 @@ using ECOM.API.Products.Controllers;
 using ECOM.API.Products.ViewModels;
 using ECOM.Business.Interfaces;
 using ECOM.Business.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static ECOM.WebAPI.Core.Identidade.CustomAuthorization;
 
 namespace ECOM.API.Products.V1.Controllers
 {
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiController]
     public class CategoriesController : MainController
     {
         private readonly ICategoryRepository _categoryRepository;
@@ -30,6 +32,7 @@ namespace ECOM.API.Products.V1.Controllers
         }
 
         // GET: api/Categories
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<CategoryViewModel>> ObterTodos()
         {
@@ -37,6 +40,7 @@ namespace ECOM.API.Products.V1.Controllers
         }
 
         // GET: api/Categories/5
+        [ClaimsAuthorize("Products", "Ler")]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CategoryViewModel>> ObterPorID(Guid id)
         {
@@ -48,6 +52,7 @@ namespace ECOM.API.Products.V1.Controllers
         }
 
         // POST: api/Categories
+        [ClaimsAuthorize("Products", "Adicionar")]
         [HttpPost]
         public async Task<ActionResult<InsertCategoryViewModel>> Adicionar(InsertCategoryViewModel insertCategoryViewModel)
         {
@@ -59,6 +64,7 @@ namespace ECOM.API.Products.V1.Controllers
         }
 
         // PUT: api/Categories/5
+        [ClaimsAuthorize("Products", "Editar")]
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> Atualizar(Guid id, UpdateCategoryViewModel updateCategoryViewModel)
         {
@@ -88,6 +94,7 @@ namespace ECOM.API.Products.V1.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
+        [ClaimsAuthorize("Products", "Excluir")]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<CategoryViewModel>> Excluir(Guid id)
         {
