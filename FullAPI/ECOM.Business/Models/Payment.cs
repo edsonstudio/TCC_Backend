@@ -1,4 +1,6 @@
-﻿namespace ECOM.Business.Models
+﻿using ECOM.Core.DomainObjects;
+
+namespace ECOM.Business.Models
 {
     public class Payment : Entity
     {

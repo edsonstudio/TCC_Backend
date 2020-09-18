@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using ECOM.Core.DomainObjects;
 
 namespace ECOM.Business.Models
 {

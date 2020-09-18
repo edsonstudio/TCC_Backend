@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="3.1.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\src\building blocks\ECOM.Core\ECOM.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using ECOM.Core.DomainObjects;
 
 namespace ECOM.Business.Models
 {
