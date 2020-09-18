@@ -1,10 +1,11 @@
 ﻿using ECOM.Core.DomainObjects;
+using ECOM.Core;
 
 namespace ECOM.API.Client.Models
 {
     public class User : Entity
     {
-        public string Email { get; set; }
+        public Email Email { get; set; }
 
         public string Password { get; set; }
 
