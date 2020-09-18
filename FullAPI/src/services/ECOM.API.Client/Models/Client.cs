@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace ECOM.API.Client.Models
 {
-    public class Client : Entity //, IAggregateRoot
+    public class Client : Entity, IAggregateRoot
     {
-        
-        public string CPF { get; private set; }
+
+        public Cpf CPF { get; private set; }
 
         public string Name { get; private set; }
-        
+
         public string Phone { get; private set; }
         public bool Excluded { get; private set; }
         public Guid UserId { get; private set; }
@@ -25,13 +25,23 @@ namespace ECOM.API.Client.Models
         protected Client() { }
 
 
-        public Client(string name, string cpf, string phone)
+        public Client(Guid id, string name, string cpf, string phone)
         {
+            Id = id;
             Name = name;
-            CPF = cpf;
+            CPF = new Cpf(cpf);
             Phone = phone;
             Excluded = false;
         }
+
+        // Verificar o fluxo de informações e o uso deste procedimento
+        public void AtribuirEndereco(IEnumerable<Address> address)
+        {
+            Address = address;
+        }
+
+
+
 
     }
 }
