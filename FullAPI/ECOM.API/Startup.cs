@@ -1,4 +1,5 @@
 using AutoMapper;
+using ECOM.API.Identity.Configuration;
 using ECOM.API.Products.Configuration;
 using ECOM.Data.Context;
 using ECOM.WebAPI.Core.Identidade;
@@ -37,10 +38,6 @@ namespace ECOM.API.Products
             services.AddControllers();
 
             services.AddJwtConfiguration(Configuration);
-
-            //services.AddControllers().AddNewtonsoftJson(option => option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
-            services.AddAutoMapper(typeof(Startup));
             
             services.WebApiConfig();
 
@@ -51,27 +48,11 @@ namespace ECOM.API.Products
             services.ResolveDependencies();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseSwaggerConfiguration();
 
-            app.UseRouting();
-
-            app.UseMvcConfiguration();
-
-            app.UseAuthConfiguration();
-
-            app.UseStaticFiles();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-
-            app.UseSwaggerConfig(provider);
+            app.UseApiConfiguration(env);
         }
     }
 }
