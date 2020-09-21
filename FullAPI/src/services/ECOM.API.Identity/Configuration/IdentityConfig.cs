@@ -1,6 +1,7 @@
 ﻿using ECOM.API.Identity.Data;
 using ECOM.API.Identity.Extensions;
 using ECOM.WebAPI.Core.Identidade;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

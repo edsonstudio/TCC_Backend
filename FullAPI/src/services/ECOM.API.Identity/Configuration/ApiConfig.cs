@@ -14,6 +14,25 @@ namespace ECOM.API.Identity.Configuration
         {
             services.AddControllers();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Development",
+                    builder =>
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+
+
+                options.AddPolicy("Production",
+                    builder =>
+                        builder
+                            .WithMethods("GET")
+                            .WithOrigins("http://localhost")
+                            .SetIsOriginAllowedToAllowWildcardSubdomains()
+                            .AllowAnyHeader());
+            });
+
             services.AddApiVersioning(options =>
             {
                 options.AssumeDefaultVersionWhenUnspecified = true;
@@ -34,14 +53,21 @@ namespace ECOM.API.Identity.Configuration
         {
             if (env.IsDevelopment())
             {
+                app.UseCors("Development");
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseCors("Development"); // Usar apenas nas demos => Configuração Ideal: Production
+                app.UseHsts();
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthConfiguration(); //Localização obrigatória para o funcionamento dos métodos do Identity
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

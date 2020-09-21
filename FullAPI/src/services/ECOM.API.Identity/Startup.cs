@@ -34,6 +34,8 @@ namespace ECOM.API.Identity
             services.AddApiConfiguration();
 
             services.AddSwaggerConfiguration();
+
+            services.AuthResolveDependencies();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

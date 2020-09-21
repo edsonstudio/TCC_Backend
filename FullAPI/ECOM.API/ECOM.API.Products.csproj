@@ -40,6 +40,7 @@
     <ProjectReference Include="..\ECOM.Data\ECOM.Data.csproj" />
     <ProjectReference Include="..\src\building blocks\ECOM.Core\ECOM.Core.csproj" />
     <ProjectReference Include="..\src\building blocks\ECOM.WebAPI.Core\ECOM.WebAPI.Core.csproj" />
+    <ProjectReference Include="..\src\services\ECOM.API.Identity\ECOM.API.Identity.csproj" />
   </ItemGroup>
 
 
