@@ -39,6 +39,8 @@ namespace ECOM.API.Products
 
             services.AddJwtConfiguration(Configuration);
             
+            services.AddAutoMapper(typeof(Startup));
+
             services.WebApiConfig();
 
             services.AddSwaggerConfig();
