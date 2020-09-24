@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 
-
 namespace ECOM.API.Client.Models
 {
     public class Client : Entity, IAggregateRoot

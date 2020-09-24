@@ -41,4 +41,6 @@ namespace ECOM.WebAPI.Core.Identidade
             return services;
         }
     }
+
+
 }
