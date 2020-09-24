@@ -1,12 +1,12 @@
-﻿using Abp.Domain.Uow;
+﻿using ECOM.API.Client.Models;
+using ECOM.Core.Data;
 using Microsoft.EntityFrameworkCore;
-using ECOM.API.Client.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ECOM.API.Client.Data
 {
-    public class ClientsContext : DbContext//IUnitOfWork
+    public sealed class ClientsContext : DbContext, IUnitOfWork
     {
         public ClientsContext(DbContextOptions<ClientsContext> options) : base(options)
         {
@@ -14,14 +14,14 @@ namespace ECOM.API.Client.Data
             ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
-        //public DbSet<Client> Clients { get; set; }
+        public DbSet<ECOM.API.Client.Models.Client> Clients { get; set; }
         public DbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-          /*  foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(
+            foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(
                 e => e.GetProperties().Where(p => p.ClrType == typeof(string))))
-                property.SetColumnType("varchar(100)");*/
+                property.SetColumnType("varchar(100)");
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
                 relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
