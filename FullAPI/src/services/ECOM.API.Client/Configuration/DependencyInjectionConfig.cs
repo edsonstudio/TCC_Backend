@@ -1,11 +1,12 @@
-﻿//using FluentValidation.Results;
-//using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-//using NSE.Clientes.API.Application.Commands;
-//using NSE.Clientes.API.Application.Events;
+using ECOM.API.Client.Application.Commands;
+//using ECOM.API.Client.Application.Events;
 using ECOM.API.Client.Data;
 //using NSE.Clientes.API.Data.Repository;
 using ECOM.API.Client.Models;
+using ECOM.Core.Mediator;
+using FluentValidation.Results;
 //using NSE.Core.Mediator;
 
 namespace ECOM.API.Client.Configuration
@@ -14,14 +15,15 @@ namespace ECOM.API.Client.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-            /*
+            
             services.AddScoped<IMediatorHandler, MediatorHandler>();
-            services.AddScoped<IRequestHandler<RegistrarClienteCommand, ValidationResult>, ClienteCommandHandler>();
-
+            
+            services.AddScoped<IRequestHandler<RegisterClientCommand, ValidationResult>, ClientCommandHandler>();
+            /*
             services.AddScoped<INotificationHandler<ClienteRegistradoEvent>, ClienteEventHandler>();
 
             services.AddScoped<IClienteRepository, ClienteRepository>();*/
-            services.AddScoped<ClientsContext>();
+            //services.AddScoped<ClientsContext>();
         }
     }
 }
