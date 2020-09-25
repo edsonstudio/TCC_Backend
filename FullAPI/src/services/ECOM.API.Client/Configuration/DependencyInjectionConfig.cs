@@ -7,6 +7,7 @@ using ECOM.API.Client.Data;
 using ECOM.API.Client.Models;
 using ECOM.Core.Mediator;
 using FluentValidation.Results;
+using ECOM.API.Client.Data.Repository;
 //using NSE.Core.Mediator;
 
 namespace ECOM.API.Client.Configuration
@@ -19,11 +20,11 @@ namespace ECOM.API.Client.Configuration
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             
             services.AddScoped<IRequestHandler<RegisterClientCommand, ValidationResult>, ClientCommandHandler>();
-            /*
-            services.AddScoped<INotificationHandler<ClienteRegistradoEvent>, ClienteEventHandler>();
+            
+            //services.AddScoped<INotificationHandler<ClienteRegistradoEvent>, ClienteEventHandler>();
 
-            services.AddScoped<IClienteRepository, ClienteRepository>();*/
-            //services.AddScoped<ClientsContext>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<ClientsContext>();
         }
     }
 }
