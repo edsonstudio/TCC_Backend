@@ -1,8 +1,5 @@
 ﻿using ECOM.Core.Messages;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ECOM.API.Client.Application.Commands
 {
@@ -10,15 +7,17 @@ namespace ECOM.API.Client.Application.Commands
     {
         public Guid Id { get; private set; }
         public string Name { get; private set; }
-        public string CPF { get; private set; }
+        public string Cpf { get; private set; }
+        public string Email { get; private set; }
         public string Phone { get; private set; }
 
-        public RegisterClientCommand(Guid id, string name, string cpf, string phone)
+        public RegisterClientCommand(Guid id, string name, string cpf, string email, string phone)
         {
             AggregateId = id;
             Id = id;
             Name = name;
-            CPF = cpf;
+            Cpf = cpf;
+            Email = email;
             Phone = phone;
         }
     }

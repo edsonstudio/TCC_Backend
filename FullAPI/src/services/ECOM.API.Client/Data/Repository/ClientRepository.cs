@@ -1,4 +1,5 @@
-﻿using ECOM.API.Client.Models;
+﻿using Data;
+using ECOM.API.Client.Models;
 using ECOM.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace ECOM.API.Client.Data.Repository
 
         public Task<Models.Client> ObterPorCpf(string cpf)
         {
-            return _context.Clients.FirstOrDefaultAsync(c => c.CPF.Numero == cpf);
+            return _context.Clients.FirstOrDefaultAsync(c => c.Cpf.Numero == cpf);
         }
 
         public void Adicionar(Models.Client client)

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ECOM.API.Client.Data
+namespace Data
 {
     public sealed class ClientsContext : DbContext, IUnitOfWork
     {
@@ -14,7 +14,7 @@ namespace ECOM.API.Client.Data
             ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
-        public DbSet<ECOM.API.Client.Models.Client> Clients { get; set; }
+        public DbSet<Client> Clients { get; set; }
         public DbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

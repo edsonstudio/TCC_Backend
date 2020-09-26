@@ -6,7 +6,7 @@ namespace ECOM.API.Client.Models
 {
     public class Address : Entity
     {
-        public string CEP { get; private set; }
+        public string Cep { get; private set; }
 
         public string Receiver { get; private set; }
 
@@ -31,11 +31,13 @@ namespace ECOM.API.Client.Models
         // EF Relation
         public Client Client { get; protected set; }
 
+
+
         public Address(string cep, string receiver, string country, string number, 
             string addressName, string complement, string state, string city,
             string neighborhood, string referencePoint)
         {
-            CEP = cep;
+            Cep = cep;
             Receiver = receiver;
             Country = country;
             Number = number;

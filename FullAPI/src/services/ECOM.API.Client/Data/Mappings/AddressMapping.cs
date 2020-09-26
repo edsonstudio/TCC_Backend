@@ -10,7 +10,7 @@ namespace ECOM.API.Client.Data.Mappings
         {
             builder.HasKey(a => a.Id);
             // 04890-100
-            builder.Property(a => a.CEP).IsRequired().HasColumnType("varchar(9)");
+            builder.Property(a => a.Cep).IsRequired().HasColumnType("varchar(9)");
             builder.Property(a => a.Receiver).IsRequired().HasColumnType("varchar(100)");
             builder.Property(a => a.Country).IsRequired().HasColumnType("varchar(50)");
             builder.Property(a => a.Number).IsRequired().HasColumnType("varchar(10)");
