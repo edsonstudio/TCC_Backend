@@ -8,6 +8,8 @@ using ECOM.API.Client.Models;
 using ECOM.Core.Mediator;
 using FluentValidation.Results;
 using ECOM.API.Client.Data.Repository;
+using Application.Commands;
+using Data;
 //using NSE.Core.Mediator;
 
 namespace ECOM.API.Client.Configuration

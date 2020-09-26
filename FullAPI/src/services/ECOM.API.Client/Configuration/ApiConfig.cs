@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ECOM.API.Client.Data;
 using ECOM.WebAPI.Core.Identidade;
+using Data;
 
 namespace ECOM.API.Client.Configuration
 {
