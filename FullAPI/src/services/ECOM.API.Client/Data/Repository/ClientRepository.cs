@@ -37,9 +37,5 @@ namespace ECOM.API.Client.Data.Repository
         {
             _context.Dispose();
         }
-
-        
-
-        
     }
 }
