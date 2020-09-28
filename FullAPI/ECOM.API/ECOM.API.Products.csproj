@@ -32,7 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
-    <Folder Include="V2\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
