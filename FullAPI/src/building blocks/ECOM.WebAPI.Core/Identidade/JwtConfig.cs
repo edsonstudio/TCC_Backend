@@ -40,6 +40,12 @@ namespace ECOM.WebAPI.Core.Identidade
 
             return services;
         }
+
+        public static void UseAuthConfiguration(this IApplicationBuilder app)
+        {
+            app.UseAuthentication();
+            app.UseAuthorization();
+        }
     }
 
 
