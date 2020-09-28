@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using ECOM.API.Carrinho.Data;
+using ECOM.WebAPI.Core.Usuario;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ECOM.API.Carrinho.Configuration
 {
@@ -6,7 +9,9 @@ namespace ECOM.API.Carrinho.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
+            services.AddScoped<CarrinhoContext>();
         }
     }
 }
