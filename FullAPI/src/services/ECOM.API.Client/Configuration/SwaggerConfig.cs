@@ -13,8 +13,8 @@ namespace ECOM.API.Client.Configuration
             {
                 c.SwaggerDoc("v1", new OpenApiInfo()
                 {
-                    Title = "ECOM - Ecommerce Client API",
-                    Description = "Esta API faz parte do projeto de TCC do Curso de Desenvolvimento de Sistemas - SENAI-SP",
+                    Title = "API - ECOM Cliente",
+                    Description = "Esta API faz parte do conjunto de APIs do Projeto de TCC ECOM.",
                     Contact = new OpenApiContact() { Name = "Mateus Pereira", Email = "mateus.p.dias@hotmail.com" },
                     License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
                 });
