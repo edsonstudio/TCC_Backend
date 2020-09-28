@@ -31,8 +31,6 @@ namespace ECOM.API.Client.Models
         // EF Relation
         public Client Client { get; protected set; }
 
-
-
         public Address(string cep, string receiver, string country, string number, 
             string addressName, string complement, string state, string city,
             string neighborhood, string referencePoint)
