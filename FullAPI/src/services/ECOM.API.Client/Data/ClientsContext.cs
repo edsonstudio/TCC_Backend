@@ -1,5 +1,7 @@
 ﻿using ECOM.API.Client.Models;
 using ECOM.Core.Data;
+using ECOM.Core.DomainObjects;
+using ECOM.Core.Mediator;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,8 +10,13 @@ namespace Data
 {
     public sealed class ClientsContext : DbContext, IUnitOfWork
     {
-        public ClientsContext(DbContextOptions<ClientsContext> options) : base(options)
+
+        private readonly IMediatorHandler _mediatorHandler;
+
+        public ClientsContext(DbContextOptions<ClientsContext> options,
+            IMediatorHandler mediatorHandler) : base(options)
         {
+            _mediatorHandler = mediatorHandler;
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             ChangeTracker.AutoDetectChangesEnabled = false;
         }
@@ -32,10 +39,34 @@ namespace Data
         public async Task<bool> Commit()
         {
             var sucesso = await base.SaveChangesAsync() > 0;
+
+            if (sucesso) await _mediatorHandler.PublicarEventos(this);
+
             return sucesso;
         }
+    }
 
+    public static class MediatorExtension
+    {
+        public static async Task PublicarEventos<T>(this IMediatorHandler mediator, T ctx) where T : DbContext
+        {
+            var domainEntities = ctx.ChangeTracker
+                .Entries<Entity>()
+                .Where(x => x.Entity.Notificacoes != null && x.Entity.Notificacoes.Any());
 
+            var domainEvents = domainEntities
+                .SelectMany(x => x.Entity.Notificacoes)
+                .ToList();
 
+            domainEntities.ToList()
+                .ForEach(entity => entity.Entity.LimparEventos());
+
+            var tasks = domainEvents
+                .Select(async (domainEvent) => {
+                    await mediator.PublicarEvento(domainEvent);
+                });
+
+            await Task.WhenAll(tasks);
+        }
     }
 }

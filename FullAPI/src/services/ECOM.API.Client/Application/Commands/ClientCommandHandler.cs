@@ -1,4 +1,5 @@
 ﻿using ECOM.API.Client.Application.Commands;
+using ECOM.API.Client.Application.Events;
 using ECOM.API.Client.Models;
 using ECOM.Core.Messages;
 using FluentValidation.Results;
@@ -34,6 +35,8 @@ namespace Application.Commands
             }
 
             _clientRepository.Adicionar(client);
+
+            client.AdicionarEvento(new RegisteredClientEvent(message.Id, message.Name, message.Email, message.Cpf, message.Phone));
 
             return await PersistirDados(_clientRepository.UnitOfWork);
         }
