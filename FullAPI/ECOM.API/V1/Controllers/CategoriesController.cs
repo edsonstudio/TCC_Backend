@@ -40,7 +40,7 @@ namespace ECOM.API.Products.V1.Controllers
         }
 
         // GET: api/Categories/5
-        [ClaimsAuthorize("Products", "Ler")]
+        [AllowAnonymous]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CategoryViewModel>> ObterPorID(Guid id)
         {

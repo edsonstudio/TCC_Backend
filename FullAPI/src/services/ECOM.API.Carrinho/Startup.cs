@@ -2,6 +2,7 @@ using ECOM.API.Carrinho.Configuration;
 using ECOM.WebAPI.Core.Identidade;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,14 +34,14 @@ namespace ECOM.API.Carrinho
 
             services.AddJwtConfiguration(Configuration);
 
-            services.AddSwaggerConfiguration();
+            services.AddSwaggerConfig();
 
             services.RegisterServices();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
-            app.UseSwaggerConfiguration();
+            app.UseSwaggerConfig(provider);
 
             app.UseApiConfiguration(env);
         }

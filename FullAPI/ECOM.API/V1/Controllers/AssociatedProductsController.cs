@@ -32,7 +32,7 @@ namespace ECOM.API.Products.V1.Controllers
         }
 
         // GET: api/AssociatedProducts
-        [ClaimsAuthorize("Products", "Ler")]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<AssociatedProductsViewModel>> GetAssociatedProducts()
         {
@@ -40,7 +40,7 @@ namespace ECOM.API.Products.V1.Controllers
         }
 
         // GET: api/AssociatedProducts/5
-        [ClaimsAuthorize("Products", "Ler")]
+        [AllowAnonymous]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<AssociatedProductsViewModel>> GetAssociatedProducts(Guid id)
         {

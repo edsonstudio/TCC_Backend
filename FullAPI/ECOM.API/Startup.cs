@@ -1,5 +1,4 @@
 using AutoMapper;
-using ECOM.API.Identity.Configuration;
 using ECOM.API.Products.Configuration;
 using ECOM.Data.Context;
 using ECOM.WebAPI.Core.Identidade;
@@ -35,7 +34,7 @@ namespace ECOM.API.Products
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddDbContext<InitialDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddJwtConfiguration(Configuration);
             
@@ -45,16 +44,17 @@ namespace ECOM.API.Products
 
             services.AddSwaggerConfig();
 
-            services.AddDbContext<InitialDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.ResolveDependencies();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
-            app.UseSwaggerConfiguration();
+            app.UseSwaggerConfig(provider);
 
-            app.UseApiConfiguration(env);
+            app.UseMvcConfiguration(env);
+
+            app.UseStaticFiles();
+
         }
     }
 }
