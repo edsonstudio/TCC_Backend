@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ECOM.API.Client.Configuration;
 using ECOM.WebAPI.Core.Identidade;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace ECOM.API.Client
 {
@@ -38,7 +39,7 @@ namespace ECOM.API.Client
 
             services.AddJwtConfiguration(Configuration);
 
-            services.AddSwaggerConfiguration();
+            services.AddSwaggerConfig();
 
             services.AddMediatR(typeof(Startup));
 
@@ -46,12 +47,14 @@ namespace ECOM.API.Client
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             
-            app.UseSwaggerConfiguration();
+            app.UseSwaggerConfig(provider);
 
             app.UseApiConfiguration(env);
+
+            app.UseStaticFiles();
         }
     }
 }
