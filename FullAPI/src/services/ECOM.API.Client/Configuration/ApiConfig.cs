@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using ECOM.API.Client.Data;
 using ECOM.WebAPI.Core.Identidade;
 using Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ECOM.API.Client.Configuration
 {
@@ -19,31 +20,64 @@ namespace ECOM.API.Client.Configuration
 
             services.AddControllers();
 
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.ReportApiVersions = true;
+            });
+
+            services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
+            });
+
+
             services.AddCors(options =>
             {
-                options.AddPolicy("Total",
+                options.AddPolicy("Development",
                     builder =>
                         builder
-                            .AllowAnyOrigin()
-                            .AllowAnyMethod()
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+
+
+                options.AddPolicy("Production",
+                    builder =>
+                        builder
+                            .WithMethods("GET")
+                            .WithOrigins("http://localhost")
+                            .SetIsOriginAllowedToAllowWildcardSubdomains()
                             .AllowAnyHeader());
             });
+
         }
 
         public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
+                app.UseCors("Development");
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseCors("Development"); // Usar apenas nas demos => Configuração Ideal: Production
+                app.UseHsts();
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseCors("Total");
-
-            //app.UseAuthConfiguration();
+            app.UseAuthConfiguration();
 
             app.UseEndpoints(endpoints =>
             {

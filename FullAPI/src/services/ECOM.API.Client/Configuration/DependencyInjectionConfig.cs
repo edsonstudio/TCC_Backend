@@ -10,6 +10,8 @@ using ECOM.API.Client.Data.Repository;
 using Application.Commands;
 using Data;
 using ECOM.API.Client.Application.Events;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 //using NSE.Core.Mediator;
 
 namespace ECOM.API.Client.Configuration
@@ -27,6 +29,8 @@ namespace ECOM.API.Client.Configuration
 
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<ClientsContext>();
+
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         }
     }
 }
