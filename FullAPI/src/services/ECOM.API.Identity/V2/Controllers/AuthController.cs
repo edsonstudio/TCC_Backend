@@ -28,8 +28,7 @@ namespace ECOM.API.Identity.V2.Controllers
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
-                              IOptions<AppSettings> appSettings,
-                              IBus bus)
+                              IOptions<AppSettings> appSettings)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -70,7 +69,8 @@ namespace ECOM.API.Identity.V2.Controllers
         {
             var usuario = await _userManager.FindByEmailAsync(registerUser.Email);
             var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
-                Guid.Parse(usuario.Id), registerUser.Name, registerUser.Email, registerUser.Cpf);
+                Guid.Parse(usuario.Id), registerUser.Name, registerUser.Email, registerUser.Cpf, registerUser.Phone);
+
             _bus = RabbitHutch.CreateBus("host=localhost:5672");
 
             var sucesso = await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
