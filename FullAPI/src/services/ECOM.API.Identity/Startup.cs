@@ -37,6 +37,8 @@ namespace ECOM.API.Identity
             services.AddSwaggerConfig();
 
             services.AuthResolveDependencies();
+
+            services.AddMessageBusConfiguration(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
