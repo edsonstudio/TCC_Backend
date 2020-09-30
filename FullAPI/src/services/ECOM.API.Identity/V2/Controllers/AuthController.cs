@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using EasyNetQ;
 using ECOM.API.Identity.Models;
 using ECOM.Core.Messages.Integration;
+using ECOM.MessageBus;
 using ECOM.WebAPI.Core.Controllers;
 using ECOM.WebAPI.Core.Identidade;
 using Microsoft.AspNetCore.Identity;
@@ -24,15 +25,17 @@ namespace ECOM.API.Identity.V2.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
 
-        private IBus _bus;
+        private readonly IMessageBus _bus;
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
-                              IOptions<AppSettings> appSettings)
+                              IOptions<AppSettings> appSettings,
+                              IMessageBus bus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
+            _bus = bus;
         }
 
         [HttpPost("nova-conta")]
@@ -52,7 +55,14 @@ namespace ECOM.API.Identity.V2.Controllers
             if (result.Succeeded)
             {
                 //Alguma coisa aqui => integracao
-                var sucesso = await RegistrarCliente(registerUser);
+                var clientResult = await RegistrarCliente(registerUser);
+
+                if (!clientResult.ValidationResult.IsValid)
+                {
+                    await _userManager.DeleteAsync(user);
+                    return CustomResponse(clientResult.ValidationResult);
+                }
+                
 
                 return CustomResponse(await GerarJwt(registerUser.Email));
             }
@@ -65,17 +75,7 @@ namespace ECOM.API.Identity.V2.Controllers
             return CustomResponse(registerUser);
         }
 
-        private async Task<ResponseMessage> RegistrarCliente(RegisterUserViewModel registerUser)
-        {
-            var usuario = await _userManager.FindByEmailAsync(registerUser.Email);
-            var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
-                Guid.Parse(usuario.Id), registerUser.Name, registerUser.Email, registerUser.Cpf, registerUser.Phone);
 
-            _bus = RabbitHutch.CreateBus("host=localhost:5672");
-
-            var sucesso = await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
-            return sucesso;
-        }
 
         [HttpPost("autenticar")]
         public async Task<ActionResult> Login(LoginUserViewModel loginUser)
@@ -147,5 +147,22 @@ namespace ECOM.API.Identity.V2.Controllers
 
         private static long ToUnixEpochDate(DateTime date)
             => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
+
+        private async Task<ResponseMessage> RegistrarCliente(RegisterUserViewModel registerUser)
+        {
+            var usuario = await _userManager.FindByEmailAsync(registerUser.Email);
+            var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
+                Guid.Parse(usuario.Id), registerUser.Name, registerUser.Email, registerUser.Cpf, registerUser.Phone);
+
+            try
+            {
+                return await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
+            }
+            catch
+            {
+                await _userManager.DeleteAsync(usuario);
+                throw;
+            }
+        }
     }
 }
