@@ -33,7 +33,7 @@ namespace ECOM.API.Client.Configuration
 
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
-            services.AddHostedService<RegistroClienteIntegrationHandler>();
+            
         }
     }
 }
