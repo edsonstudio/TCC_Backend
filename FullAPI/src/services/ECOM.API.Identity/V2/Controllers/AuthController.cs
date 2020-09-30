@@ -4,9 +4,10 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using ECOM.API.Identity.Controllers;
-using ECOM.API.Identity.Interfaces;
+using EasyNetQ;
 using ECOM.API.Identity.Models;
+using ECOM.Core.Messages.Integration;
+using ECOM.WebAPI.Core.Controllers;
 using ECOM.WebAPI.Core.Identidade;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,11 +24,12 @@ namespace ECOM.API.Identity.V2.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
 
-        public AuthController(INotificador notificador,
-                              SignInManager<IdentityUser> signInManager,
+        private IBus _bus;
+
+        public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
                               IOptions<AppSettings> appSettings,
-                              IUser user) : base(notificador, user)
+                              IBus bus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -47,20 +49,35 @@ namespace ECOM.API.Identity.V2.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, registerUser.Password);
+
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false);
-                return CustomResponse(await GerarJwt(user.Email));
+                //Alguma coisa aqui => integracao
+                var sucesso = await RegistrarCliente(registerUser);
+
+                return CustomResponse(await GerarJwt(registerUser.Email));
             }
+
             foreach (var error in result.Errors)
             {
-                NotificarErro(error.Description);
+                AdicionarErroProcessamento(error.Description);
             }
 
             return CustomResponse(registerUser);
         }
 
-        [HttpPost("entrar")]
+        private async Task<ResponseMessage> RegistrarCliente(RegisterUserViewModel registerUser)
+        {
+            var usuario = await _userManager.FindByEmailAsync(registerUser.Email);
+            var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
+                Guid.Parse(usuario.Id), registerUser.Name, registerUser.Email, registerUser.Cpf);
+            _bus = RabbitHutch.CreateBus("host=localhost:5672");
+
+            var sucesso = await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
+            return sucesso;
+        }
+
+        [HttpPost("autenticar")]
         public async Task<ActionResult> Login(LoginUserViewModel loginUser)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -73,11 +90,11 @@ namespace ECOM.API.Identity.V2.Controllers
             }
             if (result.IsLockedOut)
             {
-                NotificarErro("Usuário temporariamente bloqueado por tentativas inválidas");
+                AdicionarErroProcessamento("Usuário temporariamente bloqueado por tentativas inválidas");
                 return CustomResponse(loginUser);
             }
 
-            NotificarErro("Usuário ou Senha incorretos");
+            AdicionarErroProcessamento("Usuário ou Senha incorretos");
             return CustomResponse(loginUser);
         }
 
