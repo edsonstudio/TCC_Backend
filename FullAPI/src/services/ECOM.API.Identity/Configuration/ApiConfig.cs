@@ -13,9 +13,9 @@ namespace ECOM.API.Identity.Configuration
         {
             services.AddControllers();
 
-            //services.AddControllersWithViews()
-            //    .AddNewtonsoftJson(options =>
-            //        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddCors(options =>
             {
