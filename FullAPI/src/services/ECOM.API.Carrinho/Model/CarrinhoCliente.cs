@@ -53,5 +53,30 @@ namespace ECOM.API.Carrinho.Model
             Items.Add(item);
             CalcularValorCarrinho();
         }
+
+        internal void AtualizarItem(CarrinhoItem item)
+        {
+            if (!item.EhValido()) return;
+            item.AssociarCarrinho(Id);
+
+            var itemExistente = ObterPorProdutoId(item.ProductId);
+
+            Items.Remove(itemExistente);
+            Items.Add(item);
+
+            CalcularValorCarrinho();
+        }
+
+        internal void AtualizarUnidades(CarrinhoItem item, int unidades)
+        {
+            item.AtualizarUnidades(unidades);
+            AtualizarItem(item);
+        }
+
+        internal void RemoverItem(CarrinhoItem item)
+        {
+            Items.Remove(ObterPorProdutoId(item.ProductId));
+            CalcularValorCarrinho();
+        }
     }
 }

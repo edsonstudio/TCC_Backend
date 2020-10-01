@@ -35,7 +35,7 @@ namespace ECOM.API.Identity.V1.Controllers
         }
 
         [HttpPost("nova-conta")]
-        public async Task<ActionResult> Registrar(RegisterUserViewModel registerUser)
+        public async Task<ActionResult> Registrar(RegisterUser registerUser)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 

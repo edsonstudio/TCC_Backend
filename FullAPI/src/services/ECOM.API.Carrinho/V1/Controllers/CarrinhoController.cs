@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 namespace ECOM.API.Carrinho.V1.Controllers
 {
     [Authorize]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class CarrinhoController : MainController
     {
         private readonly IAspNetUser _user;
@@ -40,10 +42,49 @@ namespace ECOM.API.Carrinho.V1.Controllers
 
             if (!OperacaoValida()) return CustomResponse();
 
-            var result = await _context.SaveChangesAsync();
-            if (result <= 0) AdicionarErroProcessamento("Não foi possível persistir os dados no banco!");
-
+            await PersistirDados();
             return CustomResponse();
+        }
+
+        [HttpPut("carrinho/{productId}")]
+        public async Task<IActionResult> PutItemCarrinho(Guid productId, CarrinhoItem item)
+        {
+            var carrinho = await ObterCarrinhoCliente();
+            var itemCarrinho = await ObterItemCarrinhoValidado(productId, carrinho, item);
+
+            if (itemCarrinho == null) return CustomResponse();
+
+            carrinho.AtualizarUnidades(itemCarrinho, item.Amount);
+
+            _context.CarrinhoItens.Update(itemCarrinho);
+            _context.CarrinhoCliente.Update(carrinho);
+
+            await PersistirDados();
+            return CustomResponse();
+        }
+
+        [HttpDelete("carrinho/{productId}")]
+        public async Task<IActionResult> DeleteItemCarrinho(Guid productId)
+        {
+            var carrinho = await ObterCarrinhoCliente();
+
+            var itemCarrinho = await ObterItemCarrinhoValidado(productId, carrinho);
+            if (itemCarrinho == null) return CustomResponse();
+
+            carrinho.RemoverItem(itemCarrinho);
+
+            _context.CarrinhoItens.Remove(itemCarrinho);
+            _context.CarrinhoCliente.Update(carrinho);
+
+            await PersistirDados();
+            return CustomResponse();
+        }
+
+        private async Task<CarrinhoCliente> ObterCarrinhoCliente()
+        {
+            return await _context.CarrinhoCliente
+                .Include(c => c.Items)
+                .FirstOrDefaultAsync(c => c.ClientId == _user.ObterUserId());
         }
 
         private void ManipularNovoCarrinho(CarrinhoItem item)
@@ -72,25 +113,36 @@ namespace ECOM.API.Carrinho.V1.Controllers
             _context.CarrinhoCliente.Update(carrinho);
         }
 
-        [HttpPut("carrinho/{productId}")]
-        public async Task<IActionResult> PutItemCarrinho(Guid productId, CarrinhoItem item)
+        private async Task<CarrinhoItem> ObterItemCarrinhoValidado(Guid productId, CarrinhoCliente carrinho, CarrinhoItem item = null)
         {
-            return CustomResponse();
+            if (item != null && productId != item.ProductId)
+            {
+                AdicionarErroProcessamento("O item não corresponde ao informado!");
+                return null;
+            }
+
+            if (carrinho == null)
+            {
+                AdicionarErroProcessamento("Carrinho não encontrado!");
+                return null;
+            }
+
+            var itemCarrinho = await _context.CarrinhoItens
+                .FirstOrDefaultAsync(i => i.CarrinhoId == carrinho.Id && i.ProductId == productId);
+
+            if (itemCarrinho == null || !carrinho.CarrinhoItemExistente(itemCarrinho))
+            {
+                AdicionarErroProcessamento("O item não está no carrinho!");
+                return null;
+            }
+
+            return itemCarrinho;
         }
 
-        [HttpDelete("carrinho/{productId}")]
-        public async Task<IActionResult> DeleteItemCarrinho(Guid productId)
+        private async Task PersistirDados()
         {
-            return CustomResponse();
+            var result = await _context.SaveChangesAsync();
+            if (result <= 0) AdicionarErroProcessamento("Não foi possível persistir os dados no banco!");
         }
-
-        private async Task<CarrinhoCliente> ObterCarrinhoCliente()
-        {
-            return await _context.CarrinhoCliente
-                .Include(c => c.Items)
-                .FirstOrDefaultAsync(c => c.ClientId == _user.ObterUserId());
-        }
-
-
     }
 }

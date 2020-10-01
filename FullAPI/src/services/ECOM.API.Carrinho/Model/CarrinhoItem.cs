@@ -36,6 +36,11 @@ namespace ECOM.API.Carrinho.Model
             Amount += unidades;
         }
 
+        internal void AtualizarUnidades(int unidades)
+        {
+            Amount = unidades;
+        }
+
         internal bool EhValido()
         {
             return new ItemPedidoValidation().Validate(this).IsValid;
