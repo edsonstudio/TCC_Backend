@@ -12,7 +12,7 @@ namespace ECOM.API.Client.Application.Commands
         public string Email { get; private set; }
         public string Phone { get; private set; }
 
-        public RegisterClientCommand(Guid id, string name, string cpf, string email, string phone)
+        public RegisterClientCommand(Guid id, string name, string email, string cpf, string phone)
         {
             AggregateId = id;
             Id = id;
