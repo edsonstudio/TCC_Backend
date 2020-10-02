@@ -22,7 +22,7 @@ namespace ECOM.API.Client.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("clients")]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var result = await _mediatorHandler.EnviarComando(

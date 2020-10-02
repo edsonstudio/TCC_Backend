@@ -25,13 +25,13 @@ namespace ECOM.API.Carrinho.V1.Controllers
             _context = context;
         }
 
-        [HttpGet("carrinho")]
+        [HttpGet]
         public async Task<CarrinhoCliente> GetCarrinho()
         {
             return await ObterCarrinhoCliente() ?? new CarrinhoCliente();
         }
 
-        [HttpPost("carrinho")]
+        [HttpPost]
         public async Task<IActionResult> PostItemCarrinho(CarrinhoItem item)
         {
             var carrinho = await ObterCarrinhoCliente();
@@ -41,14 +41,13 @@ namespace ECOM.API.Carrinho.V1.Controllers
             else
                 ManipularCarrinhoExistente(carrinho, item);
 
-            ValidarCarrinho(carrinho);
             if (!OperacaoValida()) return CustomResponse();
 
             await PersistirDados();
             return CustomResponse();
         }
 
-        [HttpPut("carrinho/{productId}")]
+        [HttpPut("{productId:guid}")]
         public async Task<IActionResult> PutItemCarrinho(Guid productId, CarrinhoItem item)
         {
             var carrinho = await ObterCarrinhoCliente();
@@ -68,7 +67,7 @@ namespace ECOM.API.Carrinho.V1.Controllers
             return CustomResponse();
         }
 
-        [HttpDelete("carrinho/{productId}")]
+        [HttpDelete("{productId:guid}")]
         public async Task<IActionResult> DeleteItemCarrinho(Guid productId)
         {
             var carrinho = await ObterCarrinhoCliente();
@@ -100,6 +99,7 @@ namespace ECOM.API.Carrinho.V1.Controllers
             var carrinho = new CarrinhoCliente(_user.ObterUserId());
             carrinho.AdicionarItem(item);
 
+            ValidarCarrinho(carrinho);
             _context.CarrinhoCliente.Add(carrinho);
         }
 
@@ -108,6 +108,7 @@ namespace ECOM.API.Carrinho.V1.Controllers
             var produtoItemExistente = carrinho.CarrinhoItemExistente(item);
 
             carrinho.AdicionarItem(item);
+            ValidarCarrinho(carrinho);
 
             if (produtoItemExistente)
             {
