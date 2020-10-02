@@ -23,6 +23,8 @@ namespace ECOM.API.Carrinho.Data
                 e => e.GetProperties().Where(p => p.ClrType == typeof(string))))
                 property.SetColumnType("varchar(100)");
 
+            modelBuilder.Ignore<ValidationResult>();
+
             modelBuilder.Entity<CarrinhoCliente>()
                 .HasIndex(c => c.ClientId)
                 .HasName("IDX_Client");
