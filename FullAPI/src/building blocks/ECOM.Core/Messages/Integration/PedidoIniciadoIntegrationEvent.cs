@@ -2,7 +2,7 @@
 
 namespace ECOM.Core.Messages.Integration
 {
-    public class PedidoIniciadoIntegrationEvent //: IntegrationEvent
+    public class PedidoIniciadoIntegrationEvent : IntegrationEvent
     {
         public Guid ClienteId { get; set; }
         public Guid PedidoId { get; set; }
