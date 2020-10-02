@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
@@ -14,7 +15,6 @@
 
   <ItemGroup>
     <Folder Include="Configuration\" />
-    <Folder Include="Data\" />
   </ItemGroup>
 
 
