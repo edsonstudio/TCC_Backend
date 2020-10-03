@@ -81,7 +81,7 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
     {
         var info = new OpenApiInfo()
         {
-            Title = "API - ECOM Products",
+            Title = "API - ECOM Catalogo de Produtos",
             Version = description.ApiVersion.ToString(),
             Description = "Esta API faz parte do conjunto de APIs do Projeto de TCC ECOM",
             Contact = new OpenApiContact() { Name = "Edson Costa", Email = "edsont8@hotmail.com" }

@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ECOM.API.Carrinho.Configuration
+namespace ECOM.Bff.Compras.Configuration
 {
     public static class SwaggerConfig
     {
@@ -81,7 +81,7 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
     {
         var info = new OpenApiInfo()
         {
-            Title = "API - ECOM Carrinho",
+            Title = "API - ECOM - API Gateway Compras (BFF)",
             Version = description.ApiVersion.ToString(),
             Description = "Esta API faz parte do conjunto de APIs do Projeto de TCC ECOM",
             Contact = new OpenApiContact() { Name = "Edson Costa", Email = "edsont8@hotmail.com" }
