@@ -17,7 +17,7 @@ namespace ECOM.API.Payment.Data.Mappings
                 .WithOne(c => c.Pagamento)
                 .HasForeignKey(c => c.PagamentoId);
 
-            //builder.ToTable("Pagamentos");
+            builder.ToTable("Pagamentos");
         }
     }
 }

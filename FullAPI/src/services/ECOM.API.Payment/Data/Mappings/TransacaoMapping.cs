@@ -14,7 +14,7 @@ namespace ECOM.API.Payment.Data.Mappings
             builder.HasOne(c => c.Pagamento)
                 .WithMany(c => c.Transacoes);
 
-            //builder.ToTable("Transacoes");
+            builder.ToTable("Transacoes");
         }
     }
 }
