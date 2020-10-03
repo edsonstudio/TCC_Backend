@@ -1,16 +1,13 @@
-using AutoMapper;
-using ECOM.API.Products.Configuration;
-using ECOM.Data.Context;
+using ECOM.Bff.Compras.Configuration;
 using ECOM.WebAPI.Core.Identidade;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace ECOM.API.Products
+namespace ECOM.Bff.Compras
 {
     public class Startup
     {
@@ -31,29 +28,22 @@ namespace ECOM.API.Products
 
             Configuration = builder.Build();
         }
-
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<InitialDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddApiConfiguration(Configuration);
 
             services.AddJwtConfiguration(Configuration);
-            
-            services.AddAutoMapper(typeof(Startup));
-
-            services.WebApiConfig();
-
-            services.ResolveDependencies();
 
             services.AddSwaggerConfig();
+
+            services.RegisterServices();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             app.UseSwaggerConfig(provider);
 
-            app.UseMvcConfiguration(env);
-
-            app.UseStaticFiles();
+            app.UseApiConfiguration(env);
         }
     }
 }
