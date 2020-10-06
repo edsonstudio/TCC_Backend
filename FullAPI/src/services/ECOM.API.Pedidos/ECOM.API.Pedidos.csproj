@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\ECOM.MessageBus\ECOM.MessageBus.csproj" />
     <ProjectReference Include="..\..\building blocks\ECOM.WebAPI.Core\ECOM.WebAPI.Core.csproj" />
     <ProjectReference Include="..\ECOM.Pedidos.Domain\ECOM.Pedidos.Domain.csproj" />
     <ProjectReference Include="..\ECOM.Pedidos.Infra\ECOM.Pedidos.Infra.csproj" />
