@@ -1,4 +1,5 @@
-﻿using ECOM.Core.Mediator;
+﻿using ECOM.API.Pedidos.Application.Queries;
+using ECOM.Core.Mediator;
 using ECOM.Pedidos.Domain.Vouchers;
 using ECOM.Pedidos.Infra.Data;
 using ECOM.Pedidos.Infra.Data.Repository;
@@ -14,12 +15,17 @@ namespace ECOM.API.Pedidos.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-            services.AddScoped<PedidosContext>();
-            services.AddScoped<IMediatorHandler, MediatorHandler>();
-            services.AddScoped<IVoucherRepository, VoucherRepository>();
-
+            // API
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IAspNetUser, AspNetUser>();
+
+            // Application
+            services.AddScoped<IMediatorHandler, MediatorHandler>();
+            services.AddScoped<IVoucherQueries, VoucherQueries>();
+
+            // Data
+            services.AddScoped<IVoucherRepository, VoucherRepository>();
+            services.AddScoped<PedidosContext>();
 
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         }
