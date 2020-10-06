@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.1.1" />
@@ -27,13 +28,10 @@
     <Folder Include="Application\Commands\" />
     <Folder Include="Application\Events\" />
     <Folder Include="Application\Queries\" />
-    <Folder Include="V1\Controllers\" />
     <Folder Include="V2\" />
-    <Folder Include="V1\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\building blocks\ECOM.Core\ECOM.Core.csproj" />
     <ProjectReference Include="..\..\building blocks\ECOM.WebAPI.Core\ECOM.WebAPI.Core.csproj" />
     <ProjectReference Include="..\ECOM.Pedidos.Domain\ECOM.Pedidos.Domain.csproj" />
     <ProjectReference Include="..\ECOM.Pedidos.Infra\ECOM.Pedidos.Infra.csproj" />

@@ -1,3 +1,4 @@
+using MediatR;
 using ECOM.API.Pedidos.Configuration;
 using ECOM.WebAPI.Core.Identidade;
 using Microsoft.AspNetCore.Builder;
@@ -35,9 +36,11 @@ namespace ECOM.API.Pedidos
 
             services.AddJwtConfiguration(Configuration);
 
-            services.AddSwaggerConfig();
+            services.AddMediatR(typeof(Startup));
 
             services.RegisterServices();
+
+            services.AddSwaggerConfig();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
