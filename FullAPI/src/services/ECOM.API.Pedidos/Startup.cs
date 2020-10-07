@@ -41,8 +41,6 @@ namespace ECOM.API.Pedidos
             services.RegisterServices();
 
             services.AddSwaggerConfig();
-
-            services.AddMessageBusConfiguration(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
