@@ -87,6 +87,19 @@ namespace ECOM.API.Carrinho.V1.Controllers
             return CustomResponse();
         }
 
+        [HttpPost("aplicar-voucher")] // Conferir rota, inclusive no BFF
+        public async Task<IActionResult> AplicarVoucher(Voucher voucher)
+        {
+            var carrinho = await ObterCarrinhoCliente();
+
+            carrinho.AplicarVoucher(voucher);
+
+            _context.CarrinhoCliente.Update(carrinho);
+
+            await PersistirDados();
+            return CustomResponse();
+        }
+
         private async Task<CarrinhoCliente> ObterCarrinhoCliente()
         {
             return await _context.CarrinhoCliente
