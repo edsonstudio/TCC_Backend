@@ -62,23 +62,23 @@ namespace ECOM.Bff.Compras.V1.Controllers
 
         [HttpPut]
         [Route("compras/carrinho/items/{productId}")]
-        public async Task<IActionResult> AtualizarItemCarrinho(Guid produtoId, ItemCarrinhoDTO itemProduto)
+        public async Task<IActionResult> AtualizarItemCarrinho(Guid productId, ItemCarrinhoDTO itemProduto)
         {
-            var produto = await _catalogoService.ObterPorId(produtoId);
+            var produto = await _catalogoService.ObterPorId(productId);
 
             await ValidarItemCarrinho(produto, itemProduto.Quantidade);
             if (!OperacaoValida()) return CustomResponse();
 
-            var resposta = await _carrinhoService.AtualizarItemCarrinho(produtoId, itemProduto);
+            var resposta = await _carrinhoService.AtualizarItemCarrinho(productId, itemProduto);
             
             return CustomResponse(resposta);
         }
 
         [HttpDelete]
         [Route("compras/carrinho/items/{productId}")]
-        public async Task<IActionResult> RemoverItemCarrinho(Guid produtoId)
+        public async Task<IActionResult> RemoverItemCarrinho(Guid productId)
         {
-            var produto = await _catalogoService.ObterPorId(produtoId);
+            var produto = await _catalogoService.ObterPorId(productId);
 
             if (produto == null)
             {
@@ -86,7 +86,7 @@ namespace ECOM.Bff.Compras.V1.Controllers
                 return CustomResponse();
             }
 
-            var resposta = await _carrinhoService.RemoverItemCarrinho(produtoId);
+            var resposta = await _carrinhoService.RemoverItemCarrinho(productId);
 
             return CustomResponse(resposta);
         }
