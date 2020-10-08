@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ECOM.API.Catalogo.Models
 {
-    public class Category : Entity
+    public class Category : Entity, IAggregateRoot //Verificar a necessidade de ser IAggregateRoot
     {
         public string Name { get; set; }
 

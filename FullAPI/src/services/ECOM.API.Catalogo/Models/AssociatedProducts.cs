@@ -3,7 +3,7 @@ using System;
 
 namespace ECOM.API.Catalogo.Models
 {
-    public class AssociatedProducts : Entity
+    public class AssociatedProducts : Entity, IAggregateRoot //Verificar a necessidade de ser IAggregateRoot
     {
         public Guid ProductFatherId { get; set; }
         public virtual Product ProductFather { get; set; }
