@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ECOM.API.Catalogo.Configuration;
 using ECOM.WebAPI.Core.Identidade;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -42,6 +43,8 @@ namespace ECOM.API.Catalogo
             services.AddJwtConfiguration(Configuration);
 
             services.AddSwaggerConfiguration();
+
+            services.AddMediatR(typeof(Startup));
 
             services.RegisterServices();
         }

@@ -8,6 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20201008154307_test.cs" />
+    <Compile Remove="Migrations\20201008154307_test.Designer.cs" />
+    <Compile Remove="Migrations\20201008154848_test2.cs" />
+    <Compile Remove="Migrations\20201008154848_test2.Designer.cs" />
+    <Compile Remove="Migrations\20201008155257_test3.cs" />
+    <Compile Remove="Migrations\20201008155257_test3.Designer.cs" />
+    <Compile Remove="Migrations\20201008155736_test4.cs" />
+    <Compile Remove="Migrations\20201008155736_test4.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
@@ -27,9 +38,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Data\Mappings\" />
     <Folder Include="Data\Repository\" />
-    <Folder Include="Models\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
