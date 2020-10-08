@@ -1,6 +1,7 @@
 ﻿using ECOM.Core.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Threading.Tasks;
 
 namespace ECOM.Pedidos.Domain.Pedidos
@@ -11,6 +12,8 @@ namespace ECOM.Pedidos.Domain.Pedidos
         Task<IEnumerable<Pedido>> ObterListaPorClienteId(Guid clientId);
         void Adicionar(Pedido pedido);
         void Atualizar(Pedido pedido);
+
+        DbConnection ObterConexao();
 
         /* Pedido Item */
 
