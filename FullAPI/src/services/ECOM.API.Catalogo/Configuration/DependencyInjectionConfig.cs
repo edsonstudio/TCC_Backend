@@ -11,6 +11,8 @@ namespace ECOM.API.Catalogo.Configuration
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IAssociatedProductsRepository, AssociatedProductsRepository>();
             services.AddScoped<CatalogoContext>();
 
             services.AddScoped<IMediatorHandler, MediatorHandler>();
