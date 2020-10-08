@@ -9,20 +9,35 @@ namespace ECOM.API.Client.Data.Mappings
         public void Configure(EntityTypeBuilder<Address> builder)
         {
             builder.HasKey(a => a.Id);
-            // 04890-100
-            builder.Property(a => a.Cep).IsRequired().HasColumnType("varchar(9)");
-            builder.Property(a => a.Receiver).IsRequired().HasColumnType("varchar(100)");
-            builder.Property(a => a.Country).IsRequired().HasColumnType("varchar(50)");
-            builder.Property(a => a.Number).IsRequired().HasColumnType("varchar(10)");
-            builder.Property(a => a.AddressName).IsRequired().HasColumnType("varchar(100)");
-            builder.Property(a => a.Complement).HasColumnType("varchar(100)");
-            builder.Property(a => a.State).IsRequired().HasColumnType("varchar(50)");
-            builder.Property(a => a.City).IsRequired().HasColumnType("varchar(50)");
-            builder.Property(a => a.Neighborhood).IsRequired().HasColumnType("varchar(50)");
-            builder.Property(a => a.ReferencePoint).HasColumnType("varchar(100)");
+
+            builder.Property(c => c.Logradouro)
+                .IsRequired()
+                .HasColumnType("varchar(200)");
+
+            builder.Property(c => c.Numero)
+                .IsRequired()
+                .HasColumnType("varchar(50)");
+
+            builder.Property(c => c.Cep)
+                .IsRequired()
+                .HasColumnType("varchar(20)");
+
+            builder.Property(c => c.Complemento)
+                .HasColumnType("varchar(250)");
+
+            builder.Property(c => c.Bairro)
+                .IsRequired()
+                .HasColumnType("varchar(100)");
+
+            builder.Property(c => c.Cidade)
+                .IsRequired()
+                .HasColumnType("varchar(100)");
+
+            builder.Property(c => c.Estado)
+                .IsRequired()
+                .HasColumnType("varchar(50)");
 
             builder.ToTable("Adresses");
-
         }
     }
 }
