@@ -20,7 +20,7 @@ namespace ECOM.API.Pedidos.Application.Queries
 
         public async Task<VoucherDTO> ObterVoucherPorCodigo(string codigo)
         {
-            var voucher = await _voucherRepository.ObterVoucherporCodigo(codigo);
+            var voucher = await _voucherRepository.ObterVoucherPorCodigo(codigo);
 
             if (voucher == null) return null;
 
