@@ -37,12 +37,7 @@ namespace ECOM.API.Pedidos.Application.Queries
                                 ORDER BY P.DATACADASTRO DESC";
 
             var pedido = await _pedidoRepository.ObterConexao()
-                .QueryAsync<PedidoDTO, PedidoItemDTO, EnderecoDTO, PedidoDTO>(sql,(p,pi,e) =>
-                {
-                    p.PedidoItems.Add(pi);
-                    p.Endereco = e;
-                    return p;
-                }, new { clientId }, splitOn: "");
+                .QueryAsync<dynamic>(sql, new { clientId });
 
             return MapearPedido(pedido);
         }
@@ -56,7 +51,41 @@ namespace ECOM.API.Pedidos.Application.Queries
 
         private PedidoDTO MapearPedido(dynamic result)
         {
-            return new PedidoDTO();
+            var pedido = new PedidoDTO
+            {
+                Codigo = result[0].CODIGO,
+                Status = result[0].PEDIDOSTATUS,
+                ValorTotal = result[0].VALORTOTAL,
+                Desconto = result[0].DESCONTO,
+                VoucherUtilizado = result[0].VOUCHERUTILIZADO,
+
+                PedidoItems = new List<PedidoItemDTO>(),
+                Endereco = new EnderecoDTO
+                {
+                    Logradouro = result[0].LOGRADOURO,
+                    Bairro = result[0].BAIRRO,
+                    Cep = result[0].CEP,
+                    Cidade = result[0].CIDADE,
+                    Complemento = result[0].COMPLEMENTO,
+                    Estado = result[0].ESTADO,
+                    Numero = result[0].NUMERO
+                }
+            };
+
+            foreach (var item in result)
+            {
+                var pedidoItem = new PedidoItemDTO
+                {
+                    Name = item.PRODUCTNAME,
+                    Price = item.VALORUNITARIO,
+                    Amount = item.AMOUNT,
+                    Image = item.PRODUCTIMAGE
+                };
+
+                pedido.PedidoItems.Add(pedidoItem);
+            }
+
+            return pedido;
         }
     }
 }
