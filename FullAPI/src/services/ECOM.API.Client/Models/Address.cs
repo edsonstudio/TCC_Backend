@@ -6,45 +6,31 @@ namespace ECOM.API.Client.Models
 {
     public class Address : Entity
     {
+        public string Logradouro { get; private set; }
+        public string Numero { get; private set; }
+        public string Complemento { get; private set; }
+        public string Bairro { get; private set; }
         public string Cep { get; private set; }
-
-        public string Receiver { get; private set; }
-
-        public string Country { get; private set; }
-
-        public string Number { get; private set; }
-
-        public string AddressName { get; private set; }
-
-        public string Complement { get; private set; }
-
-        public string State { get; private set; }
-
-        public string City { get; private set; }
-
-        public string Neighborhood { get; private set; }
-
-        public string ReferencePoint { get; private set; }
-
+        public string Cidade { get; private set; }
+        public string Estado { get; private set; }
         public Guid ClientId { get; private set; }
 
         // EF Relation
         public Client Client { get; protected set; }
 
-        public Address(string cep, string receiver, string country, string number, 
-            string addressName, string complement, string state, string city,
-            string neighborhood, string referencePoint)
+        public Address(string logradouro, string numero, string complemento, string bairro, string cep, string cidade, string estado, Guid clientId)
         {
+            Logradouro = logradouro;
+            Numero = numero;
+            Complemento = complemento;
+            Bairro = bairro;
             Cep = cep;
-            Receiver = receiver;
-            Country = country;
-            Number = number;
-            AddressName = addressName;
-            Complement = complement;
-            State = state;
-            City = city;
-            Neighborhood = neighborhood;
-            ReferencePoint = referencePoint;
+            Cidade = cidade;
+            Estado = estado;
+            ClientId = clientId;
         }
+
+        // EF Constructor
+        protected Address() { }
     }
 }

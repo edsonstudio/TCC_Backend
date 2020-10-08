@@ -1,6 +1,8 @@
 ﻿using ECOM.API.Client.Application.Commands;
+using ECOM.API.Client.Models;
 using ECOM.Core.Mediator;
 using ECOM.WebAPI.Core.Controllers;
+using ECOM.WebAPI.Core.Usuario;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,25 +12,33 @@ namespace ECOM.API.Client.Controllers
 {
     [Authorize]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v{version:apiVersion}/")]
     public class ClientsController : MainController
-    {
+    { 
+        private readonly IMediatorHandler _mediator;
+        private readonly IClientRepository _clientRepository;
+        private readonly IAspNetUser _user;
 
-        private readonly IMediatorHandler _mediatorHandler;
-
-        public ClientsController(IMediatorHandler mediatorHandler)
+        public ClientsController(IMediatorHandler mediator, IClientRepository clientRepository, IAspNetUser user)
         {
-            _mediatorHandler = mediatorHandler;
+            _mediator = mediator;
+            _clientRepository = clientRepository;
+            _user = user;
         }
 
-        [AllowAnonymous]
-        [HttpGet]
-        public async Task<IActionResult> Index()
+        [HttpGet("client/address")]
+        public async Task<IActionResult> ObterEndereco()
         {
-            var result = await _mediatorHandler.EnviarComando(
-                new RegisterClientCommand(Guid.NewGuid(), "Mateus", "26807704046", "mateus@eu.com", "981780222"));            
+            var address = await _clientRepository.ObterEnderecoPorId(_user.ObterUserId());
 
-            return CustomResponse(result);
+            return address == null ? NotFound() : CustomResponse(address);
+        }
+
+        [HttpPost("client/address")]
+        public async Task<IActionResult> AdicionarEndereco(AdicionarEnderecoCommand address)
+        {
+            address.ClientId = _user.ObterUserId();
+            return CustomResponse(await _mediator.EnviarComando(address));
         }
     }
 }

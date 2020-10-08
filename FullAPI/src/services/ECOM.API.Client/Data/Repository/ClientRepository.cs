@@ -2,6 +2,7 @@
 using ECOM.API.Client.Models;
 using ECOM.Core.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -31,6 +32,16 @@ namespace ECOM.API.Client.Data.Repository
         public void Adicionar(Models.Client client)
         {
             _context.Clients.Add(client);
+        }
+
+        public async Task<Address> ObterEnderecoPorId(Guid id)
+        {
+            return await _context.Addresses.FirstOrDefaultAsync(e => e.ClientId == id);
+        }
+
+        public void AdicionarEndereco(Address address)
+        {
+            _context.Addresses.Add(address);
         }
 
         public void Dispose()

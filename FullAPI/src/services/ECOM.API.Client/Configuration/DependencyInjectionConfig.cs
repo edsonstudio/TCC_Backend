@@ -20,6 +20,7 @@ namespace ECOM.API.Client.Configuration
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             
             services.AddScoped<IRequestHandler<RegisterClientCommand, ValidationResult>, ClientCommandHandler>();
+            services.AddScoped<IRequestHandler<AdicionarEnderecoCommand, ValidationResult>, ClientCommandHandler>();
             
             services.AddScoped<INotificationHandler<RegisteredClientEvent>, ClientEventHandler>();
 
