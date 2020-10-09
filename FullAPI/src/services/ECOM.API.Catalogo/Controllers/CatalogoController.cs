@@ -31,5 +31,11 @@ namespace ECOM.API.Catalogo.Controllers
         {
             return await _produtoRepository.ObterPorId(id);
         }
+
+        [HttpGet("catalogo/produtos/lista/{ids}")]
+        public async Task<IEnumerable<Product>> ObterProdutosPorId(string ids)
+        {
+            return await _produtoRepository.ObterProdutosPorId(ids);
+        }
     }
 }

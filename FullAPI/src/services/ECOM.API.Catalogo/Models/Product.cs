@@ -32,5 +32,15 @@ namespace ECOM.API.Catalogo.Models
         // EF Constructor
         protected Product() { }
 
+        public void RetirarEstoque(int quantidade)
+        {
+            if (Amount >= quantidade)
+                Amount -= quantidade;
+        }
+
+        public bool EstaDisponivel(int quantidade)
+        {
+            return Active && Amount >= quantidade;
+        }
     }
 }

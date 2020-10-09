@@ -41,7 +41,6 @@
     <Folder Include="Application\DTO\" />
     <Folder Include="Application\Events\" />
     <Folder Include="Application\Queries\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
