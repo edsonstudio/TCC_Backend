@@ -10,5 +10,6 @@ namespace ECOM.Business.Interfaces
         Task<Product> ObterProdutoPorId(Guid id);
         Task<IEnumerable<Product>> ObterTodosProdutos();
         Task<IEnumerable<Product>> ObterProdutosPorCategoria(Guid categoryId);
+        Task<List<Product>> ObterProdutosPorId(string ids);
     }
 }

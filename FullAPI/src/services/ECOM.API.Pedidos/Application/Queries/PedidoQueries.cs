@@ -26,9 +26,9 @@ namespace ECOM.API.Pedidos.Application.Queries
         public async Task<PedidoDTO> ObterUltimoPedido(Guid clientId)
         {
             const string sql = @"SELECT
-                                P.ID AS 'ProductId', P.CODIGO, P.VOUCHERUTILIZADO, P.DESCONTO, P.VALORTOTAL,P.PEDIDOSTATUS,
+                                P.ID AS 'ProdutoId', P.CODIGO, P.VOUCHERUTILIZADO, P.DESCONTO, P.VALORTOTAL,P.PEDIDOSTATUS,
                                 P.LOGRADOURO,P.NUMERO, P.BAIRRO, P.CEP, P.COMPLEMENTO, P.CIDADE, P.ESTADO,
-                                PIT.ID AS 'ProductItemId',PIT.PRODUCTNAME, PIT.AMOUNT, PIT.PRODUCTIMAGE, PIT.VALORUNITARIO 
+                                PIT.ID AS 'ProdutoItemId',PIT.PRODUCTNAME, PIT.AMOUNT, PIT.PRODUCTIMAGE, PIT.VALORUNITARIO 
                                 FROM PEDIDOS P 
                                 INNER JOIN PEDIDOITEMS PIT ON P.ID = PIT.PEDIDOID 
                                 WHERE P.CLIENTID = @clientId 

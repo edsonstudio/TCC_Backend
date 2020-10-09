@@ -9,6 +9,7 @@ namespace ECOM.API.Catalogo.Models
     {
         Task<IEnumerable<Category>> ObterTodos();
         Task<Category> ObterPorId(Guid id);
+        Task<Category> ObterPorNome(string nome);
 
         void Adicionar(Category category);
         void Atualizar(Category category);

@@ -29,7 +29,7 @@ namespace ECOM.Bff.Compras.Services
 
         public async Task<CarrinhoDTO> ObterCarrinho()
         {
-            var response = await _httpClient.GetAsync("/carrinho/"); //Verificar se necessita do caminho completo: /api/v1/...
+            var response = await _httpClient.GetAsync("/api/v1/carrinho/"); //Verificar se necessita do caminho completo: /api/v1/...
             TratarErrosResponse(response);
 
             return await DeserializarObjetoResponse<CarrinhoDTO>(response);

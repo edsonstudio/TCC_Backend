@@ -10,6 +10,8 @@ using Data;
 using ECOM.API.Client.Application.Events;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.AspNetCore.Http;
+using ECOM.WebAPI.Core.Usuario;
 
 namespace ECOM.API.Client.Configuration
 {
@@ -17,6 +19,9 @@ namespace ECOM.API.Client.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
+
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             
             services.AddScoped<IRequestHandler<RegisterClientCommand, ValidationResult>, ClientCommandHandler>();

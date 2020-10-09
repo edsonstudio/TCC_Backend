@@ -32,7 +32,7 @@ namespace ECOM.Bff.Compras.Services
         {
             var pedidoContent = ObterConteudo(pedido);
 
-            var response = await _httpClient.PostAsync("/pedido/", pedidoContent);
+            var response = await _httpClient.PostAsync("/api/v1/pedido/", pedidoContent);
 
             if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
 
@@ -41,7 +41,7 @@ namespace ECOM.Bff.Compras.Services
 
         public async Task<PedidoDTO> ObterUltimoPedido()
         {
-            var response = await _httpClient.GetAsync("/pedido/ultimo/");
+            var response = await _httpClient.GetAsync("/api/v1/pedido/ultimo/");
 
             if (response.StatusCode == HttpStatusCode.NotFound) return null;
 
@@ -52,7 +52,7 @@ namespace ECOM.Bff.Compras.Services
 
         public async Task<IEnumerable<PedidoDTO>> ObterListaPorClienteId()
         {
-            var response = await _httpClient.GetAsync("/pedido/lista-cliente/");
+            var response = await _httpClient.GetAsync("/api/v1/pedido/lista-cliente/");
 
             if (response.StatusCode == HttpStatusCode.NotFound) return null;
 
@@ -63,7 +63,7 @@ namespace ECOM.Bff.Compras.Services
 
         public async Task<VoucherDTO> ObterVoucherPorCodigo(string codigo)
         {
-            var response = await _httpClient.GetAsync($"/voucher/{codigo}/");
+            var response = await _httpClient.GetAsync($"/api/v1/voucher/{codigo}/");
 
             if (response.StatusCode == HttpStatusCode.NotFound) return null;
 
