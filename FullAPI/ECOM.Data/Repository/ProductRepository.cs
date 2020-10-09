@@ -32,5 +32,18 @@ namespace ECOM.Data.Repository
         {
             return await Buscar(p => p.CategoryId == categoryId);
         }
+
+        public async Task<List<Product>> ObterProdutosPorId(string ids)
+        {
+            var idsGuid = ids.Split(',')
+                .Select(id => (Ok: Guid.TryParse(id, out var x), Value: x));
+
+            if (!idsGuid.All(nid => nid.Ok)) return new List<Product>();
+
+            var idsValue = idsGuid.Select(id => id.Value);
+
+            return await Db.Products.AsNoTracking()
+                .Where(p => idsValue.Contains(p.Id) && p.Active).ToListAsync();
+        }
     }
 }

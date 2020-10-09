@@ -28,6 +28,11 @@ namespace ECOM.API.Catalogo.Data.Repository
             return await _context.Categories.FindAsync(id);
         }
 
+        public async Task<Category> ObterPorNome(string nome)
+        {
+            return await _context.Categories.FirstOrDefaultAsync(c => c.Name == nome);
+        }
+
         public void Adicionar(Category category)
         {
             _context.Categories.Add(category);

@@ -34,12 +34,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.0" />
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Commands\" />
-    <Folder Include="Application\DTO\" />
-    <Folder Include="Application\Events\" />
     <Folder Include="Application\Queries\" />
   </ItemGroup>
 

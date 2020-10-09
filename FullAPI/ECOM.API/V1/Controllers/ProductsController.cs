@@ -16,7 +16,7 @@ using static ECOM.WebAPI.Core.Identidade.CustomAuthorization;
 namespace ECOM.API.Products.V1.Controllers
 {
     [Authorize]
-    [ApiVersion("1.0")]
+    [ApiVersion("1.0", Deprecated = true)]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class ProductsController : MainController
     {

@@ -25,7 +25,7 @@ namespace ECOM.Bff.Compras.Services
 
         public async Task<EnderecoDTO> ObterEndereco()
         {
-            var response = await _httpClient.GetAsync("/client/address/"); //Verificar nos testes a necessidade de incluir no endpoint o: /v1/
+            var response = await _httpClient.GetAsync("/api/v1/client/address/"); //Verificar nos testes a necessidade de incluir no endpoint o: /v1/
 
             if (response.StatusCode == HttpStatusCode.NotFound) return null;
 

@@ -30,5 +30,16 @@ namespace ECOM.Business.Models
         public Category Category { get; set; }
         public IEnumerable<AssociatedProducts> AssociatedProducts { get; set; }
 
+        public void RetirarEstoque(int quantidade)
+        {
+            if (Amount >= quantidade)
+                Amount -= quantidade;
+        }
+
+        public bool EstaDisponivel(int quantidade)
+        {
+            return Active && Amount >= quantidade;
+        }
+
     }
 }

@@ -54,6 +54,13 @@ namespace ECOM.API.Products.V2.Controllers
             return productViewModel;
         }
 
+        [HttpGet("lista/{ids}")]
+        public async Task<IEnumerable<Product>> ObterProdutosPorId(string ids)
+        {
+            return _mapper.Map<List<Product>>(await _productRepository.ObterProdutosPorId(ids));
+            //return await _produtoRepository.ObterProdutosPorId(ids);
+        }
+
         // PUT: api/Products/5
         [ClaimsAuthorize("Products", "Editar")]
         [HttpPut("{id:guid}")]
