@@ -9,7 +9,6 @@ namespace ECOM.API.Payment
 {
     public class Startup
     {
-        // Conceitual sobre o fluxo de captura e cancelamento de um pagamento
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
