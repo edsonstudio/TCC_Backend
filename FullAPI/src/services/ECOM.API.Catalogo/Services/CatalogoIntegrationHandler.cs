@@ -81,7 +81,7 @@ namespace ECOM.API.Catalogo.Services
                 await _bus.PublishAsync(pedidoBaixado);
             }
         }
-
+        //
         public async void CancelarPedidoSemEstoque(PedidoAutorizadoIntegrationEvent message)
         {
             var pedidoCancelado = new PedidoCanceladoIntegrationEvent(message.ClientId, message.PedidoId);
