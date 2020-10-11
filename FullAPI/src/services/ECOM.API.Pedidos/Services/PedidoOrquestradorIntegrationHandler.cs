@@ -1,6 +1,11 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using ECOM.API.Pedidos.Application.Queries;
+using ECOM.Core.Messages.Integration;
+using ECOM.MessageBus;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -8,12 +13,15 @@ namespace ECOM.API.Pedidos.Services
 {
     public class PedidoOrquestradorIntegrationHandler : IHostedService, IDisposable
     {
+        private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<PedidoOrquestradorIntegrationHandler> _logger;
         private Timer _timer;
 
-        public PedidoOrquestradorIntegrationHandler(ILogger<PedidoOrquestradorIntegrationHandler> logger)
+        public PedidoOrquestradorIntegrationHandler(ILogger<PedidoOrquestradorIntegrationHandler> logger,
+                                                    IServiceProvider serviceProvider)
         {
             _logger = logger;
+            _serviceProvider = serviceProvider;
         }
 
 
@@ -28,7 +36,22 @@ namespace ECOM.API.Pedidos.Services
 
         private async void ProcessarPedidos(object state)
         {
-            _logger.LogInformation("Processando pedidos.");
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var pedidoQueries = scope.ServiceProvider.GetRequiredService<IPedidoQueries>();
+                var pedido = await pedidoQueries.ObterPedidosAutorizados();
+
+                if (pedido == null) return;
+
+                var bus = scope.ServiceProvider.GetRequiredService<IMessageBus>();
+
+                var pedidoAutorizado = new PedidoAutorizadoIntegrationEvent(pedido.ClienteId, pedido.Id,
+                    pedido.PedidoItems.ToDictionary(p => p.ProductId, p => p.Amount));
+
+                await bus.PublishAsync(pedidoAutorizado);
+
+                _logger.LogInformation($"Pedido ID: {pedido.Id} foi encaminhado para baixa na estoque.");
+            }
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
