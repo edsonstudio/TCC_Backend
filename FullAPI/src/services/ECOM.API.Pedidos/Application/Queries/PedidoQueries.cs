@@ -53,8 +53,8 @@ namespace ECOM.API.Pedidos.Application.Queries
         public async Task<PedidoDTO> ObterPedidosAutorizados()
         {
             const string sql = @"SELECT TOP 1
-                                P.ID as 'PedidoId', P.ID, P.CLIENTEID,
-                                PI.ID as 'PedidoItemId', PI.ID, PI.PRODUTOID, PI.QUANTIDADE
+                                P.ID as 'PedidoId', P.ID, P.CLIENTID,
+                                PI.ID as 'PedidoItemId', PI.ID, PI.PRODUCTID, PI.AMOUNT
                                 FROM PEDIDOS P
                                 INNER JOIN PEDIDOITEMS PI ON P.ID = PI.PEDIDOID
                                 WHERE P.PEDIDOSTATUS = 1
