@@ -133,8 +133,8 @@ namespace ECOM.API.Pedidos.Application.Commands
             var pedidoIniciado = new PedidoIniciadoIntegrationEvent
             {
                 PedidoId = pedido.Id,
-                ClienteId = pedido.ClientId,
-                Valor = pedido.ValorTotal,
+                ClientId = pedido.ClientId,
+                Price = pedido.ValorTotal,
                 TipoPagamento = 1, // fixo, alterar se tiver mais tipos de pagamentos
                 NomeCartao = message.NomeCartao,
                 NumeroCartao = message.NumeroCartao,

@@ -11,5 +11,8 @@ namespace ECOM.Business.Interfaces
         Task<IEnumerable<Product>> ObterTodosProdutos();
         Task<IEnumerable<Product>> ObterProdutosPorCategoria(Guid categoryId);
         Task<List<Product>> ObterProdutosPorId(string ids);
+
+        //void Adicionar(Produto produto);
+        //void Atualizar(Produto produto);
     }
 }

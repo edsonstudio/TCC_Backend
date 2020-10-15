@@ -50,7 +50,7 @@ namespace ECOM.API.Pedidos.Services
 
                 await bus.PublishAsync(pedidoAutorizado);
 
-                _logger.LogInformation($"Pedido ID: {pedido.Id} foi encaminhado para baixa na estoque.");
+                _logger.LogInformation($"Pedido ID: {pedido.Id} foi encaminhado para baixa no estoque.");
             }
         }
 
