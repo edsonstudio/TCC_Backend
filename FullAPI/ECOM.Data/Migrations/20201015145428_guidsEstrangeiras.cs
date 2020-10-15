@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ECOM.Data.Migrations
 {
-    public partial class UpdateAssociatedProducts : Migration
+    public partial class guidsEstrangeiras : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,7 @@ namespace ECOM.Data.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(36)", nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(type: "varchar(20)", nullable: false)
                 },
                 constraints: table =>
@@ -23,8 +23,7 @@ namespace ECOM.Data.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(36)", nullable: false),
-                    CategoryId = table.Column<string>(type: "varchar(36)", nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     Active = table.Column<bool>(nullable: false),
                     Description = table.Column<string>(type: "varchar(1000)", nullable: false),
@@ -33,7 +32,8 @@ namespace ECOM.Data.Migrations
                     Price = table.Column<decimal>(type: "decimal(9,2)", nullable: false),
                     Amount = table.Column<int>(nullable: false),
                     Image = table.Column<byte[]>(type: "varbinary(MAX)", nullable: true),
-                    RegisterDate = table.Column<DateTime>(nullable: false)
+                    RegisterDate = table.Column<DateTime>(nullable: false),
+                    CategoryId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,9 +50,9 @@ namespace ECOM.Data.Migrations
                 name: "AssociatedProducts",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(36)", nullable: false),
-                    ProductFatherId = table.Column<string>(type: "varchar(36)", nullable: false),
-                    ProductSonId = table.Column<string>(type: "varchar(36)", nullable: false)
+                    Id = table.Column<Guid>(nullable: false),
+                    ProductFatherId = table.Column<Guid>(nullable: false),
+                    ProductSonId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

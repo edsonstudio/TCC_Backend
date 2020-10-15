@@ -1,8 +1,8 @@
 ﻿using ECOM.Business.Interfaces;
-using ECOM.Business.Models;
 using FluentValidation;
 using FluentValidation.Results;
 using ECOM.Business.Notificacoes;
+using ECOM.Core.DomainObjects;
 
 namespace ECOM.Business.Services
 {

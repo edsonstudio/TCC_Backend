@@ -16,8 +16,8 @@ namespace ECOM.Data.Mappings
 
             // 1: N => Categoria : Produtos
             builder.HasMany(c => c.Products)
-                .WithOne(p => p.Category)
-                .HasForeignKey(p => p.CategoryId);
+                .WithOne(p => p.Category);
+                
 
             builder.ToTable("Categories");
         }

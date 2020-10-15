@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using ECOM.Business.Models;
+using ECOM.Core.DomainObjects;
 
 namespace ECOM.Business.Interfaces
 {

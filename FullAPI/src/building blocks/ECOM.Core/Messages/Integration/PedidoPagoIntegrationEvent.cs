@@ -4,12 +4,12 @@ namespace ECOM.Core.Messages.Integration
 {
     public class PedidoPagoIntegrationEvent : IntegrationEvent
     {
-        public Guid ClienteId { get; private set; }
+        public Guid ClientId { get; private set; }
         public Guid PedidoId { get; private set; }
 
-        public PedidoPagoIntegrationEvent(Guid clienteId, Guid pedidoId)
+        public PedidoPagoIntegrationEvent(Guid clientId, Guid pedidoId)
         {
-            ClienteId = clienteId;
+            ClientId = clientId;
             PedidoId = pedidoId;
         }
     }

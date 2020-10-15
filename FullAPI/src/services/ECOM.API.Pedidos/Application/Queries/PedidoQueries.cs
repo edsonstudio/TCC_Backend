@@ -27,7 +27,7 @@ namespace ECOM.API.Pedidos.Application.Queries
         public async Task<PedidoDTO> ObterUltimoPedido(Guid clientId)
         {
             const string sql = @"SELECT
-                                P.ID AS 'ProdutoId', P.CODIGO, P.VOUCHERUTILIZADO, P.DESCONTO, P.VALORTOTAL,P.PEDIDOSTATUS,
+                                P.ID AS 'ProductId', P.CODIGO, P.VOUCHERUTILIZADO, P.DESCONTO, P.VALORTOTAL,P.PEDIDOSTATUS,
                                 P.LOGRADOURO,P.NUMERO, P.BAIRRO, P.CEP, P.COMPLEMENTO, P.CIDADE, P.ESTADO,
                                 PIT.ID AS 'ProdutoItemId',PIT.PRODUCTNAME, PIT.AMOUNT, PIT.PRODUCTIMAGE, PIT.VALORUNITARIO 
                                 FROM PEDIDOS P 
@@ -52,7 +52,7 @@ namespace ECOM.API.Pedidos.Application.Queries
 
         public async Task<PedidoDTO> ObterPedidosAutorizados()
         {
-            const string sql = @"SELECT TOP 1
+            const string sql = @"SELECT
                                 P.ID as 'PedidoId', P.ID, P.CLIENTID,
                                 PI.ID as 'PedidoItemId', PI.ID, PI.PRODUCTID, PI.AMOUNT
                                 FROM PEDIDOS P
@@ -60,18 +60,23 @@ namespace ECOM.API.Pedidos.Application.Queries
                                 WHERE P.PEDIDOSTATUS = 1
                                 ORDER BY P.DATACADASTRO";
 
-            var pedido = await _pedidoRepository.ObterConexao().QueryAsync<PedidoDTO, PedidoItemDTO, PedidoDTO>(sql,
-                (p, pi) => {
-                    p.PedidoItems = new List<PedidoItemDTO>();
-                    p.PedidoItems.Add(pi);
+            var lookup = new Dictionary<Guid, PedidoDTO>();
 
-                    return p;
+            await _pedidoRepository.ObterConexao().QueryAsync<PedidoDTO, PedidoItemDTO, PedidoDTO>(sql,
+                (p, pi) => {
+
+                    if (!lookup.TryGetValue(p.Id, out var pedidoDTO))
+                        lookup.Add(p.Id, pedidoDTO = p);
+
+                    pedidoDTO.PedidoItems ??= new List<PedidoItemDTO>();
+                    pedidoDTO.PedidoItems.Add(pi);
+
+                    return pedidoDTO;
+
                 }, splitOn: "PedidoId,PedidoItemId");
 
-            return pedido.FirstOrDefault();
-
+            return lookup.Values.OrderBy(p => p.Data).FirstOrDefault();
         }
-
 
         private PedidoDTO MapearPedido(dynamic result)
         {
@@ -79,7 +84,7 @@ namespace ECOM.API.Pedidos.Application.Queries
             {
                 Codigo = result[0].CODIGO,
                 Status = result[0].PEDIDOSTATUS,
-                ValorTotal = result[0].VALORTOTAL,
+                TotalPrice = result[0].VALORTOTAL,
                 Desconto = result[0].DESCONTO,
                 VoucherUtilizado = result[0].VOUCHERUTILIZADO,
 

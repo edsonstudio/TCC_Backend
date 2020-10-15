@@ -1,5 +1,7 @@
 ﻿using ECOM.Business.Models;
+using ECOM.Core.Messages;
 using ECOM.Data.Mappings;
+using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -25,14 +27,16 @@ namespace ECOM.Data.Context
             modelBuilder.ApplyConfiguration(new CategoryMapping());
             modelBuilder.ApplyConfiguration(new AssociatedProductsMapping());
 
+            modelBuilder.Ignore<Event>();
+            modelBuilder.Ignore<ValidationResult>();
+
             //Para o caso de esquecer de mapear algo evitando de entrar como nvarchar(MAX)
-            /*foreach (var property in modelBuilder.Model.GetEntityTypes()
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.GetProperties()
                 .Where(p => p.ClrType == typeof(string))))
-                property.SetColumnType("varchar(100)");*/
+                property.SetColumnType("varchar(100)");
 
-
-            //modelBuilder.ApplyConfigurationsFromAssembly(typeof(InitialDbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(InitialDbContext).Assembly);
 
             //Remover o Delete Cascade
             foreach (var relationship in modelBuilder.Model.GetEntityTypes()

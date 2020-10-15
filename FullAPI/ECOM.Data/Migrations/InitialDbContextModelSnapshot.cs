@@ -15,15 +15,36 @@ namespace ECOM.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ECOM.API.Models.Category", b =>
+            modelBuilder.Entity("ECOM.Business.Models.AssociatedProducts", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductFatherId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductSonId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductFatherId");
+
+                    b.HasIndex("ProductSonId");
+
+                    b.ToTable("AssociatedProducts");
+                });
+
+            modelBuilder.Entity("ECOM.Business.Models.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -34,11 +55,11 @@ namespace ECOM.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("ECOM.API.Models.Product", b =>
+            modelBuilder.Entity("ECOM.Business.Models.Product", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -50,9 +71,8 @@ namespace ECOM.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("CategoryId")
-                        .IsRequired()
-                        .HasColumnType("varchar(36)");
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -84,45 +104,22 @@ namespace ECOM.Data.Migrations
 
             modelBuilder.Entity("ECOM.Business.Models.AssociatedProducts", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(36)");
-
-                    b.Property<string>("ProductFatherId")
-                        .IsRequired()
-                        .HasColumnType("varchar(36)");
-
-                    b.Property<string>("ProductSonId")
-                        .IsRequired()
-                        .HasColumnType("varchar(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductFatherId");
-
-                    b.HasIndex("ProductSonId");
-
-                    b.ToTable("AssociatedProducts");
-                });
-
-            modelBuilder.Entity("ECOM.API.Models.Product", b =>
-                {
-                    b.HasOne("ECOM.API.Models.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ECOM.Business.Models.AssociatedProducts", b =>
-                {
-                    b.HasOne("ECOM.API.Models.Product", "ProductFather")
+                    b.HasOne("ECOM.Business.Models.Product", "ProductFather")
                         .WithMany("AssociatedProducts")
                         .HasForeignKey("ProductFatherId")
                         .IsRequired();
 
-                    b.HasOne("ECOM.API.Models.Product", "ProductSon")
+                    b.HasOne("ECOM.Business.Models.Product", "ProductSon")
                         .WithMany()
                         .HasForeignKey("ProductSonId")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ECOM.Business.Models.Product", b =>
+                {
+                    b.HasOne("ECOM.Business.Models.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
