@@ -10,10 +10,10 @@ namespace ECOM.API.Pedidos.Application.DTO
         public int Codigo { get; set; }
 
 
-        public Guid ClienteId { get; set; }
+        public Guid ClientId { get; set; }
         public int Status { get; set; }
         public DateTime Data { get; set; }
-        public decimal ValorTotal { get; set; }
+        public decimal TotalPrice { get; set; }
 
         public decimal Desconto { get; set; }
         public string VoucherCodigo { get; set; }
@@ -30,7 +30,7 @@ namespace ECOM.API.Pedidos.Application.DTO
                 Codigo = pedido.Codigo,
                 Status = (int)pedido.PedidoStatus,
                 Data = pedido.DataCadastro,
-                ValorTotal = pedido.ValorTotal,
+                TotalPrice = pedido.ValorTotal,
                 Desconto = pedido.Desconto,
                 VoucherUtilizado = pedido.VoucherUtilizado,
                 PedidoItems = new List<PedidoItemDTO>(),

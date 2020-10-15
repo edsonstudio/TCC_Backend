@@ -45,7 +45,7 @@ namespace ECOM.API.Pedidos.Services
 
                 var bus = scope.ServiceProvider.GetRequiredService<IMessageBus>();
 
-                var pedidoAutorizado = new PedidoAutorizadoIntegrationEvent(pedido.ClienteId, pedido.Id,
+                var pedidoAutorizado = new PedidoAutorizadoIntegrationEvent(pedido.ClientId, pedido.Id,
                     pedido.PedidoItems.ToDictionary(p => p.ProductId, p => p.Amount));
 
                 await bus.PublishAsync(pedidoAutorizado);

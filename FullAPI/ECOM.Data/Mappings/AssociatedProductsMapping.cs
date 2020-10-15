@@ -12,8 +12,8 @@ namespace ECOM.Data.Mappings
             builder.HasKey(ap => ap.Id);
 
             //Properties
-            builder.Property(ap => ap.ProductFatherId).IsRequired().HasColumnType("varchar(36)");
-            builder.Property(ap => ap.ProductSonId).IsRequired().HasColumnType("varchar(36)");
+            builder.Property(ap => ap.ProductFatherId).IsRequired();
+            builder.Property(ap => ap.ProductSonId).IsRequired();
 
             builder.ToTable("AssociatedProducts");
 

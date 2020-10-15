@@ -41,10 +41,10 @@ namespace ECOM.API.Catalogo.Services
                 var produtosComEstoque = new List<Product>();
                 var produtoRepository = scope.ServiceProvider.GetRequiredService<IProdutoRepository>();
 
-                var idsProdutos = string.Join(",", message.Itens.Select(c => c.Key));
+                var idsProdutos = string.Join(",", message.Items.Select(c => c.Key));
                 var produtos = await produtoRepository.ObterProdutosPorId(idsProdutos);
 
-                if (produtos.Count != message.Itens.Count)
+                if (produtos.Count != message.Items.Count)
                 {
                     CancelarPedidoSemEstoque(message);
                     return;
@@ -52,7 +52,7 @@ namespace ECOM.API.Catalogo.Services
 
                 foreach (var produto in produtos)
                 {
-                    var quantidadeProduto = message.Itens.FirstOrDefault(p => p.Key == produto.Id).Value;
+                    var quantidadeProduto = message.Items.FirstOrDefault(p => p.Key == produto.Id).Value;
 
                     if (produto.EstaDisponivel(quantidadeProduto))
                     {
@@ -61,7 +61,7 @@ namespace ECOM.API.Catalogo.Services
                     }
                 }
 
-                if (produtosComEstoque.Count != message.Itens.Count)
+                if (produtosComEstoque.Count != message.Items.Count)
                 {
                     CancelarPedidoSemEstoque(message);
                     return;
