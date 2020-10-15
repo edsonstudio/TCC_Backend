@@ -39,21 +39,21 @@ namespace ECOM.Bff.Compras.V1.Controllers
         public async Task<int> ObterQuantidadeCarrinho()
         {
             var quantidade = await _carrinhoService.ObterCarrinho();
-            return quantidade?.Itens.Sum(i => i.Quantidade) ?? 0;
+            return quantidade?.Items.Sum(i => i.Amount) ?? 0;
         }
 
         [HttpPost]
         [Route("compras/carrinho/items")]
         public async Task<IActionResult> AdicionarItemCarrinho(ItemCarrinhoDTO itemProduto)
         {
-            var produto = await _catalogoService.ObterPorId(itemProduto.ProdutoId);
+            var produto = await _catalogoService.ObterPorId(itemProduto.ProductId);
 
-            await ValidarItemCarrinho(produto, itemProduto.Quantidade);
+            await ValidarItemCarrinho(produto, itemProduto.Amount);
             if (!OperacaoValida()) return CustomResponse();
 
-            itemProduto.Nome = produto.Nome;
-            itemProduto.Valor = produto.Valor;
-            itemProduto.Imagem = produto.Imagem;
+            itemProduto.Name = produto.Name;
+            itemProduto.Price = produto.Price;
+            itemProduto.Image = produto.Image;
 
             var resposta = await _carrinhoService.AdicionarItemCarrinho(itemProduto);
 
@@ -66,7 +66,7 @@ namespace ECOM.Bff.Compras.V1.Controllers
         {
             var produto = await _catalogoService.ObterPorId(productId);
 
-            await ValidarItemCarrinho(produto, itemProduto.Quantidade);
+            await ValidarItemCarrinho(produto, itemProduto.Amount);
             if (!OperacaoValida()) return CustomResponse();
 
             var resposta = await _carrinhoService.AtualizarItemCarrinho(productId, itemProduto);
@@ -110,19 +110,19 @@ namespace ECOM.Bff.Compras.V1.Controllers
         private async Task ValidarItemCarrinho(ItemProdutoDTO produto, int quantidade)
         {
             if (produto == null) AdicionarErroProcessamento("Produto inexistente!");
-            if(quantidade < 1) AdicionarErroProcessamento($"Escolha ao menos uma unidade do produto {produto.Nome}");
+            if(quantidade < 1) AdicionarErroProcessamento($"Escolha ao menos uma unidade do produto {produto.Name}");
 
             var carrinho = await _carrinhoService.ObterCarrinho();
-            var itemCarrinho = carrinho.Itens.FirstOrDefault(p => p.ProdutoId == produto.Id);
+            var itemCarrinho = carrinho.Items.FirstOrDefault(p => p.ProductId == produto.Id);
 
-            if (itemCarrinho != null && itemCarrinho.Quantidade + quantidade > produto.QuantidadeEstoque)
+            if (itemCarrinho != null && itemCarrinho.Amount + quantidade > produto.Amount)
             {
                 AdicionarErroProcessamento
-                    ($"O produto {produto.Nome} possui {produto.QuantidadeEstoque} unidades em estoque, você selecionou {quantidade}");
+                    ($"O produto {produto.Name} possui {produto.Amount} unidades em estoque, você selecionou {quantidade}");
             }
 
-            if (quantidade > produto.QuantidadeEstoque) AdicionarErroProcessamento
-                    ($"O produto {produto.Nome} possui {produto.QuantidadeEstoque} unidades em estoque, você selecionou {quantidade}");
+            if (quantidade > produto.Amount) AdicionarErroProcessamento
+                    ($"O produto {produto.Name} possui {produto.Amount} unidades em estoque, você selecionou {quantidade}");
         }
     }
 }

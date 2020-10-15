@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 namespace ECOM.Bff.Compras.V1.Controllers
 {
     [Authorize]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/")]
     public class PedidoController : MainController
     {
         private readonly ICatalogoService _catalogoService;
@@ -35,7 +37,7 @@ namespace ECOM.Bff.Compras.V1.Controllers
         public async Task<IActionResult> AdicionarPedido(PedidoDTO pedido)
         {
             var carrinho = await _carrinhoService.ObterCarrinho();
-            var produtos = await _catalogoService.ObterItens(carrinho.Itens.Select(p => p.ProdutoId));
+            var produtos = await _catalogoService.ObterItens(carrinho.Items.Select(p => p.ProductId));
             var endereco = await _clienteService.ObterEndereco();
 
             if (!await ValidarCarrinhoProdutos(carrinho, produtos)) return CustomResponse();
@@ -68,45 +70,45 @@ namespace ECOM.Bff.Compras.V1.Controllers
 
         private async Task<bool> ValidarCarrinhoProdutos(CarrinhoDTO carrinho, IEnumerable<ItemProdutoDTO> produtos)
         {
-            if (carrinho.Itens.Count != produtos.Count())
+            if (carrinho.Items.Count != produtos.Count())
             {
-                var itensIndisponiveis = carrinho.Itens.Select(c => c.ProdutoId).Except(produtos.Select(p => p.Id)).ToList();
+                var itensIndisponiveis = carrinho.Items.Select(c => c.ProductId).Except(produtos.Select(p => p.Id)).ToList();
 
                 foreach (var itemId in itensIndisponiveis)
                 {
-                    var itemCarrinho = carrinho.Itens.FirstOrDefault(c => c.ProdutoId == itemId);
-                    AdicionarErroProcessamento($"O item {itemCarrinho.Nome} não está mais disponível no catálogo, o remova do carrinho para prosseguir com a compra");
+                    var itemCarrinho = carrinho.Items.FirstOrDefault(c => c.ProductId == itemId);
+                    AdicionarErroProcessamento($"O item {itemCarrinho.Name} não está mais disponível no catálogo, o remova do carrinho para prosseguir com a compra");
                 }
 
                 return false;
             }
 
-            foreach (var itemCarrinho in carrinho.Itens)
+            foreach (var itemCarrinho in carrinho.Items)
             {
-                var produtoCatalogo = produtos.FirstOrDefault(p => p.Id == itemCarrinho.ProdutoId);
+                var produtoCatalogo = produtos.FirstOrDefault(p => p.Id == itemCarrinho.ProductId);
 
-                if (produtoCatalogo.Valor != itemCarrinho.Valor)
+                if (produtoCatalogo.Price != itemCarrinho.Price)
                 {
-                    var msgErro = $"O produto {itemCarrinho.Nome} mudou de valor (de: " +
-                                  $"{string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", itemCarrinho.Valor)} para: " +
-                                  $"{string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", produtoCatalogo.Valor)}) desde que foi adicionado ao carrinho.";
+                    var msgErro = $"O produto {itemCarrinho.Name} mudou de valor (de: " +
+                                  $"{string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", itemCarrinho.Price)} para: " +
+                                  $"{string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", produtoCatalogo.Price)}) desde que foi adicionado ao carrinho.";
 
                     AdicionarErroProcessamento(msgErro);
 
-                    var responseRemover = await _carrinhoService.RemoverItemCarrinho(itemCarrinho.ProdutoId);
+                    var responseRemover = await _carrinhoService.RemoverItemCarrinho(itemCarrinho.ProductId);
                     if (ResponsePossuiErros(responseRemover))
                     {
-                        AdicionarErroProcessamento($"Não foi possível remover automaticamente o produto {itemCarrinho.Nome} do seu carrinho, _" +
+                        AdicionarErroProcessamento($"Não foi possível remover automaticamente o produto {itemCarrinho.Name} do seu carrinho, _" +
                                                    "remova e adicione novamente caso ainda deseje comprar este item");
                         return false;
                     }
 
-                    itemCarrinho.Valor = produtoCatalogo.Valor;
+                    itemCarrinho.Price = produtoCatalogo.Price;
                     var responseAdicionar = await _carrinhoService.AdicionarItemCarrinho(itemCarrinho);
 
                     if (ResponsePossuiErros(responseAdicionar))
                     {
-                        AdicionarErroProcessamento($"Não foi possível atualizar automaticamente o produto {itemCarrinho.Nome} do seu carrinho, _" +
+                        AdicionarErroProcessamento($"Não foi possível atualizar automaticamente o produto {itemCarrinho.Name} do seu carrinho, _" +
                                                    "adicione novamente caso ainda deseje comprar este item");
                         return false;
                     }
@@ -125,9 +127,9 @@ namespace ECOM.Bff.Compras.V1.Controllers
         {
             pedido.VoucherCodigo = carrinho.Voucher?.Codigo;
             pedido.VoucherUtilizado = carrinho.VoucherUtilizado;
-            pedido.ValorTotal = carrinho.ValorTotal;
+            pedido.ValorTotal = carrinho.TotalPrice;
             pedido.Desconto = carrinho.Desconto;
-            pedido.PedidoItems = carrinho.Itens;
+            pedido.PedidoItems = carrinho.Items;
 
             pedido.Endereco = endereco;
         }

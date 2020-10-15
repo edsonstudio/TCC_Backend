@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using ECOM.Core.DomainObjects;
 
 namespace ECOM.API.Client.Models

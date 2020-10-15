@@ -40,7 +40,7 @@ namespace ECOM.Pedidos.Infra.Data
             foreach (var relationship in modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
 
-            modelBuilder.HasSequence<int>("MinhaSequencia").StartsAt(1000).IncrementsBy(1);
+            modelBuilder.HasSequence<int>("ECOMSequencia").StartsAt(1000).IncrementsBy(1);
 
             base.OnModelCreating(modelBuilder);            
         }

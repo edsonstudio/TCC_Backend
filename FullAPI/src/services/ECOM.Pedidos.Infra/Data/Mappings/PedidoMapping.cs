@@ -35,7 +35,7 @@ namespace ECOM.Pedidos.Infra.Data.Mappings
             });
 
             builder.Property(c => c.Codigo)
-                .HasDefaultValueSql("NEXT VALUE FOR MinhaSequencia");
+                .HasDefaultValueSql("NEXT VALUE FOR ECOMSequencia");
 
             // 1: N => Pedido : PedidoItems
             builder.HasMany(c => c.PedidoItems)

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ECOM.API.Carrinho.Migrations
 {
-    public partial class Carrinho : Migration
+    public partial class novamodelagemguid : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,13 @@ namespace ECOM.API.Carrinho.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ClientId = table.Column<Guid>(nullable: false),
-                    TotalPrice = table.Column<decimal>(nullable: false)
+                    TotalPrice = table.Column<decimal>(nullable: false),
+                    VoucherUtilizado = table.Column<bool>(nullable: false),
+                    Desconto = table.Column<decimal>(nullable: false),
+                    Percentual = table.Column<decimal>(nullable: true),
+                    ValorDesconto = table.Column<decimal>(nullable: true),
+                    VoucherCodigo = table.Column<string>(type: "varchar(50)", nullable: true),
+                    TipoDesconto = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,7 +33,7 @@ namespace ECOM.API.Carrinho.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     ProductId = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(type: "varchar(100)", nullable: true),
-                    Amount = table.Column<string>(type: "varchar(100)", nullable: true),
+                    Amount = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
                     Image = table.Column<string>(type: "varchar(100)", nullable: true),
                     CarrinhoId = table.Column<Guid>(nullable: false)
@@ -40,11 +46,11 @@ namespace ECOM.API.Carrinho.Migrations
                         column: x => x.CarrinhoId,
                         principalTable: "CarrinhoCliente",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IDX_Client",
+                name: "IDX_Cliente",
                 table: "CarrinhoCliente",
                 column: "ClientId");
 

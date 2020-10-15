@@ -1,13 +1,11 @@
 ﻿using ECOM.Core.Messages;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECOM.Core.DomainObjects
 {
     public abstract class Entity
     {
-        [Column(TypeName = "varchar(36)")]
         public Guid Id { get; set; }
 
         protected Entity()

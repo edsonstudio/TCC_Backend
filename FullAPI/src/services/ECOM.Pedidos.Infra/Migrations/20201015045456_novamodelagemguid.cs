@@ -3,22 +3,43 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ECOM.Pedidos.Infra.Migrations
 {
-    public partial class pedidos : Migration
+    public partial class novamodelagemguid : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateSequence<int>(
-                name: "MinhaSequencia",
+                name: "ECOMSequencia",
                 startValue: 1000L);
+
+            migrationBuilder.CreateTable(
+                name: "Vouchers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Codigo = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Percentual = table.Column<decimal>(nullable: true),
+                    ValorDesconto = table.Column<decimal>(nullable: true),
+                    Quantidade = table.Column<int>(nullable: false),
+                    TipoDesconto = table.Column<int>(nullable: false),
+                    DataCriacao = table.Column<DateTime>(nullable: false),
+                    DataUtilizacao = table.Column<DateTime>(nullable: true),
+                    DataValidade = table.Column<DateTime>(nullable: false),
+                    Ativo = table.Column<bool>(nullable: false),
+                    Utilizado = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vouchers", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Pedidos",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(36)", nullable: false),
-                    Codigo = table.Column<int>(nullable: false, defaultValueSql: "NEXT VALUE FOR MinhaSequencia"),
+                    Id = table.Column<Guid>(nullable: false),
+                    Codigo = table.Column<int>(nullable: false, defaultValueSql: "NEXT VALUE FOR ECOMSequencia"),
                     ClientId = table.Column<Guid>(nullable: false),
-                    VoucherId = table.Column<string>(nullable: true),
+                    VoucherId = table.Column<Guid>(nullable: true),
                     VoucherUtilizado = table.Column<bool>(nullable: false),
                     Desconto = table.Column<decimal>(nullable: false),
                     ValorTotal = table.Column<decimal>(nullable: false),
@@ -47,8 +68,8 @@ namespace ECOM.Pedidos.Infra.Migrations
                 name: "PedidoItems",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(36)", nullable: false),
-                    PedidoId = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
+                    PedidoId = table.Column<Guid>(nullable: false),
                     ProductId = table.Column<Guid>(nullable: false),
                     ProductName = table.Column<string>(type: "varchar(250)", nullable: false),
                     Amount = table.Column<int>(nullable: false),
@@ -85,8 +106,11 @@ namespace ECOM.Pedidos.Infra.Migrations
             migrationBuilder.DropTable(
                 name: "Pedidos");
 
+            migrationBuilder.DropTable(
+                name: "Vouchers");
+
             migrationBuilder.DropSequence(
-                name: "MinhaSequencia");
+                name: "ECOMSequencia");
         }
     }
 }
