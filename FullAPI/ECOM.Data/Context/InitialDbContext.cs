@@ -1,4 +1,5 @@
 ﻿using ECOM.Business.Models;
+using ECOM.Core.Data;
 using ECOM.Core.Messages;
 using ECOM.Data.Mappings;
 using FluentValidation.Results;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ECOM.Data.Context
 {
-    public class InitialDbContext : DbContext
+    public class InitialDbContext : DbContext, IUnitOfWork
     {
         public InitialDbContext(DbContextOptions<InitialDbContext> options) : base(options)
         {
@@ -60,6 +61,11 @@ namespace ECOM.Data.Context
             }
 
             return base.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task<bool> Commit()
+        {
+            return await base.SaveChangesAsync() > 0;
         }
 
     }
