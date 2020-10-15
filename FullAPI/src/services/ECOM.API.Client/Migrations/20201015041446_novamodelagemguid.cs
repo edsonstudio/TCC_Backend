@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ECOM.API.Client.Migrations
 {
-    public partial class ClientInitial : Migration
+    public partial class novamodelagemguid : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,13 +11,12 @@ namespace ECOM.API.Client.Migrations
                 name: "Clients",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(36)", nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     Cpf = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: true),
                     Email = table.Column<string>(type: "varchar(254)", nullable: true),
                     Phone = table.Column<string>(type: "varchar(9)", maxLength: 9, nullable: false),
-                    Excluded = table.Column<bool>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false)
+                    Excluded = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,18 +27,15 @@ namespace ECOM.API.Client.Migrations
                 name: "Adresses",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(36)", nullable: false),
-                    Cep = table.Column<string>(type: "varchar(9)", nullable: false),
-                    Receiver = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Country = table.Column<string>(type: "varchar(50)", nullable: false),
-                    Number = table.Column<string>(type: "varchar(10)", nullable: false),
-                    AddressName = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Complement = table.Column<string>(type: "varchar(100)", nullable: true),
-                    State = table.Column<string>(type: "varchar(50)", nullable: false),
-                    City = table.Column<string>(type: "varchar(50)", nullable: false),
-                    Neighborhood = table.Column<string>(type: "varchar(50)", nullable: false),
-                    ReferencePoint = table.Column<string>(type: "varchar(100)", nullable: true),
-                    ClientId = table.Column<string>(nullable: false)
+                    Id = table.Column<Guid>(nullable: false),
+                    Logradouro = table.Column<string>(type: "varchar(200)", nullable: false),
+                    Numero = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Complemento = table.Column<string>(type: "varchar(250)", nullable: true),
+                    Bairro = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Cep = table.Column<string>(type: "varchar(20)", nullable: false),
+                    Cidade = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Estado = table.Column<string>(type: "varchar(50)", nullable: false),
+                    ClientId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

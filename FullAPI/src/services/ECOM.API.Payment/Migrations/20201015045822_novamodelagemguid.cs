@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ECOM.API.Payment.Migrations
 {
-    public partial class Pagamento : Migration
+    public partial class novamodelagemguid : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,7 @@ namespace ECOM.API.Payment.Migrations
                 name: "Pagamentos",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(36)", nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     PedidoId = table.Column<Guid>(nullable: false),
                     TipoPagamento = table.Column<int>(nullable: false),
                     Valor = table.Column<decimal>(nullable: false)
@@ -25,7 +25,7 @@ namespace ECOM.API.Payment.Migrations
                 name: "Transacoes",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(36)", nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     CodigoAutorizacao = table.Column<string>(type: "varchar(100)", nullable: true),
                     BandeiraCartao = table.Column<string>(type: "varchar(100)", nullable: true),
                     DataTransacao = table.Column<DateTime>(nullable: true),
@@ -34,7 +34,7 @@ namespace ECOM.API.Payment.Migrations
                     Status = table.Column<int>(nullable: false),
                     TID = table.Column<string>(type: "varchar(100)", nullable: true),
                     NSU = table.Column<string>(type: "varchar(100)", nullable: true),
-                    PagamentoId = table.Column<string>(nullable: false)
+                    PagamentoId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

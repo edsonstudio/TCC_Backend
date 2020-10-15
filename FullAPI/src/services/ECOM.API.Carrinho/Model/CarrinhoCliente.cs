@@ -110,9 +110,9 @@ namespace ECOM.API.Carrinho.Model
             CalcularValorCarrinho();
         }
 
-        internal void AtualizarUnidades(CarrinhoItem item, int unidades)
+        internal void AtualizarUnidades(CarrinhoItem item, int amount)
         {
-            item.AtualizarUnidades(unidades);
+            item.AtualizarUnidades(amount);
             AtualizarItem(item);
         }
 

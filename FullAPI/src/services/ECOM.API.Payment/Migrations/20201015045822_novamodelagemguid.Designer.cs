@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECOM.API.Payment.Migrations
 {
     [DbContext(typeof(PagamentosContext))]
-    [Migration("20201003181126_Pagamento")]
-    partial class Pagamento
+    [Migration("20201015045822_novamodelagemguid")]
+    partial class novamodelagemguid
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,9 +23,9 @@ namespace ECOM.API.Payment.Migrations
 
             modelBuilder.Entity("ECOM.API.Payment.Models.Pagamento", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("PedidoId")
                         .HasColumnType("uniqueidentifier");
@@ -43,9 +43,9 @@ namespace ECOM.API.Payment.Migrations
 
             modelBuilder.Entity("ECOM.API.Payment.Models.Transacao", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("BandeiraCartao")
                         .HasColumnType("varchar(100)");
@@ -62,9 +62,8 @@ namespace ECOM.API.Payment.Migrations
                     b.Property<string>("NSU")
                         .HasColumnType("varchar(100)");
 
-                    b.Property<string>("PagamentoId")
-                        .IsRequired()
-                        .HasColumnType("varchar(36)");
+                    b.Property<Guid>("PagamentoId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

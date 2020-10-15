@@ -32,14 +32,14 @@ namespace ECOM.API.Carrinho.Model
             return Amount * Price;
         }
 
-        internal void AdicionarUnidades(int unidades)
+        internal void AdicionarUnidades(int amount)
         {
-            Amount += unidades;
+            Amount += amount;
         }
 
-        internal void AtualizarUnidades(int unidades)
+        internal void AtualizarUnidades(int amount)
         {
-            Amount = unidades;
+            Amount = amount;
         }
 
         internal bool EhValido()

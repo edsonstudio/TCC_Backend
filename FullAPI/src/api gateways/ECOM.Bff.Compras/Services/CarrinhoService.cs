@@ -29,7 +29,7 @@ namespace ECOM.Bff.Compras.Services
 
         public async Task<CarrinhoDTO> ObterCarrinho()
         {
-            var response = await _httpClient.GetAsync("/api/v1/carrinho/"); //Verificar se necessita do caminho completo: /api/v1/...
+            var response = await _httpClient.GetAsync("/api/v1/carrinho"); //Verificar se necessita do caminho completo: /api/v1/...
             TratarErrosResponse(response);
 
             return await DeserializarObjetoResponse<CarrinhoDTO>(response);
@@ -38,7 +38,7 @@ namespace ECOM.Bff.Compras.Services
         public async Task<ResponseResult> AdicionarItemCarrinho(ItemCarrinhoDTO produto)
         {
             var itemContent = ObterConteudo(produto);
-            var response = await _httpClient.PostAsync("/carrinho/", itemContent); //Verificar se necessita do caminho completo: /api/v1/...
+            var response = await _httpClient.PostAsync("/api/v1/carrinho/", itemContent); //Verificar se necessita do caminho completo: /api/v1/...
 
             if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
 
@@ -49,7 +49,7 @@ namespace ECOM.Bff.Compras.Services
         {
             var itemContent = ObterConteudo(carrinho);
 
-            var response = await _httpClient.PutAsync($"/carrinho/{carrinho.ProdutoId}", itemContent); //Verificar se necessita do caminho completo: /api/v1/...
+            var response = await _httpClient.PutAsync($"/api/v1/carrinho/{carrinho.ProductId}", itemContent); //Verificar se necessita do caminho completo: /api/v1/...
 
             if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
 
@@ -58,7 +58,7 @@ namespace ECOM.Bff.Compras.Services
 
         public async Task<ResponseResult> RemoverItemCarrinho(Guid produtoId)
         {
-            var response = await _httpClient.DeleteAsync($"/carrinho/{produtoId}"); //Verificar se necessita do caminho completo: /api/v1/...
+            var response = await _httpClient.DeleteAsync($"/api/v1/carrinho/{produtoId}"); //Verificar se necessita do caminho completo: /api/v1/...
 
             if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
 
@@ -69,7 +69,7 @@ namespace ECOM.Bff.Compras.Services
         {
             var itemContent = ObterConteudo(voucher);
 
-            var response = await _httpClient.PostAsync("/carrinho/aplicar-voucher/", itemContent);
+            var response = await _httpClient.PostAsync("/api/v1/carrinho/aplicar-voucher/", itemContent);
 
             if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
 

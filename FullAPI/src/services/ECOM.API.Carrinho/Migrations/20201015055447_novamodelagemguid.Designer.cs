@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECOM.API.Carrinho.Migrations
 {
     [DbContext(typeof(CarrinhoContext))]
-    [Migration("20201007021805_Voucher")]
-    partial class Voucher
+    [Migration("20201015055447_novamodelagemguid")]
+    partial class novamodelagemguid
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

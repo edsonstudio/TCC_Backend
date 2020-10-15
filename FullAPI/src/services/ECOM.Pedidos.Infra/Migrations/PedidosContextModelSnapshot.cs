@@ -17,14 +17,14 @@ namespace ECOM.Pedidos.Infra.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("Relational:Sequence:.MinhaSequencia", "'MinhaSequencia', '', '1000', '1', '', '', 'Int32', 'False'")
+                .HasAnnotation("Relational:Sequence:.ECOMSequencia", "'ECOMSequencia', '', '1000', '1', '', '', 'Int32', 'False'")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ECOM.Pedidos.Domain.Pedidos.Pedido", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ClientId")
                         .HasColumnType("uniqueidentifier");
@@ -32,7 +32,7 @@ namespace ECOM.Pedidos.Infra.Migrations
                     b.Property<int>("Codigo")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasDefaultValueSql("NEXT VALUE FOR MinhaSequencia");
+                        .HasDefaultValueSql("NEXT VALUE FOR ECOMSequencia");
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
@@ -46,8 +46,8 @@ namespace ECOM.Pedidos.Infra.Migrations
                     b.Property<decimal>("ValorTotal")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("VoucherId")
-                        .HasColumnType("varchar(36)");
+                    b.Property<Guid?>("VoucherId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("VoucherUtilizado")
                         .HasColumnType("bit");
@@ -61,16 +61,15 @@ namespace ECOM.Pedidos.Infra.Migrations
 
             modelBuilder.Entity("ECOM.Pedidos.Domain.Pedidos.PedidoItem", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<string>("PedidoId")
-                        .IsRequired()
-                        .HasColumnType("varchar(36)");
+                    b.Property<Guid>("PedidoId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -94,9 +93,9 @@ namespace ECOM.Pedidos.Infra.Migrations
 
             modelBuilder.Entity("ECOM.Pedidos.Domain.Vouchers.Voucher", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
@@ -142,8 +141,8 @@ namespace ECOM.Pedidos.Infra.Migrations
 
                     b.OwnsOne("ECOM.Pedidos.Domain.Pedidos.Endereco", "Endereco", b1 =>
                         {
-                            b1.Property<string>("PedidoId")
-                                .HasColumnType("varchar(36)");
+                            b1.Property<Guid>("PedidoId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Bairro")
                                 .HasColumnName("Bairro")

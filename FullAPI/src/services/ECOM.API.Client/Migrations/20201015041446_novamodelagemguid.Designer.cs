@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECOM.API.Client.Migrations
 {
     [DbContext(typeof(ClientsContext))]
-    [Migration("20201008102444_EnderecoRemodelado")]
-    partial class EnderecoRemodelado
+    [Migration("20201015041446_novamodelagemguid")]
+    partial class novamodelagemguid
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,9 +23,9 @@ namespace ECOM.API.Client.Migrations
 
             modelBuilder.Entity("ECOM.API.Client.Models.Address", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Bairro")
                         .IsRequired()
@@ -39,9 +39,8 @@ namespace ECOM.API.Client.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<string>("ClientId")
-                        .IsRequired()
-                        .HasColumnType("varchar(36)");
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Complemento")
                         .HasColumnType("varchar(250)");
@@ -67,9 +66,9 @@ namespace ECOM.API.Client.Migrations
 
             modelBuilder.Entity("ECOM.API.Client.Models.Client", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Excluded")
                         .HasColumnType("bit");
@@ -82,9 +81,6 @@ namespace ECOM.API.Client.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(9)")
                         .HasMaxLength(9);
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -103,8 +99,8 @@ namespace ECOM.API.Client.Migrations
                 {
                     b.OwnsOne("ECOM.Core.DomainObjects.Cpf", "Cpf", b1 =>
                         {
-                            b1.Property<string>("ClientId")
-                                .HasColumnType("varchar(36)");
+                            b1.Property<Guid>("ClientId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Numero")
                                 .IsRequired()
@@ -122,8 +118,8 @@ namespace ECOM.API.Client.Migrations
 
                     b.OwnsOne("ECOM.Core.DomainObjects.Email", "Email", b1 =>
                         {
-                            b1.Property<string>("ClientId")
-                                .HasColumnType("varchar(36)");
+                            b1.Property<Guid>("ClientId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Endereco")
                                 .IsRequired()

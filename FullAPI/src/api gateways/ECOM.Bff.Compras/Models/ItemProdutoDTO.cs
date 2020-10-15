@@ -5,9 +5,9 @@ namespace ECOM.Bff.Compras.Models
     public class ItemProdutoDTO
     {
         public Guid Id { get; set; }
-        public string Nome { get; set; }
-        public decimal Valor { get; set; }
-        public string Imagem { get; set; }
-        public int QuantidadeEstoque { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public string Image { get; set; }
+        public int Amount { get; set; }
     }
 }
