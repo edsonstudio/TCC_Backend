@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Handler\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="V1\Controllers\" />
-    <Folder Include="V1\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
