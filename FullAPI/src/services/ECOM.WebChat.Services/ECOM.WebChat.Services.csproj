@@ -16,9 +16,4 @@
     <ProjectReference Include="..\ECOM.WebChat.Models\ECOM.WebChat.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
 </Project>

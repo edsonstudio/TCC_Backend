@@ -11,8 +11,6 @@ using ECOM.WebChat.Services.Interfaces;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace ECOM.API.Chat.Configuration
 {
@@ -31,6 +29,8 @@ namespace ECOM.API.Chat.Configuration
 
                         )
                 );
+
+
             services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IMessageService, MessageService>();
@@ -41,7 +41,6 @@ namespace ECOM.API.Chat.Configuration
             services.AddTransient<IImageHandler, ImageHandler>();
             services.AddTransient<IAvatarWriter, AvatarWriter>();
 
-            //services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         }
     }
 }
