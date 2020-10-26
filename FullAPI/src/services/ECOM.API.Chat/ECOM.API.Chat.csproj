@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>a2511c87-be07-4869-ab6f-1d47cc817c93</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.8" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Handler\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="V1\Controllers\" />
+    <Folder Include="V1\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ECOM.WebChat.AvatarWriter\ECOM.WebChat.AvatarWriter.csproj" />
+    <ProjectReference Include="..\ECOM.WebChat.Connection\ECOM.WebChat.Connection.csproj" />
+    <ProjectReference Include="..\ECOM.WebChat.Hubs\ECOM.WebChat.Hubs.csproj" />
+    <ProjectReference Include="..\ECOM.WebChat.Models\ECOM.WebChat.Models.csproj" />
+    <ProjectReference Include="..\ECOM.WebChat.Services\ECOM.WebChat.Services.csproj" />
+  </ItemGroup>
+
+
+</Project>
