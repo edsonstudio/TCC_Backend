@@ -44,6 +44,8 @@ namespace ECOM.API.Payment.Services
 
                 // todo: Comunicar com o gateway para realizar o estorno
 
+                await CancelarPagamento(pagamento.PedidoId);
+
                 return new ResponseMessage(validationResult);
 
             }
@@ -51,9 +53,36 @@ namespace ECOM.API.Payment.Services
             return new ResponseMessage(validationResult);
         }
 
-        public Task<ResponseMessage> CancelarPagamento(Guid pedidoId)
+        public async Task<ResponseMessage> CancelarPagamento(Guid pedidoId)
         {
-            throw new NotImplementedException();
+            var transacoes = await _pagamentoRepository.ObterTransacaoesPorPedidoId(pedidoId);
+            var transacaoAutorizada = transacoes?.FirstOrDefault(t => t.Status == StatusTransacao.Autorizado);
+            var validationResult = new ValidationResult();
+
+            if (transacaoAutorizada == null) throw new DomainException($"Transação não encontrada para o pedido {pedidoId}");
+
+            var transacao = await _pagamentoFacade.CancelarAutorizacao(transacaoAutorizada);
+
+            if (transacao.Status != StatusTransacao.Cancelado)
+            {
+                validationResult.Errors.Add(new ValidationFailure("Pagamento",
+                    $"Não foi possível cancelar o pagamento do pedido {pedidoId}"));
+
+                return new ResponseMessage(validationResult);
+            }
+
+            transacao.PagamentoId = transacaoAutorizada.PagamentoId;
+            _pagamentoRepository.AdicionarTransacao(transacao);
+
+            if (!await _pagamentoRepository.UnitOfWork.Commit())
+            {
+                validationResult.Errors.Add(new ValidationFailure("Pagamento",
+                    $"Não foi possível persistir o cancelamento do pagamento do pedido {pedidoId}"));
+
+                return new ResponseMessage(validationResult);
+            }
+
+            return new ResponseMessage(validationResult);
         }
 
         public async Task<ResponseMessage> CapturarPagamento(Guid pedidoId)

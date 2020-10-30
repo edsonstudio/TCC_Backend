@@ -19,10 +19,10 @@ namespace ECOM.API.Client.Controllers
         private readonly IClientRepository _clientRepository;
         private readonly IAspNetUser _user;
 
-        public ClientsController(IMediatorHandler mediator, IClientRepository clientRepository, IAspNetUser user)
+        public ClientsController(IClientRepository clientRepository, IMediatorHandler mediator,  IAspNetUser user)
         {
-            _mediator = mediator;
             _clientRepository = clientRepository;
+            _mediator = mediator;
             _user = user;
         }
 
