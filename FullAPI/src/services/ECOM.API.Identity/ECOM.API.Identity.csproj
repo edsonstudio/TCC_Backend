@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\ECOM.Core\ECOM.Core.csproj" />
     <ProjectReference Include="..\..\building blocks\ECOM.MessageBus\ECOM.MessageBus.csproj" />
     <ProjectReference Include="..\..\building blocks\ECOM.WebAPI.Core\ECOM.WebAPI.Core.csproj" />
   </ItemGroup>
