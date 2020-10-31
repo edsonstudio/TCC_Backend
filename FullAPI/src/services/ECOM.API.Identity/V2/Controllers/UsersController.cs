@@ -1,4 +1,5 @@
-﻿using ECOM.API.Identity.Hubs;
+﻿using ECOM.API.Identity.Extensions;
+using ECOM.API.Identity.Hubs;
 using ECOM.API.Identity.Models.ViewModels;
 using ECOM.API.Identity.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -29,7 +30,7 @@ namespace ECOM.API.Identity.V2.Controllers
         [HttpGet("search")]
         public ActionResult<List<UserViewModel>> FindUsers([FromQuery(Name = "name")] string user)
         {
-            var result = userService.FindUserByMatch(user, User.Identity.Name).ToList();
+            var result = userService.FindUserByMatch(user, User.GetUserId()).ToList();
 
             return result;
         }
@@ -37,7 +38,7 @@ namespace ECOM.API.Identity.V2.Controllers
         [HttpGet("getprofile")]
         public ActionResult<ProfileViewModel> GetProfile()
         {
-            var currentUserId = this.User.Identity.Name;
+            var currentUserId = this.User.GetUserId();
 
             return this.userService.GetUserProfile(currentUserId);
         }

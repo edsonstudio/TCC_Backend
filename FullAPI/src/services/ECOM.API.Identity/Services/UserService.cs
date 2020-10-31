@@ -35,7 +35,7 @@ namespace ECOM.API.Identity.Services
         {
             var entity = this.ctx.User.FirstOrDefault(u => u.Id == model.Id);
             entity.Email = model.Email;
-            entity.UserName = model.Username;
+            entity.UserName = model.UserName;
             ctx.User.Update(entity);
             ctx.SaveChanges();
         }
@@ -128,7 +128,7 @@ namespace ECOM.API.Identity.Services
         {
             var model = ctx.User.FirstOrDefault(u => u.Id == userId);
             var viewModel = this.mappingService.MapUserModelRoProfileViewModel(model);
-            viewModel.Username = GetUserNameById(userId);
+            viewModel.UserName = GetUserNameById(userId);
 
             return viewModel;
 

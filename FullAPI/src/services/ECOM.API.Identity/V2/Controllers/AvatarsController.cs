@@ -1,4 +1,5 @@
-﻿using ECOM.API.Identity.Handler;
+﻿using ECOM.API.Identity.Extensions;
+using ECOM.API.Identity.Handler;
 using ECOM.API.Identity.Hubs;
 using ECOM.API.Identity.Hubs.Interfaces;
 using ECOM.API.Identity.Services.Interfaces;
@@ -35,9 +36,9 @@ namespace ECOM.API.Identity.V2.Controllers
             var avatarFilename = await imageHandler.UploadImage(file);
             var objectResult = avatarFilename as ObjectResult;
             var value = objectResult.Value.ToString();
-            this.userService.AddAvatar(value, User.Identity.Name);
+            this.userService.AddAvatar(value, User.GetUserId());
 
-            await this.hubContext.Clients.All.SendAsync("ReciveAvatar", new { body = avatarFilename, uploaderId = User.Identity.Name });
+            await this.hubContext.Clients.All.SendAsync("ReciveAvatar", new { body = avatarFilename, uploaderId = User.GetUserId() });
             return avatarFilename;
         }
     }

@@ -1,4 +1,5 @@
-﻿using ECOM.API.Identity.Hubs;
+﻿using ECOM.API.Identity.Extensions;
+using ECOM.API.Identity.Hubs;
 using ECOM.API.Identity.Hubs.Interfaces;
 using ECOM.API.Identity.Models.ViewModels;
 using ECOM.API.Identity.Services.Interfaces;
@@ -57,7 +58,7 @@ namespace ECOM.API.Identity.V2.Controllers
             //Check time format!!!!
             MessageViewModel responseModel = await messageService.AddMessage(model);
 
-            var senderId = User.Identity.Name;
+            var senderId = User.GetUserId();
             var reciverId = this.userSercvice.GetOponentIdByTheadId(senderId, model.ThreadId);
             responseModel.Username = model.Username;
             responseModel.Date = responseModel.Time.Date;
@@ -78,7 +79,7 @@ namespace ECOM.API.Identity.V2.Controllers
 
             var userVMCollection = new List<UserViewModel>();
 
-            var curentUser = this.User.Identity.Name;
+            var curentUser = this.User.GetUserId();
 
 
             foreach (var user in usersCollection.Where(u => u.Id != curentUser))
@@ -101,7 +102,7 @@ namespace ECOM.API.Identity.V2.Controllers
         [HttpGet("getthreads")]
         public ActionResult<List<ThreadViewModel>> GetUsersThreads()
         {
-            var curentUserId = User.Identity.Name;
+            var curentUserId = User.GetUserId();
 
             var threadsEM = this.thredService.GetUserThreads(curentUserId);
 
@@ -147,7 +148,7 @@ namespace ECOM.API.Identity.V2.Controllers
                 return BadRequest();
             }
             //Curetn Http Context User
-            var curentUserId = User.Identity.Name;
+            var curentUserId = User.GetUserId();
             //Oponent Id
             var curentOponentId = model.OponentVM.Id;
             //TODO: Export valiation logic to Validation helper and implement caching
