@@ -1,11 +1,11 @@
-﻿using ECOM.WebChat.Hubs.Interfaces;
+﻿using ECOM.WebChat.Hubs2.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ECOM.WebChat.Hubs
+namespace ECOM.WebChat.Hubs2
 {
     [Authorize]
     public class ChatHub : Hub

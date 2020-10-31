@@ -8,17 +8,18 @@ namespace ECOM.API.Client.Application.Events
         public Guid Id { get; private set; }
         public string Name { get; private set; }
         public string Cpf { get; private set; }
-        public string Email { get; private set; }
         public string Phone { get; private set; }
+        public string Email { get; private set; }
+        
 
-        public RegisteredClientEvent(Guid id, string name, string cpf, string email, string phone)
+        public RegisteredClientEvent(Guid id, string name, string cpf, string phone, string email)
         {
             AggregateId = id;
             Id = id;
             Name = name;
             Cpf = cpf;
-            Email = email;
             Phone = phone;
+            Email = email;
         }
     }
 }

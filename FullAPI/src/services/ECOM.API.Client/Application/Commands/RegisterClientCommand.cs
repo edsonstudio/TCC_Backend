@@ -9,17 +9,19 @@ namespace ECOM.API.Client.Application.Commands
         public Guid Id { get; private set; }
         public string Name { get; private set; }
         public string Cpf { get; private set; }
-        public string Email { get; private set; }
         public string Phone { get; private set; }
+        public string Email { get; private set; }
+     
 
-        public RegisterClientCommand(Guid id, string name, string email, string cpf, string phone)
+        public RegisterClientCommand(Guid id, string name, string cpf, string phone, string email) //<< Dados trocados
         {
             AggregateId = id;
             Id = id;
             Name = name;
             Cpf = cpf;
-            Email = email;
             Phone = phone;
+            Email = email;
+           
         }
 
         public override bool EhValido()
@@ -43,6 +45,11 @@ namespace ECOM.API.Client.Application.Commands
                 RuleFor(c => c.Cpf)
                     .Must(TerCpfValido)
                     .WithMessage("O Cpf informado não é válido.");
+
+                RuleFor(c => c.Phone)
+                    .NotEmpty()
+                    .Must(x => x.Length > 8 && x.Length < 16)
+                    .WithMessage("O telefone precisa ter entre 9 e 15 caracteres.");
 
                 RuleFor(c => c.Email)
                     .Must(TerEmailValido)

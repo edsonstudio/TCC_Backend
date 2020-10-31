@@ -1,11 +1,11 @@
-﻿using ECOM.WebChat.AvatarWriter.Helper;
-using ECOM.WebChat.AvatarWriter.Interface;
+﻿using ECOM.WebChat.AvatarWriter2.Helper;
+using ECOM.WebChat.AvatarWriter2.Interface;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace ECOM.WebChat.AvatarWriter
+namespace ECOM.WebChat.AvatarWriter2
 {
     public class AvatarWriter : IAvatarWriter
     {

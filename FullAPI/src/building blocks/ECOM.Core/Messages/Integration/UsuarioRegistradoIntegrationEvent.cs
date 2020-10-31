@@ -6,18 +6,17 @@ namespace ECOM.Core.Messages.Integration
     {
         public Guid Id { get; private set; }
         public string Name { get; private set; }
-        public string Email { get; private set; }
         public string Cpf { get; private set; }
         public string Phone { get; private set; }
-
-
-        public UsuarioRegistradoIntegrationEvent(Guid id, string name, string email, string cpf, string phone)
+        public string Email { get; private set; }
+        
+        public UsuarioRegistradoIntegrationEvent(Guid id, string name, string cpf, string phone, string email)
         {
             Id = id;
             Name = name;
-            Email = email;
             Cpf = cpf;
             Phone = phone;
+            Email = email;
         }
     }
 }

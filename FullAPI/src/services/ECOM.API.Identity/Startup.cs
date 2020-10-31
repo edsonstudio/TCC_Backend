@@ -30,13 +30,15 @@ namespace ECOM.API.Identity
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //this.RegisterAuthentication(services);
+
             services.AddIdentityConfiguration(Configuration);
 
-            services.AddApiConfiguration();
+            services.AddApiConfiguration(Configuration);
 
             services.AddSwaggerConfig();
 
-            services.AuthResolveDependencies();
+            services.AuthResolveDependencies(Configuration);
 
             services.AddMessageBusConfiguration(Configuration);
         }
@@ -47,5 +49,43 @@ namespace ECOM.API.Identity
 
             app.UseApiConfiguration(env);
         }
+
+        //#region
+        ////----------------Substituir pela autenticacao padrao da aplicacao
+        //private void RegisterAuthentication(IServiceCollection services)
+        //{
+        //    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
+        //        AddJwtBearer(options =>
+        //        {
+        //            options.TokenValidationParameters = new TokenValidationParameters
+        //            {
+        //                ValidateIssuer = false,
+        //                ValidateAudience = false,
+        //                ValidateLifetime = true,
+        //                ValidateIssuerSigningKey = true,
+
+        //                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("JWTSecretKey")))
+        //            };
+        //            options.Events = new JwtBearerEvents
+        //            {
+        //                OnMessageReceived = context =>
+        //                {
+        //                    var accessToken = context.Request.Query["access_token"];
+
+        //                    // If the request is for our hub...
+        //                    var path = context.HttpContext.Request.Path;
+        //                    if (!string.IsNullOrEmpty(accessToken) &&
+        //                        (path.StartsWithSegments("/chat")))
+        //                    {
+        //                        // Read the token out of the query string
+        //                        context.Token = accessToken;
+        //                    }
+        //                    return Task.CompletedTask;
+        //                }
+        //            };
+        //        });
+
+        //}
+        //#endregion
     }
 }

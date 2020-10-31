@@ -1,4 +1,4 @@
-﻿namespace ECOM.WebChat.Models.ViewModels
+﻿namespace ECOM.WebChat.Models2.ViewModels
 {
     public class UserViewModel
     {

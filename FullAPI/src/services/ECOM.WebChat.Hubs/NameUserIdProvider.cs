@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace ECOM.WebChat.Hubs
+namespace ECOM.WebChat.Hubs2
 {
     public class NameUserIdProvider : IUserIdProvider
     {

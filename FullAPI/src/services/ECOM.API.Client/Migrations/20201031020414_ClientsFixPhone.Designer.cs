@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECOM.API.Client.Migrations
 {
     [DbContext(typeof(ClientsContext))]
-    [Migration("20201015041446_novamodelagemguid")]
-    partial class novamodelagemguid
+    [Migration("20201031020414_ClientsFixPhone")]
+    partial class ClientsFixPhone
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,8 +79,8 @@ namespace ECOM.API.Client.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("varchar(9)")
-                        .HasMaxLength(9);
+                        .HasColumnType("varchar(15)")
+                        .HasMaxLength(15);
 
                     b.HasKey("Id");
 

@@ -1,13 +1,13 @@
-﻿using ECOM.WebChat.Connection;
-using ECOM.WebChat.Hubs.Interfaces;
-using ECOM.WebChat.Models;
-using ECOM.WebChat.Models.ViewModels;
-using ECOM.WebChat.Services.Interfaces;
+﻿using ECOM.WebChat.Connection2;
+using ECOM.WebChat.Hubs2.Interfaces;
+using ECOM.WebChat.Models2;
+using ECOM.WebChat.Models2.ViewModels;
+using ECOM.WebChat.Services2.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ECOM.WebChat.Services
+namespace ECOM.WebChat.Services2
 {
     public class UserService : IUserService
     {

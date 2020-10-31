@@ -13,8 +13,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ECOM.WebChat.Models\ECOM.WebChat.Models.csproj" />
-  </ItemGroup>
-
 </Project>

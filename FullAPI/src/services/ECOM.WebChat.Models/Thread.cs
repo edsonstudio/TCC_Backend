@@ -1,10 +1,10 @@
-﻿using ECOM.WebChat.Models.Abstractions;
+﻿using ECOM.WebChat.Models2.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ECOM.WebChat.Models
+namespace ECOM.WebChat.Models2
 {
     public class Thread : BaseEntity
     {

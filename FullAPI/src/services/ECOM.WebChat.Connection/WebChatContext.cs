@@ -1,7 +1,7 @@
-﻿using ECOM.WebChat.Models;
+﻿using ECOM.WebChat.Models2;
 using Microsoft.EntityFrameworkCore;
 
-namespace ECOM.WebChat.Connection
+namespace ECOM.WebChat.Connection2
 {
     public class WebChatContext : DbContext
     {

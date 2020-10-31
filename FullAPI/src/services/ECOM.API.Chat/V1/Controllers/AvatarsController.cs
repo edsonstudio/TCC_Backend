@@ -1,7 +1,7 @@
 ﻿using ECOM.API.Chat.Handler;
-using ECOM.WebChat.Hubs;
-using ECOM.WebChat.Hubs.Interfaces;
-using ECOM.WebChat.Services.Interfaces;
+using ECOM.WebChat.Hubs2;
+using ECOM.WebChat.Hubs2.Interfaces;
+using ECOM.WebChat.Services2.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;

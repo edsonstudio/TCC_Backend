@@ -20,14 +20,14 @@ namespace ECOM.API.Identity.V2.Controllers
     [Route("api/v{version:apiVersion}/identity")]
     public class AuthController : MainController
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
         private readonly AppSettings _appSettings;
 
         private readonly IMessageBus _bus;
 
-        public AuthController(SignInManager<IdentityUser> signInManager,
-                              UserManager<IdentityUser> userManager,
+        public AuthController(SignInManager<User> signInManager,
+                              UserManager<User> userManager,
                               IOptions<AppSettings> appSettings,
                               IMessageBus bus)
         {
@@ -42,7 +42,7 @@ namespace ECOM.API.Identity.V2.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var user = new IdentityUser
+            var user = new User
             {
                 UserName = registerUser.Email,
                 Email = registerUser.Email,
@@ -53,8 +53,7 @@ namespace ECOM.API.Identity.V2.Controllers
 
             if (result.Succeeded)
             {
-                //Alguma coisa aqui => integracao
-                var clientResult = await RegistrarCliente(registerUser);
+                var clientResult = await RegistrarCliente(registerUser); //<<<
 
                 if (!clientResult.ValidationResult.IsValid)
                 {
@@ -62,7 +61,6 @@ namespace ECOM.API.Identity.V2.Controllers
                     return CustomResponse(clientResult.ValidationResult);
                 }
                 
-
                 return CustomResponse(await GerarJwt(registerUser.Email));
             }
 
@@ -73,8 +71,6 @@ namespace ECOM.API.Identity.V2.Controllers
 
             return CustomResponse(registerUser);
         }
-
-
 
         [HttpPost("autenticar")]
         public async Task<ActionResult> Login(LoginUserViewModel loginUser)
@@ -151,7 +147,7 @@ namespace ECOM.API.Identity.V2.Controllers
         {
             var usuario = await _userManager.FindByEmailAsync(registerUser.Email);
             var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
-                Guid.Parse(usuario.Id), registerUser.Name, registerUser.Email, registerUser.Cpf, registerUser.Phone);
+                Guid.Parse(usuario.Id), registerUser.Name, registerUser.Cpf, registerUser.Phone, registerUser.Email);
 
             try
             {

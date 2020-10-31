@@ -1,8 +1,8 @@
-﻿using ECOM.WebChat.Models.ViewModels;
+﻿using ECOM.WebChat.Models2.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ECOM.WebChat.Services.Interfaces
+namespace ECOM.WebChat.Services2.Interfaces
 {
     public interface IMessageService
     {

@@ -44,7 +44,7 @@ namespace ECOM.API.Client.Services
 
         private async Task<ResponseMessage> RegistrarCliente(UsuarioRegistradoIntegrationEvent message)
         {
-            var clienteCommand = new RegisterClientCommand(message.Id, message.Name, message.Email, message.Cpf, message.Phone);
+            var clienteCommand = new RegisterClientCommand(message.Id, message.Name, message.Cpf, message.Phone, message.Email);
             ValidationResult sucesso;
 
             using (var scope = _serviceProvider.CreateScope())

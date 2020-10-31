@@ -1,7 +1,7 @@
 ﻿using ECOM.API.Identity.Data;
 using ECOM.API.Identity.Extensions;
+using ECOM.API.Identity.Models;
 using ECOM.WebAPI.Core.Identidade;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +17,7 @@ namespace ECOM.API.Identity.Configuration
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<User>() //Alterado para customizar
                 .AddRoles<IdentityRole>()
                 .AddErrorDescriber<IdentityMensagensPortugues>() //Sobrescrita das mensagens de erro para a linguagem pt-BR
                 .AddEntityFrameworkStores<ApplicationDbContext>()

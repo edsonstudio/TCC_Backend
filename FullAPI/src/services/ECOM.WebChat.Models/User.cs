@@ -1,15 +1,15 @@
-﻿using ECOM.WebChat.Models.Abstractions;
-using ECOM.WebChat.Models.Interfaces;
+﻿using ECOM.WebChat.Models2.Abstractions;
+using ECOM.WebChat.Models2.Interfaces;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ECOM.WebChat.Models
+namespace ECOM.WebChat.Models2
 {
-    public class User : BaseEntity, IAuditable, IDeletable
+    public class User : BaseEntity, IAuditable, IDeletable //Add
     {
         public User()
         {
-            Messages = new HashSet<Message>();
+            Messages = new HashSet<Message>(); //Add
         }
         [MaxLength(60)]
         public string Username { get; set; }
@@ -21,11 +21,11 @@ namespace ECOM.WebChat.Models
         [Required]
         public string Password { get; set; }
 
-        public string AvatarFileName { get; set; }
+        public string AvatarFileName { get; set; } //Add
 
-        public ICollection<Message> Messages { get; set; }
+        public ICollection<Message> Messages { get; set; } //Add
 
-        public ICollection<Thread> Threads { get; set; }
+        public ICollection<Thread> Threads { get; set; } //Add
 
 
 

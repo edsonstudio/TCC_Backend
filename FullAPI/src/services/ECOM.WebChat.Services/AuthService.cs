@@ -1,13 +1,13 @@
 ﻿using CryptoHelper;
-using ECOM.WebChat.Models.ViewModels;
-using ECOM.WebChat.Services.Interfaces;
+using ECOM.WebChat.Models2.ViewModels;
+using ECOM.WebChat.Services2.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace ECOM.WebChat.Services
+namespace ECOM.WebChat.Services2
 {
     public class AuthService : IAuthService
     {

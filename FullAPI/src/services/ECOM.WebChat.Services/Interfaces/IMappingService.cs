@@ -1,8 +1,8 @@
-﻿using ECOM.WebChat.Models;
-using ECOM.WebChat.Models.ViewModels;
+﻿using ECOM.WebChat.Models2;
+using ECOM.WebChat.Models2.ViewModels;
 using System.Collections.Generic;
 
-namespace ECOM.WebChat.Services.Interfaces
+namespace ECOM.WebChat.Services2.Interfaces
 {
     public interface IMappingService
     {

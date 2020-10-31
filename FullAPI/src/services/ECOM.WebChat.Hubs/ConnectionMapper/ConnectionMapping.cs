@@ -1,8 +1,8 @@
-﻿using ECOM.WebChat.Hubs.Interfaces;
+﻿using ECOM.WebChat.Hubs2.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ECOM.WebChat.Hubs.ConnectionMapper
+namespace ECOM.WebChat.Hubs2.ConnectionMapper
 {
     public class ConnectionMapping<T> : IConnectionMapping<T>
     {

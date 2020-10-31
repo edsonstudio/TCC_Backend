@@ -1,8 +1,8 @@
-﻿using ECOM.WebChat.Connection;
-using ECOM.WebChat.Services.Interfaces;
+﻿using ECOM.WebChat.Connection2;
+using ECOM.WebChat.Services2.Interfaces;
 using System.Linq;
 
-namespace ECOM.WebChat.Services.Helpers
+namespace ECOM.WebChat.Services2.Helpers
 {
     public class Validator : IValidator
     {

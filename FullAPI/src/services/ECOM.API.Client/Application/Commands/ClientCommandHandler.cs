@@ -24,7 +24,7 @@ namespace Application.Commands
         {
             if (!message.EhValido()) return message.ValidationResult;
 
-            var client = new Client(message.Id, message.Name, message.Cpf, message.Email, message.Phone);
+            var client = new Client(message.Id, message.Name, message.Cpf, message.Phone, message.Email);
 
             var clienteExistente = await _clientRepository.ObterPorCpf(client.Cpf.Numero);
 
@@ -36,7 +36,7 @@ namespace Application.Commands
 
             _clientRepository.Adicionar(client);
 
-            client.AdicionarEvento(new RegisteredClientEvent(message.Id, message.Name, message.Email, message.Cpf, message.Phone));
+            client.AdicionarEvento(new RegisteredClientEvent(message.Id, message.Name, message.Cpf, message.Phone, message.Email));
 
             return await PersistirDados(_clientRepository.UnitOfWork);
         }
