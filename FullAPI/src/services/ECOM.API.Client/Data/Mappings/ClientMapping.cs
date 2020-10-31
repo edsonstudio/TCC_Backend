@@ -22,6 +22,8 @@ namespace Data.Mappings
                 .HasColumnType($"varchar({Cpf.CpfMaxLength})");
             });
 
+            builder.Property(c => c.Phone).IsRequired().HasMaxLength(15).HasColumnType("varchar(15)");
+
             builder.OwnsOne(c => c.Email, tf =>
             {
                 tf.Property(c => c.Endereco)
@@ -30,7 +32,6 @@ namespace Data.Mappings
                 .HasColumnType($"varchar({Email.EnderecoMaxLength})");
             });
 
-            builder.Property(c => c.Phone).IsRequired().HasMaxLength(9).HasColumnType("varchar(9)");
 
             // 1 : N => Cliente : Endereco
             builder.HasMany(c => c.Address).WithOne(c => c.Client);

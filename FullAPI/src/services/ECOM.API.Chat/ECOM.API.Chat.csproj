@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.1.1" />
@@ -25,11 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ECOM.WebChat.AvatarWriter\ECOM.WebChat.AvatarWriter.csproj" />
-    <ProjectReference Include="..\ECOM.WebChat.Connection\ECOM.WebChat.Connection.csproj" />
-    <ProjectReference Include="..\ECOM.WebChat.Hubs\ECOM.WebChat.Hubs.csproj" />
-    <ProjectReference Include="..\ECOM.WebChat.Models\ECOM.WebChat.Models.csproj" />
-    <ProjectReference Include="..\ECOM.WebChat.Services\ECOM.WebChat.Services.csproj" />
+    <ProjectReference Include="..\ECOM.WebChat.AvatarWriter\ECOM.WebChat.AvatarWriter2.csproj" />
+    <ProjectReference Include="..\ECOM.WebChat.Connection\ECOM.WebChat.Connection2.csproj" />
+    <ProjectReference Include="..\ECOM.WebChat.Hubs\ECOM.WebChat.Hubs2.csproj" />
+    <ProjectReference Include="..\ECOM.WebChat.Models\ECOM.WebChat.Models2.csproj" />
+    <ProjectReference Include="..\ECOM.WebChat.Services\ECOM.WebChat.Services2.csproj" />
   </ItemGroup>
 
 

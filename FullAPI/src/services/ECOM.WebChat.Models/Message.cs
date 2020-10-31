@@ -1,8 +1,8 @@
-﻿using ECOM.WebChat.Models.Abstractions;
+﻿using ECOM.WebChat.Models2.Abstractions;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ECOM.WebChat.Models
+namespace ECOM.WebChat.Models2
 {
     public class Message : BaseEntity
     {

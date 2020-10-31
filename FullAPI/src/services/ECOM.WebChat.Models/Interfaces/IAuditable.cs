@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ECOM.WebChat.Models.Interfaces
+namespace ECOM.WebChat.Models2.Interfaces
 {
     public interface IAuditable
     {

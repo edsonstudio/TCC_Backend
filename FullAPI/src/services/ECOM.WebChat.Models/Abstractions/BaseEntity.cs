@@ -1,8 +1,8 @@
-﻿using ECOM.WebChat.Models.Interfaces;
+﻿using ECOM.WebChat.Models2.Interfaces;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ECOM.WebChat.Models.Abstractions
+namespace ECOM.WebChat.Models2.Abstractions
 {
     public abstract class BaseEntity : IAuditable, IDeletable
     {

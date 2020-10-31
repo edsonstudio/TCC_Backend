@@ -68,17 +68,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECOM.Pedidos.Infra", "src\s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chat", "Chat", "{2164FB7D-E969-462C-9ECE-8D740F7181E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECOM.API.Chat", "src\services\ECOM.API.Chat\ECOM.API.Chat.csproj", "{613515C3-5EFE-4BEB-8CA3-142F93110732}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECOM.API.Chat", "src\services\ECOM.API.Chat\ECOM.API.Chat.csproj", "{613515C3-5EFE-4BEB-8CA3-142F93110732}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECOM.WebChat.AvatarWriter", "src\services\ECOM.WebChat.AvatarWriter\ECOM.WebChat.AvatarWriter.csproj", "{95913E48-EFB4-4115-A3D8-A0735BF5B7DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECOM.WebChat.AvatarWriter2", "src\services\ECOM.WebChat.AvatarWriter\ECOM.WebChat.AvatarWriter2.csproj", "{95913E48-EFB4-4115-A3D8-A0735BF5B7DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECOM.WebChat.Connection", "src\services\ECOM.WebChat.Connection\ECOM.WebChat.Connection.csproj", "{08FFE614-2DC6-4ED2-A71B-5B1F3E206420}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECOM.WebChat.Connection2", "src\services\ECOM.WebChat.Connection\ECOM.WebChat.Connection2.csproj", "{08FFE614-2DC6-4ED2-A71B-5B1F3E206420}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECOM.WebChat.Hubs", "src\services\ECOM.WebChat.Hubs\ECOM.WebChat.Hubs.csproj", "{F759E023-1ECF-470D-9208-874414FD5A48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECOM.WebChat.Hubs2", "src\services\ECOM.WebChat.Hubs\ECOM.WebChat.Hubs2.csproj", "{F759E023-1ECF-470D-9208-874414FD5A48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECOM.WebChat.Models", "src\services\ECOM.WebChat.Models\ECOM.WebChat.Models.csproj", "{BF064A80-7C4A-4889-88CC-D9F5A8EBB627}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECOM.WebChat.Models2", "src\services\ECOM.WebChat.Models\ECOM.WebChat.Models2.csproj", "{BF064A80-7C4A-4889-88CC-D9F5A8EBB627}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECOM.WebChat.Services", "src\services\ECOM.WebChat.Services\ECOM.WebChat.Services.csproj", "{214B144D-28B8-4AD5-9DF9-3F1C6D5323C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECOM.WebChat.Services2", "src\services\ECOM.WebChat.Services\ECOM.WebChat.Services2.csproj", "{214B144D-28B8-4AD5-9DF9-3F1C6D5323C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

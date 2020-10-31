@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ECOM.API.Client.Migrations
 {
-    public partial class novamodelagemguid : Migration
+    public partial class ClientsFix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,8 +14,8 @@ namespace ECOM.API.Client.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     Cpf = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: true),
-                    Email = table.Column<string>(type: "varchar(254)", nullable: true),
                     Phone = table.Column<string>(type: "varchar(9)", maxLength: 9, nullable: false),
+                    Email = table.Column<string>(type: "varchar(254)", nullable: true),
                     Excluded = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>

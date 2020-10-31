@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -11,9 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ECOM.WebChat.Connection\ECOM.WebChat.Connection.csproj" />
     <ProjectReference Include="..\ECOM.WebChat.Hubs\ECOM.WebChat.Hubs.csproj" />
-    <ProjectReference Include="..\ECOM.WebChat.Models\ECOM.WebChat.Models.csproj" />
   </ItemGroup>
 
 </Project>

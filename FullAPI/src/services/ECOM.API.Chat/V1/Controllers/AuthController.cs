@@ -1,6 +1,6 @@
 ﻿using ECOM.API.Chat.ViewModels;
-using ECOM.WebChat.Models.ViewModels;
-using ECOM.WebChat.Services.Interfaces;
+using ECOM.WebChat.Models2.ViewModels;
+using ECOM.WebChat.Services2.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 

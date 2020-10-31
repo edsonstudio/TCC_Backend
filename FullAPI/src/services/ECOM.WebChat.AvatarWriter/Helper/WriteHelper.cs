@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace ECOM.WebChat.AvatarWriter.Helper
+namespace ECOM.WebChat.AvatarWriter2.Helper
 {
     public class WriteHelper
     {

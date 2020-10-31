@@ -1,4 +1,4 @@
-﻿using ECOM.WebChat.AvatarWriter.Interface;
+﻿using ECOM.WebChat.AvatarWriter2.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

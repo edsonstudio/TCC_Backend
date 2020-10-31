@@ -1,6 +1,6 @@
-﻿using ECOM.WebChat.Models.ViewModels;
+﻿using ECOM.WebChat.Models2.ViewModels;
 
-namespace ECOM.WebChat.Services.Interfaces
+namespace ECOM.WebChat.Services2.Interfaces
 {
     public interface IAuthService
     {

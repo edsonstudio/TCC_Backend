@@ -1,4 +1,4 @@
-﻿namespace ECOM.WebChat.Hubs.Interfaces
+﻿namespace ECOM.WebChat.Hubs2.Interfaces
 {
     public interface ICustomMetods
     {

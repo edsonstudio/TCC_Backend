@@ -1,5 +1,5 @@
-﻿using ECOM.WebChat.Connection;
-using ECOM.WebChat.Hubs;
+﻿using ECOM.WebChat.Connection2;
+using ECOM.WebChat.Hubs2;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

@@ -26,6 +26,7 @@ namespace ECOM.API.Identity.Models
         public string Cpf { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [StringLength(15, ErrorMessage = "O campo telefone precisa ter entre {2} e {1} caracteres", MinimumLength = 9)]
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]

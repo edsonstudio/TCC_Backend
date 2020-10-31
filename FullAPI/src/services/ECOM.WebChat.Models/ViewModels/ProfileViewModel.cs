@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ECOM.WebChat.Models.ViewModels
+namespace ECOM.WebChat.Models2.ViewModels
 {
     public class ProfileViewModel
     {

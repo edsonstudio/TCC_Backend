@@ -1,4 +1,4 @@
-﻿namespace ECOM.WebChat.Services.Interfaces
+﻿namespace ECOM.WebChat.Services2.Interfaces
 {
     public interface IValidator
     {
