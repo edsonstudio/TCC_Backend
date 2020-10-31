@@ -1,4 +1,5 @@
-﻿using ECOM.API.Identity.Hubs.Interfaces;
+﻿using ECOM.API.Identity.Extensions;
+using ECOM.API.Identity.Hubs.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -20,18 +21,18 @@ namespace ECOM.API.Identity.Hubs
         //Typing notification
         public async Task OnTyping(string threadId)
         {
-            var curentUserId = Context.User.Identity.Name;
+            var curentUserId = Context.User.GetUserId();
             await Clients.All.SendAsync("ReciveTypingStatus", new { UserId = curentUserId, ThreadId = threadId });
         }
         public async Task OnStopTyping(string threadId)
         {
-            var curentUserId = Context.User.Identity.Name;
+            var curentUserId = Context.User.GetUserId();
             await Clients.All.SendAsync("ReciveStopTypingStatus", new { UserId = curentUserId, ThreadId = threadId });
         }
         //Online status
         public override Task OnConnectedAsync()
         {
-            var curentUserId = Context.User.Identity.Name;
+            var curentUserId = Context.User.GetUserId();
             var count = connections.GetConnections(curentUserId).Count();
             if (count == 0)
             {
@@ -46,13 +47,13 @@ namespace ECOM.API.Identity.Hubs
         //TODO: INvoke this method when user logOut
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            Groups.RemoveFromGroupAsync(Context.ConnectionId, Context.User.Identity.Name);
-            connections.Remove(Context.User.Identity.Name, Context.ConnectionId);
-            var connectionsCount = connections.GetConnections(Context.User.Identity.Name);
+            Groups.RemoveFromGroupAsync(Context.ConnectionId, Context.User.GetUserId());
+            connections.Remove(Context.User.GetUserId(), Context.ConnectionId);
+            var connectionsCount = connections.GetConnections(Context.User.GetUserId());
             //Cheking does this user has any connetctions, if not send status to front end
             if (connectionsCount.Count() == 0)
             {
-                Clients.All.SendAsync("ReciveDisconnectedStatus", Context.User.Identity.Name);
+                Clients.All.SendAsync("ReciveDisconnectedStatus", Context.User.GetUserId());
             }
             //Here we can check is user have any connectons if not SendMessage to the Client side
             return base.OnDisconnectedAsync(exception);

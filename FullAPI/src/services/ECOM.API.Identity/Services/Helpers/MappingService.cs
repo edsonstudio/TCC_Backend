@@ -1,6 +1,7 @@
 ﻿using ECOM.API.Identity.Models;
 using ECOM.API.Identity.Models.ViewModels;
 using ECOM.API.Identity.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 
@@ -83,13 +84,20 @@ namespace ECOM.API.Identity.Services.Helpers
 
         public ProfileViewModel MapUserModelRoProfileViewModel(User model)
         {
-            return new ProfileViewModel()
+            try 
             {
-                Id = model.Id,
-                Username = model.UserName,
-                Email = model.Email,
-                AvatarFileName = model.AvatarFileName
-            };
+                return new ProfileViewModel()
+                {
+                    Id = model.Id,
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    AvatarFileName = model.AvatarFileName
+                };
+            }catch(Exception e)
+            {
+                throw e;
+            }
+           
         }
     }
 
