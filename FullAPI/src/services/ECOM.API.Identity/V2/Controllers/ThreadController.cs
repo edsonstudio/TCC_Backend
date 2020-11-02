@@ -1,4 +1,5 @@
-﻿using ECOM.API.Identity.Models.ViewModels;
+﻿using ECOM.API.Identity.Extensions;
+using ECOM.API.Identity.Models.ViewModels;
 using ECOM.API.Identity.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,9 +37,9 @@ namespace ECOM.API.Identity.V2.Controllers
             {
                 return BadRequest(new { message = "There are no thread with this id" });
             }
-            if (!validator.DoesUserBelongToCurentThread(id, User.Identity.Name))
+            if (!validator.DoesUserBelongToCurentThread(id, User.GetUserId()))
             {
-                return BadRequest(new { message = "Sorry! But you have no acces to this thread" });
+                return BadRequest(new { message = "Desculpe! Mas você não tem acesso a essa thread" });
             }
             var dict = new Dictionary<DateTime, List<MessageViewModel>>();
             List<MessageViewModel> msgs = this.threadService.GetThreadMessages(id);
@@ -71,7 +72,7 @@ namespace ECOM.API.Identity.V2.Controllers
             {
                 return BadRequest(new { message = "There are no thread with this id" });
             }
-            if (!validator.DoesUserBelongToCurentThread(threadid, User.Identity.Name))
+            if (!validator.DoesUserBelongToCurentThread(threadid, User.GetUserId()))
             {
                 return BadRequest(new { message = "Sorry! But you have no acces to this thread" });
             }

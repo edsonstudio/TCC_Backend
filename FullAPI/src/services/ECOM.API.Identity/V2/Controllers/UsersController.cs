@@ -50,7 +50,7 @@ namespace ECOM.API.Identity.V2.Controllers
             {
                 return BadRequest();
             }
-            var currentUserId = this.User.Identity.Name;
+            var currentUserId = this.User.GetUserId();
             //Validation TODO: Extract to validations
             var curentProfile = this.userService.GetUserProfile(model.Id);
             if (curentProfile == model)
