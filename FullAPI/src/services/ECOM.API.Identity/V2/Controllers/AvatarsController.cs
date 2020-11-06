@@ -37,8 +37,8 @@ namespace ECOM.API.Identity.V2.Controllers
             var objectResult = avatarFilename as ObjectResult;
             var value = objectResult.Value.ToString();
             this.userService.AddAvatar(value, User.GetUserId());
-
-            await this.hubContext.Clients.All.SendAsync("ReciveAvatar", new { body = avatarFilename, uploaderId = User.GetUserId() });
+            
+            await this.hubContext.Clients.All.SendAsync("ReciveAvatar", new { body = objectResult, uploaderId = User.GetUserId() });
             return avatarFilename;
         }
     }

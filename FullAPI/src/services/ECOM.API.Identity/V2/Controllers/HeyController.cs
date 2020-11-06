@@ -51,6 +51,7 @@ namespace ECOM.API.Identity.V2.Controllers
             {
                 return BadRequest(new { error = "Message should have all props" });
             }
+
             model.Id = Guid.NewGuid().ToString();
 
             //Add message async to Db
@@ -58,15 +59,14 @@ namespace ECOM.API.Identity.V2.Controllers
             //Check time format!!!!
             MessageViewModel responseModel = await messageService.AddMessage(model);
 
-            var senderId = User.GetUserId();
-            var reciverId = this.userSercvice.GetOponentIdByTheadId(senderId, model.ThreadId);
+            var senderId = model.SenderId;
+
             responseModel.Username = model.Username;
             responseModel.Date = responseModel.Time.Date;
             responseModel.SenderId = senderId;
-            var listOfConnections = new List<string>() { senderId, reciverId };
 
-            await hubContext.Clients.Users(listOfConnections).SendAsync("ReciveMessage", responseModel);
-
+            await this.hubContext.Clients.All.SendAsync("ReciveMessage", responseModel);
+            
             return Created("", responseModel);
         }
 
