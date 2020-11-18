@@ -37,7 +37,7 @@ namespace ECOM.API.Products
             services.AddDbContext<InitialDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddJwtConfiguration(Configuration);
-            
+
             services.AddAutoMapper(typeof(Startup));
 
             services.WebApiConfig();
@@ -45,6 +45,8 @@ namespace ECOM.API.Products
             services.ResolveDependencies();
 
             services.AddSwaggerConfig();
+
+            services.AddMessageBusConfiguration(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)

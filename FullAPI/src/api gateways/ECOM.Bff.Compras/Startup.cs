@@ -37,6 +37,8 @@ namespace ECOM.Bff.Compras
             services.AddSwaggerConfig();
 
             services.RegisterServices();
+
+            services.AddMessageBusConfiguration(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
