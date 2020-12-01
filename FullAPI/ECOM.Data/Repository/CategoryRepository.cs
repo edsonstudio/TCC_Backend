@@ -15,12 +15,16 @@ namespace ECOM.Data.Repository
 
         public async Task<IEnumerable<Category>> GetCategoriesProducts()
         {
-            return await Db.Categories.AsNoTracking().Include(ct => ct.Products).OrderBy(ct => ct.Name).ToListAsync();
+            return await Db.Categories.AsNoTracking().Include(ct => ct.Products)
+                .ThenInclude(pr => pr.AssociatedProducts)
+                    .ThenInclude(pr => pr.ProductSon).OrderBy(ct => ct.Name).ToListAsync();
         }
 
         public async Task<Category> GetCategoryProducts(Guid id)
         {
-            return await Db.Categories.AsNoTracking().Include(ct => ct.Products).FirstOrDefaultAsync(ct => ct.Id == id);
+            return await Db.Categories.AsNoTracking().Include(ct => ct.Products)
+                .ThenInclude(pr => pr.AssociatedProducts)
+                    .ThenInclude(pr => pr.ProductSon).FirstOrDefaultAsync(ct => ct.Id == id);
         }
     }
 }
