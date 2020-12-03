@@ -17,14 +17,16 @@ namespace ECOM.Data.Repository
         {
             return await Db.Categories.AsNoTracking().Include(ct => ct.Products)
                 .ThenInclude(pr => pr.AssociatedProducts)
-                    .ThenInclude(pr => pr.ProductSon).OrderBy(ct => ct.Name).ToListAsync();
+                    .ThenInclude(pr => pr.ProductSon).ThenInclude(prs => prs.Category)
+                    .OrderBy(ct => ct.Name).ToListAsync();
         }
 
         public async Task<Category> GetCategoryProducts(Guid id)
         {
             return await Db.Categories.AsNoTracking().Include(ct => ct.Products)
                 .ThenInclude(pr => pr.AssociatedProducts)
-                    .ThenInclude(pr => pr.ProductSon).FirstOrDefaultAsync(ct => ct.Id == id);
+                    .ThenInclude(pr => pr.ProductSon).ThenInclude(prs => prs.Category)
+                    .FirstOrDefaultAsync(ct => ct.Id == id);
         }
     }
 }
