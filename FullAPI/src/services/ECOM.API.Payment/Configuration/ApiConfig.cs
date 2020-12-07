@@ -23,12 +23,14 @@ namespace ECOM.API.Payment.Configuration
 
             services.AddCors(options =>
             {
-                options.AddPolicy("Total",
-                    builder =>
-                        builder
-                            .AllowAnyOrigin()
-                            .AllowAnyMethod()
-                            .AllowAnyHeader());
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.WithOrigins(
+                        "http://localhost:3000",
+                        "http://localhost:4200",
+                        "https://jackal.rmq.cloudamqp.com")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
             });
         }
 
@@ -38,12 +40,16 @@ namespace ECOM.API.Payment.Configuration
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+                app.UseHttpsRedirection();
+            }
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseCors("Total");
 
             app.UseAuthConfiguration();
 
