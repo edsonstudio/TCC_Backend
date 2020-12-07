@@ -38,21 +38,14 @@ namespace ECOM.API.Carrinho.Configuration
 
             services.AddCors(options =>
             {
-                options.AddPolicy("Development",
-                    builder =>
-                        builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
-
-
-                options.AddPolicy("Production",
-                    builder =>
-                        builder
-                            .WithMethods("GET")
-                            .WithOrigins("http://localhost")
-                            .SetIsOriginAllowedToAllowWildcardSubdomains()
-                            .AllowAnyHeader());
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.WithOrigins(
+                        "http://localhost:3000",
+                        "http://localhost:4200",
+                        "https://jackal.rmq.cloudamqp.com")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
             });
 
         }
@@ -61,14 +54,14 @@ namespace ECOM.API.Carrinho.Configuration
         {
             if (env.IsDevelopment())
             {
-                app.UseCors("Development");
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseCors("Development"); // Usar apenas nas demos => Configuração Ideal: Production
                 app.UseHsts();
+                app.UseHttpsRedirection();
             }
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
 

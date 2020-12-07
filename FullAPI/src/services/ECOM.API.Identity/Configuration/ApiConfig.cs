@@ -32,7 +32,10 @@ namespace ECOM.API.Identity.Configuration
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.WithOrigins("http://localhost:3000", "http://localhost:4200")
+                    builder => builder.WithOrigins(
+                        "http://localhost:3000", 
+                        "http://localhost:4200",
+                        "https://jackal.rmq.cloudamqp.com")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());

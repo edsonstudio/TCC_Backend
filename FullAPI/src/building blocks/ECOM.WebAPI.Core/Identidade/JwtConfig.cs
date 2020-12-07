@@ -32,8 +32,8 @@ namespace ECOM.WebAPI.Core.Identidade
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidAudience = appSettings.ValidoEm,
+                    ValidateAudience = false,
+                    //ValidAudience = appSettings.ValidoEm,
                     ValidIssuer = appSettings.Emissor
                 };
 
