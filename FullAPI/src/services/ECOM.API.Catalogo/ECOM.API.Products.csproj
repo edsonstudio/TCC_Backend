@@ -2,8 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>6ac2cd11-31aa-49ae-9502-33799adec914</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ECOM.Business\**" />
+    <Compile Remove="ECOM.Data\**" />
+    <Content Remove="ECOM.Business\**" />
+    <Content Remove="ECOM.Data\**" />
+    <EmbeddedResource Remove="ECOM.Business\**" />
+    <EmbeddedResource Remove="ECOM.Data\**" />
+    <None Remove="ECOM.Business\**" />
+    <None Remove="ECOM.Data\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
@@ -36,10 +46,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ECOM.Data\ECOM.Data.csproj" />
-    <ProjectReference Include="..\src\building blocks\ECOM.Core\ECOM.Core.csproj" />
-    <ProjectReference Include="..\src\building blocks\ECOM.MessageBus\ECOM.MessageBus.csproj" />
-    <ProjectReference Include="..\src\building blocks\ECOM.WebAPI.Core\ECOM.WebAPI.Core.csproj" />
+    <ProjectReference Include="..\..\building blocks\ECOM.WebAPI.Core\ECOM.WebAPI.Core.csproj" />
+    <ProjectReference Include="ECOM.Data\ECOM.Data.csproj" />
   </ItemGroup>
 
 

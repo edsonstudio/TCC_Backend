@@ -2,6 +2,28 @@ version: "3"
 
 services:  
 
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbit-ecom
+        environment:
+            RABBITMQ_DEFAULT_USER: "ecom"
+            RABBITMQ_DEFAULT_PASS: "ecom"
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+
+    sql-server:
+        image: tcc/ecom-sql-server:latest
+        container_name: ecom-sql-server
+        build: 
+            context: ../sql
+            dockerfile: ./Dockerfile
+        ports:
+            - "1433:1433"
+        environment:
+            SA_PASSWORD: "MeuDB@123"
+            ACCEPT_EULA: "Y"  
+
     api-identity:
         image: tcc/ecom-api-identity:latest
         container_name: ecom-api-identity    
@@ -10,24 +32,45 @@ services:
             dockerfile: ./services/ECOM.API.Identity/Dockerfile  
         ports:
             - "5101:5101"
-            - "5102:5102"
-   
+            - "5102:5102"   
         environment: 
             - ASPNETCORE_ENVIRONMENT=Production
             - ASPNETCORE_URLS=http://*:5101
+        depends_on:
+            - rabbitmq
+            - sql-server
 
-    api-products:
-        image: tcc/ecom-api-products:latest
-        container_name: ecom-api-products
+    api-catalogo:
+        image: tcc/ecom-api-catalogo:latest
+        container_name: ecom-api-catalogo
         build: 
             context: ../src
-            dockerfile: ./services/ECOM.API.Products/Dockerfile
-        restart: always 
+            dockerfile: ./services/ECOM.API.Catalogo/Dockerfile
+        ports:
+            - "5305:5305"
+            - "5306:5306" 
         environment: 
             - ASPNETCORE_ENVIRONMENT=Production
-            - ASPNETCORE_URLS=https://+:5301;http://+5302
+            - ASPNETCORE_URLS=http://*:5305    
         depends_on:
             - rabbitmq
             - api-identity
             - sql-server
-        
+
+    api-client:
+        image: tcc/ecom-api-client:latest
+        container_name: ecom-api-client    
+        build: 
+            context: ../src
+            dockerfile: ./services/ECOM.API.Client/Dockerfile
+        restart: always 
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=http://*:5401
+        ports:
+            - "5401:5401"
+            - "5402:5402" 
+        depends_on:
+            - rabbitmq
+            - api-identity
+            - sql-server 
