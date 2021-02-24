@@ -1,10 +1,10 @@
-﻿using ECOM.API.Catalogo.Services;
+﻿using ECOM.Business.Services;
 using ECOM.Core.Utils;
 using ECOM.MessageBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ECOM.API.Catalogo.Configuration
+namespace ECOM.API.Products.Configuration
 {
     public static class MessageBusConfig
     {

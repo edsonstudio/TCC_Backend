@@ -1,0 +1,33 @@
+version: "3"
+
+services:  
+
+    api-identity:
+        image: tcc/ecom-api-identity:latest
+        container_name: ecom-api-identity    
+        build: 
+            context: ../src
+            dockerfile: ./services/ECOM.API.Identity/Dockerfile  
+        ports:
+            - "5101:5101"
+            - "5102:5102"
+   
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=http://*:5101
+
+    api-products:
+        image: tcc/ecom-api-products:latest
+        container_name: ecom-api-products
+        build: 
+            context: ../src
+            dockerfile: ./services/ECOM.API.Products/Dockerfile
+        restart: always 
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=https://+:5301;http://+5302
+        depends_on:
+            - rabbitmq
+            - api-identity
+            - sql-server
+        
