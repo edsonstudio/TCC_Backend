@@ -1,22 +1,33 @@
-﻿using ECOM.API.Catalogo.Data;
-using ECOM.API.Catalogo.Data.Repository;
-using ECOM.API.Catalogo.Models;
-using ECOM.Core.Mediator;
+﻿using ECOM.Business.Interfaces;
+using ECOM.Business.Notificacoes;
+using ECOM.Business.Services;
+using ECOM.Data.Context;
+using ECOM.Data.Repository;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace ECOM.API.Catalogo.Configuration
+namespace ECOM.API.Products.Configuration
 {
     public static class DependencyInjectionConfig
     {
-        public static void RegisterServices(this IServiceCollection services)
+        public static IServiceCollection ResolveDependencies(this IServiceCollection services)
         {
-            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<InitialDbContext>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
+
+            services.AddScoped<INotificador, Notificador>();
+
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoryService, CategoryService>();
+
             services.AddScoped<IAssociatedProductsRepository, AssociatedProductsRepository>();
-            services.AddScoped<CatalogoContext>();
+            services.AddScoped<IAssociatedProductsService, AssociatedProductsService>();
 
-            services.AddScoped<IMediatorHandler, MediatorHandler>();
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
+            return services;
         }
     }
 }

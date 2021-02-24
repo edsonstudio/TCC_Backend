@@ -1,20 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ECOM.API.Catalogo.Configuration;
+using AutoMapper;
+using ECOM.API.Products.Configuration;
+using ECOM.Data.Context;
 using ECOM.WebAPI.Core.Identidade;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
-namespace ECOM.API.Catalogo
+namespace ECOM.API.Products
 {
     public class Startup
     {
@@ -28,32 +24,38 @@ namespace ECOM.API.Catalogo
                 .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
                 .AddEnvironmentVariables();
 
-            if (hostEnvironment.IsDevelopment())
-            {
-                builder.AddUserSecrets<Startup>();
-            }
+            //if (hostEnvironment.IsDevelopment())
+            //{
+            //    builder.AddUserSecrets<Startup>();
+            //}
 
             Configuration = builder.Build();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApiConfiguration(Configuration);
+            services.AddDbContext<InitialDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddJwtConfiguration(Configuration);
 
-            services.AddSwaggerConfiguration();
+            services.AddAutoMapper(typeof(Startup));
 
-            services.AddMediatR(typeof(Startup));
+            services.WebApiConfig();
 
-            services.RegisterServices();
+            services.ResolveDependencies();
+
+            services.AddSwaggerConfig();
+
+            services.AddMessageBusConfiguration(Configuration);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
-            app.UseSwaggerConfiguration();
+            app.UseSwaggerConfig(provider);
 
-            app.UseApiConfiguration(env);
+            app.UseMvcConfiguration(env);
+
+            app.UseStaticFiles();
         }
     }
 }

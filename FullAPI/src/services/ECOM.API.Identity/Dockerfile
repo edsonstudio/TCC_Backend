@@ -7,10 +7,13 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["src/services/ECOM.API.Identity/ECOM.API.Identity.csproj", "src/services/ECOM.API.Identity/"]
-RUN dotnet restore "src/services/ECOM.API.Identity/ECOM.API.Identity.csproj"
+COPY ["./services/ECOM.API.Identity/ECOM.API.Identity.csproj", "services/ECOM.API.Identity/"]
+COPY ["./building blocks/ECOM.Core/ECOM.Core.csproj", "building blocks/ECOM.Core/"]
+COPY ["./building blocks/ECOM.MessageBus/ECOM.MessageBus.csproj", "building blocks/ECOM.MessageBus/"]
+
+RUN dotnet restore "services/ECOM.API.Identity/ECOM.API.Identity.csproj"
 COPY . .
-WORKDIR "/src/src/services/ECOM.API.Identity"
+WORKDIR "services/ECOM.API.Identity"
 RUN dotnet build "ECOM.API.Identity.csproj" -c Release -o /app/build
 
 FROM build AS publish
