@@ -74,3 +74,78 @@ services:
             - rabbitmq
             - api-identity
             - sql-server 
+    
+    api-carrinho:
+        image: tcc/ecom-api-carrinho:latest
+        container_name: ecom-api-carrinho
+        build: 
+            context: ../src
+            dockerfile: ./services/ECOM.API.Carrinho/Dockerfile      
+        restart: always
+        ports:
+            - "5201:5201"
+            - "5202:5202"             
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=http://*:5201
+        depends_on:
+            - rabbitmq
+            - api-identity
+            - sql-server       
+
+    api-bff-compras:
+        image: tcc/ecom-api-bff-compras:latest
+        container_name: ecom-api-bff-compras
+        build: 
+            context: ../src
+            dockerfile: ./api gateways/ECOM.Bff.Compras/Dockerfile  
+        restart: always
+        ports:
+            - "5501:5501"
+            - "5502:5502" 
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=http://*:5501
+        depends_on:
+            - rabbitmq
+            - api-identity
+            - api-carrinho
+            - api-payment
+            - api-pedido
+    
+    api-payment:
+        image: tcc/ecom-api-payment:latest
+        container_name: ecom-api-payment    
+        build: 
+            context: ../src
+            dockerfile: ./services/ECOM.API.Payment/Dockerfile
+        restart: always  
+        ports:
+            - "5601:5601"
+            - "5602:5602"  
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=http://*:5601
+        depends_on:
+            - rabbitmq
+            - api-identity
+            - api-pedido
+            - sql-server
+            
+    api-pedido:
+        image: tcc/ecom-api-pedido:latest
+        container_name: ecom-api-pedido    
+        build: 
+            context: ../src
+            dockerfile: ./services/ECOM.API.Pedidos/Dockerfile 
+        restart: always  
+        ports:
+            - "5701:5701"
+            - "5702:5702"           
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=http://*:5701
+        depends_on:
+            - rabbitmq
+            - sql-server
+            - api-identity

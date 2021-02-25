@@ -7,10 +7,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["src/services/ECOM.API.Pedidos/ECOM.API.Pedidos.csproj", "src/services/ECOM.API.Pedidos/"]
-RUN dotnet restore "src/services/ECOM.API.Pedidos/ECOM.API.Pedidos.csproj"
+COPY ["./services/ECOM.API.Pedidos/ECOM.API.Pedidos.csproj", "services/ECOM.API.Pedidos/"]
+COPY ["./building blocks/ECOM.Core/ECOM.Core.csproj", "building blocks/ECOM.Core/"]
+COPY ["./building blocks/ECOM.WebAPI.Core/ECOM.WebAPI.Core.csproj", "building blocks/ECOM.WebAPI.Core/"]
+COPY ["./building blocks/ECOM.MessageBus/ECOM.MessageBus.csproj", "building blocks/ECOM.MessageBus/"]
+
+RUN dotnet restore "services/ECOM.API.Pedidos/ECOM.API.Pedidos.csproj"
 COPY . .
-WORKDIR "/src/src/services/ECOM.API.Pedidos"
+WORKDIR "services/ECOM.API.Pedidos"
 RUN dotnet build "ECOM.API.Pedidos.csproj" -c Release -o /app/build
 
 FROM build AS publish

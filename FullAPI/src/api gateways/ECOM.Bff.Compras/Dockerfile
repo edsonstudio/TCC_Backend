@@ -7,10 +7,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["src/api gateways/ECOM.Bff.Compras/ECOM.Bff.Compras.csproj", "src/api gateways/ECOM.Bff.Compras/"]
-RUN dotnet restore "src/api gateways/ECOM.Bff.Compras/ECOM.Bff.Compras.csproj"
+COPY ["./api gateways/ECOM.Bff.Compras/ECOM.Bff.Compras.csproj", "api gateways/ECOM.Bff.Compras/"]
+COPY ["./building blocks/ECOM.Core/ECOM.Core.csproj", "building blocks/ECOM.Core/"]
+COPY ["./building blocks/ECOM.WebAPI.Core/ECOM.WebAPI.Core.csproj", "building blocks/ECOM.WebAPI.Core/"]
+COPY ["./building blocks/ECOM.MessageBus/ECOM.MessageBus.csproj", "building blocks/ECOM.MessageBus/"]
+
+RUN dotnet restore "api gateways/ECOM.Bff.Compras/ECOM.Bff.Compras.csproj"
 COPY . .
-WORKDIR "/src/src/api gateways/ECOM.Bff.Compras"
+WORKDIR "api gateways/ECOM.Bff.Compras"
 RUN dotnet build "ECOM.Bff.Compras.csproj" -c Release -o /app/build
 
 FROM build AS publish
