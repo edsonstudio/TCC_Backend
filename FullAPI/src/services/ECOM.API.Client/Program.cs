@@ -11,25 +11,9 @@ namespace ECOM.API.Client
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
-
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-
-                try
-                {
-                    var context = services.GetRequiredService<ClientsContext>();
-                    DbInitializer.Initialize(context);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-
-            host.Run();
+            CreateHostBuilder(args).Build().Run();
         }
+
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
@@ -37,4 +21,36 @@ namespace ECOM.API.Client
                     webBuilder.UseStartup<Startup>();
                 });
     }
+
+
+    //public class Program
+    //{
+    //    public static void Main(string[] args)
+    //    {
+    //        var host = CreateHostBuilder(args).Build();
+
+    //        using (var scope = host.Services.CreateScope())
+    //        {
+    //            var services = scope.ServiceProvider;
+
+    //            try
+    //            {
+    //                var context = services.GetRequiredService<ClientsContext>();
+    //                DbInitializer.Initialize(context);
+    //            }
+    //            catch (Exception ex)
+    //            {
+    //                throw ex;
+    //            }
+    //        }
+
+    //        host.Run();
+    //    }
+    //    public static IHostBuilder CreateHostBuilder(string[] args) =>
+    //        Host.CreateDefaultBuilder(args)
+    //            .ConfigureWebHostDefaults(webBuilder =>
+    //            {
+    //                webBuilder.UseStartup<Startup>();
+    //            });
+    //}
 }
