@@ -1,0 +1,193 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      
+version: "3"
+
+services:  
+
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbit-ecom
+        environment:
+            RABBITMQ_DEFAULT_USER: "ecom"
+            RABBITMQ_DEFAULT_PASS: "ecom"
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+
+    sql-server:
+        image: tcc/ecom-sql-server:latest
+        container_name: ecom-sql-server
+        build: 
+            context: ../sql
+            dockerfile: ./Dockerfile
+        ports:
+            - "1433:1433"
+        environment:
+            SA_PASSWORD: "MeuDB@123"
+            ACCEPT_EULA: "Y"  
+
+    api-identity:
+        image: tcc/ecom-api-identity:latest
+        container_name: ecom-api-identity    
+        build: 
+            context: ../src
+            dockerfile: ./services/ECOM.API.Identity/Dockerfile 
+        ports:
+            - "5101:5101"
+        restart: always 
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=https://+:5101;http://+5102
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
+        volumes:
+            - ./certs:/https:ro
+        depends_on:
+            - rabbitmq
+            - sql-server
+
+    api-catalogo:
+        image: tcc/ecom-api-catalogo:latest
+        container_name: ecom-api-catalogo
+        build: 
+            context: ../src
+            dockerfile: ./services/ECOM.API.Catalogo/Dockerfile
+        ports:
+            - "5301:5301"
+        restart: always 
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=https://+:5301;http://+5302
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
+        volumes:
+            - ./certs:/https:ro    
+        depends_on:
+            - rabbitmq
+            - api-identity
+            - sql-server
+
+    api-client:
+        image: tcc/ecom-api-client:latest
+        container_name: ecom-api-client    
+        build: 
+            context: ../src
+            dockerfile: ./services/ECOM.API.Client/Dockerfile
+        ports:
+            - "5401:5401"
+        restart: always 
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=https://+:5401;http://+5402
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
+        volumes:
+            - ./certs:/https:ro 
+        depends_on:
+            - rabbitmq
+            - api-identity
+            - sql-server 
+    
+    api-carrinho:
+        image: tcc/ecom-api-carrinho:latest
+        container_name: ecom-api-carrinho
+        build: 
+            context: ../src
+            dockerfile: ./services/ECOM.API.Carrinho/Dockerfile     
+        ports:
+            - "5201:5201" 
+        restart: always
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=https://+:5201;http://+5202
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
+        volumes:
+            - ./certs:/https:ro
+        depends_on:
+            - rabbitmq
+            - api-identity
+            - sql-server       
+
+    api-bff-compras:
+        image: tcc/ecom-api-bff-compras:latest
+        container_name: ecom-api-bff-compras
+        build: 
+            context: ../src
+            dockerfile: ./api gateways/ECOM.Bff.Compras/Dockerfile  
+        ports:
+            - "5501:5501"
+        restart: always
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=https://+:5501;http://+5502
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
+        volumes:
+            - ./certs:/https:ro
+        depends_on:
+            - rabbitmq
+            - api-identity
+            - api-carrinho
+            - api-payment
+            - api-pedido
+    
+    api-payment:
+        image: tcc/ecom-api-payment:latest
+        container_name: ecom-api-payment    
+        build: 
+            context: ../src
+            dockerfile: ./services/ECOM.API.Payment/Dockerfile
+        ports:
+            - "5601:5601"
+        restart: always  
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=https://+:5601;http://+5602
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
+        volumes:
+            - ./certs:/https:ro
+        depends_on:
+            - rabbitmq
+            - api-identity
+            - api-pedido
+            - sql-server
+            
+    api-pedido:
+        image: tcc/ecom-api-pedido:latest
+        container_name: ecom-api-pedido    
+        build: 
+            context: ../src
+            dockerfile: ./services/ECOM.API.Pedidos/Dockerfile 
+        ports:
+            - "5701:5701"
+        restart: always  
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_URLS=https://+:5701;http://+5702
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
+        volumes:
+            - ./certs:/https:ro
+        depends_on:
+            - rabbitmq
+            - sql-server
+            - api-identity
