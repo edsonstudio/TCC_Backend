@@ -1,0 +1,8 @@
+ecom-dbserver.database.windows.net
+admin: ecomdbadmin
+pass: Teste@123
+
+
+Docker DB: 
+Admin: sa
+Pass: MeuDB@123

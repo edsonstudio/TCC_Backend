@@ -1,9 +1,13 @@
 
 -----------------------------------Hospedando API DOT.NET Core 3.1 no Heroku em 10 Passos ---------------------------------------------
 
-1- execute o cmd
+1- Execute o cmd (console CLI do seu sistema operacional)
 
-2- entre no diretorio da API:
+1.1- Faça os logins:
+	>docker login
+	>heroku container:login
+
+2- Entre no diretorio da API:
 
 	>cd OneDrive\Área de Trabalho\TCC_Backend\FullAPI\src\services\ECOM.API.Client
 
