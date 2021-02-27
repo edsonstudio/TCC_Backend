@@ -23,7 +23,7 @@ The source code of the Angular Front-end you can find in this repository: https:
 
 
 # Build in Docker Container: 
-## How to host each API in container and host on Heroku in 14 steps
+## How to host each API in container and host on Heroku in 15 steps
 Requirements:
 1.	Have [Docker](https://www.docker.com) installed on your computer
 2.	Have [Heroku](https://www.heroku.com) installed on your computer
@@ -46,25 +46,36 @@ After creating an account on Heroku, you just have to click New and then Create 
 
 5.  Run the cmd (Your Operacional Sistem CLI)
 
-6.  Enter the API directory:
+6.  Log in:
+
+```bash
+> docker login
+```
+
+```bash
+> heroku container:login
+```
+
+
+7.  Enter the API directory:
 
 ```bash
 > cd OneDrive \ Desktop \ TCC_Backend \ FullAPI \ src \ services \ ECOM.API.Client
 ```
 
-7.  Publish the Application:
+8.  Publish the Application:
 
 ```bash
 > dotnet publish -c Release
 ```
 
-8.  Enter the directory where the files were published:
+9.  Enter the directory where the files were published:
 
 ```bash
 > cd bin \ Release \ netcoreapp3.1 \ publish
 ```
 
-9.  Replace the Dockerfile file with another with the following code:
+10.  Replace the Dockerfile file with another with the following code:
 
 ```
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
@@ -99,25 +110,25 @@ by command:
 CMD ASPNETCORE_URLS=http://*:$PORT dotnet ECOM.API.Client.dll
 ```
 
-10.  Now Build the application to transform it into an image in the docker:
+11.  Now Build the application to transform it into an image in the docker:
 
 ```bash
 > docker build -t heroku-clients -f Dockerfile -t heroku-clients . 
 ```
 
-11.  Crie a TAG para poder subir a imagem para o Heroku:
+12.  Crie a TAG para poder subir a imagem para o Heroku:
 
 ```bash
 > docker tag heroku-clients registry.heroku.com/heroku-clients/web
 ```
 
-12.  Create the TAG in order to upload the image to Heroku:
+13.  Create the TAG in order to upload the image to Heroku:
 
 ```bash
 > docker push registry.heroku.com/heroku-clients/web
 ```
 
-13.  Finally create the release of the app on Heroku:
+14.  Finally create the release of the app on Heroku:
 
 ```bash
 > heroku container:release web --app heroku-clients
@@ -125,7 +136,7 @@ CMD ASPNETCORE_URLS=http://*:$PORT dotnet ECOM.API.Client.dll
 
 Finally your API is hosted on Heroku, and to access it just log into your Dashboard on Heroku, click on the app you created and click on the OPEN APP button. If your API has a swagger, just type /swagger/index.html at the end of your API URL in the browser.
 
-14.  If you want to view the application log inside Heroku, type the following command inside your cmd:
+15.  If you want to view the application log inside Heroku, type the following command inside your cmd:
 
 ```bash
 > heroku logs --app heroku-clients --tail
