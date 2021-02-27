@@ -4,10 +4,6 @@
     </a>
 </div>
 
-[![All Contributors](https://img.shields.io/badge/Contribuitors-3-orange.svg?style=flat-square)](#contributors-)
-[![Star on GitHub](https://img.shields.io/github/stars/edsont8/TCC_Backend.svg?style=social)](https://github.com/edsont8/TCC_Backend/stargazers)
-
-
 # Introduction 
 This is a project to conclude the Technical Course in Systems Development (TCC) at the Brazilian [School SENAI "Ary Torres"](https://www.sp.senai.br).
 The project consists of an e-commerce website with front-end developed in [Angular 9](https://angular.io), back-end in [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1), [Entity Framework Core](https://docs.microsoft.com/pt-br/ef/core/) and [SQL Server](https://www.microsoft.com/pt-br/sql-server/sql-server-2019). Initially, it was managed in [Microsoft Azure DevOps](https://azure.microsoft.com/pt-br/services/devops/) and transferred to Github.
@@ -157,3 +153,7 @@ Finally your API is hosted on Heroku, and to access it just log into your Dashbo
 ![Skill](https://img.shields.io/badge/Visual_Studio_2019-5C2D91?style=for-the-badge&logo=visual%20studio&logoColor=white)
 ![Skill](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
 ![Skill](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+
+## Repo status:
+[![All Contributors](https://img.shields.io/badge/Contribuitors-3-orange.svg?style=flat-square)](#contributors-)
+[![Star on GitHub](https://img.shields.io/github/stars/edsont8/TCC_Backend.svg?style=social)](https://github.com/edsont8/TCC_Backend/stargazers)
