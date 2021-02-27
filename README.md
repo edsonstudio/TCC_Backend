@@ -145,3 +145,15 @@ Finally your API is hosted on Heroku, and to access it just log into your Dashbo
     <td align="center"><a href="https://github.com/Pereiracode"><img src="https://avatars2.githubusercontent.com/u/55901172?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mateus Pereira</b></sub></a><br /><a href="https://github.com/edsont8/TCC_Backend/commits?author=Pereiracode" title="Documentation">📖 Commits</a></td>
   </tr>
 </table>
+
+## Used in this project:
+
+![Skill](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
+![Skill](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
+![Skill](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
+![Skill](https://img.shields.io/badge/Microsoft_Azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
+![Skill](https://img.shields.io/badge/Microsoft_SQL_Server-CC2927?style=for-the-badge&logo=microsoft-sql-server&logoColor=white)
+![Skill](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
+![Skill](https://img.shields.io/badge/Visual_Studio_2019-5C2D91?style=for-the-badge&logo=visual%20studio&logoColor=white)
+![Skill](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
+![Skill](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
