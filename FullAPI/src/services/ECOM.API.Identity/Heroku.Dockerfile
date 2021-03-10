@@ -11,6 +11,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["ECOM.API.Identity.csproj", "ECOM.API.Identity/"]
 COPY ["../building blocks/ECOM.Core/ECOM.Core.csproj", "../building blocks/ECOM.Core/"]
+COPY ["./building blocks/ECOM.WebAPI.Core/ECOM.WebAPI.Core.csproj", "building blocks/ECOM.WebAPI.Core/"]
 COPY ["../building blocks/ECOM.MessageBus/ECOM.MessageBus.csproj", "../building blocks/ECOM.MessageBus/"]
 
 RUN dotnet restore "ECOM.API.Identity.csproj"
