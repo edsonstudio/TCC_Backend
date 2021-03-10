@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ECOM.API.Client.Data;
 using ECOM.WebAPI.Core.Identidade;
 using Data;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +43,9 @@ namespace ECOM.API.Client.Configuration
                     builder => builder.WithOrigins(
                         "http://localhost:3000",
                         "http://localhost:4200",
-                        "https://jackal.rmq.cloudamqp.com")
+                        "https://jackal.rmq.cloudamqp.com",
+                        "https://edsont8.github.io/TCC_Frontend",
+                        "https://heroku-auth-chat.herokuapp.com")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());

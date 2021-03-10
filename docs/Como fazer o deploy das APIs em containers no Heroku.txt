@@ -50,22 +50,22 @@ CMD ASPNETCORE_URLS=http://*:$PORT dotnet ECOM.API.Client.dll
 
 6- Agora faça o Build da aplicacao para transformar em uma imagem no docker:
 
-	>docker build -t heroku-clients -f Dockerfile -t heroku-clients . 
+	>docker build -t heroku-products -f Dockerfile -t heroku-products . 
 
 7- Crie a TAG para poder subir a imagem para o Heroku:
 
-	>docker tag heroku-clients registry.heroku.com/heroku-clients/web
+	>docker tag heroku-products registry.heroku.com/heroku-products/web
 
 8- Suba a imagem para o repositorio do Heroku:
 
-	>docker push registry.heroku.com/heroku-clients/web
+	>docker push registry.heroku.com/heroku-products/web
 
 9- Por fim crie o release da app no Heroku:
 
-	>heroku container:release web --app heroku-clients
+	>heroku container:release web --app heroku-products
 
 Finalmente sua API está hospedada no Heroku, e para acessá-la basta logar no seu Dashboard no Heroku, clique na app que você criou e clique no botão OPEN APP. Caso a sua API possua swagger basta digitar /swagger/index.html no final da URL da sua API no navegador.
 
 10- Caso queira visualizar o log da aplicação dentro do Heroku digite o seguinte comando dentro do seu cmd:
 
-	>heroku logs --app heroku-clients --tail
+	>heroku logs --app heroku-products --tail

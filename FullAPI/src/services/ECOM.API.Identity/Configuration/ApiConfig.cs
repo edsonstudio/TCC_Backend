@@ -35,7 +35,9 @@ namespace ECOM.API.Identity.Configuration
                     builder => builder.WithOrigins(
                         "http://localhost:3000", 
                         "http://localhost:4200",
-                        "https://jackal.rmq.cloudamqp.com")
+                        "https://jackal.rmq.cloudamqp.com",
+                        "https://edsont8.github.io/TCC_Frontend",
+                        "https://heroku-clients.herokuapp.com")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());

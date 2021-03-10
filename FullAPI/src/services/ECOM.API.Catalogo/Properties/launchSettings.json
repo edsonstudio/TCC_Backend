@@ -27,7 +27,7 @@
         "ASPNETCORE_ENVIRONMENT": "Staging"
       }
     },
-    "IIS - Production": {
+    "IIS - Prod": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "swagger",

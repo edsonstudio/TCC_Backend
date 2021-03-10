@@ -1,16 +1,22 @@
-﻿using ECOM.WebAPI.Core.Identidade;
+﻿using ECOM.Data.Context;
+using ECOM.WebAPI.Core.Identidade;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace ECOM.API.Products.Configuration
 {
     public static class ApiConfig
     {
-        public static IServiceCollection WebApiConfig(this IServiceCollection services)
+        public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddDbContext<InitialDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            
             services.AddControllers();
 
             services.AddControllersWithViews()
@@ -36,16 +42,18 @@ namespace ECOM.API.Products.Configuration
                     builder => builder.WithOrigins(
                         "http://localhost:3000",
                         "http://localhost:4200",
-                        "https://jackal.rmq.cloudamqp.com")
+                        "https://jackal.rmq.cloudamqp.com",
+                        "https://edsont8.github.io/TCC_Frontend",
+                        "https://heroku-auth-chat.herokuapp.com",
+                        "https://heroku-clients.herokuapp.com")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
 
-            return services;
         }
 
-        public static IApplicationBuilder UseMvcConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
+        public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -69,7 +77,6 @@ namespace ECOM.API.Products.Configuration
                 endpoints.MapControllers();
             });
 
-            return app;
         }
     }
 }

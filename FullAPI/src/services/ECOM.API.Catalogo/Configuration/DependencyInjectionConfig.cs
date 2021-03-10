@@ -11,7 +11,7 @@ namespace ECOM.API.Products.Configuration
 {
     public static class DependencyInjectionConfig
     {
-        public static IServiceCollection ResolveDependencies(this IServiceCollection services)
+        public static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<InitialDbContext>();
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -26,8 +26,6 @@ namespace ECOM.API.Products.Configuration
             services.AddScoped<IAssociatedProductsService, AssociatedProductsService>();
 
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
-
-            return services;
         }
     }
 }

@@ -34,15 +34,13 @@ namespace ECOM.API.Products
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<InitialDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddJwtConfiguration(Configuration);
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.WebApiConfig();
+            services.AddApiConfiguration(Configuration);
 
-            services.ResolveDependencies();
+            services.RegisterServices();
 
             services.AddSwaggerConfig();
 
@@ -53,7 +51,7 @@ namespace ECOM.API.Products
         {
             app.UseSwaggerConfig(provider);
 
-            app.UseMvcConfiguration(env);
+            app.UseApiConfiguration(env);
 
             app.UseStaticFiles();
         }
