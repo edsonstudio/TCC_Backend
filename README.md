@@ -5,6 +5,8 @@
 </div>
 
 # Introduction 
+This is a distributed Application (microservices), with the Backend using .NET Core 3.1 - There are 7 API's communicating through MessageBus [(RabbitMQ)](https://www.rabbitmq.com).
+
 This is a project to conclude the Technical Course in Systems Development (TCC) at the Brazilian [School SENAI "Ary Torres"](https://www.sp.senai.br).
 The project consists of an e-commerce website with front-end developed in [Angular 9](https://angular.io), back-end in [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1), [Entity Framework Core](https://docs.microsoft.com/pt-br/ef/core/) and [SQL Server](https://www.microsoft.com/pt-br/sql-server/sql-server-2019). Initially, it was managed in [Microsoft Azure DevOps](https://azure.microsoft.com/pt-br/services/devops/) and transferred to Github.
 
@@ -12,9 +14,9 @@ The source code of the Angular Front-end you can find in this repository: https:
 
 # List of API's hosted on Heroku
 
-1.	API - [Authentication](https://heroku-api-identity.herokuapp.com/swagger/index.html)
+1.	API - [Authentication](https://heroku-auth-chat.herokuapp.com/swagger/index.html)
 2.	API - [Clients](https://heroku-clients.herokuapp.com/swagger/index.html)
-3.	API - Catalog of products
+3.	API - [Catalog of products](https://heroku-products.herokuapp.com/swagger/index.html)
 4.	API - Gateway (BFF)
 5.	API - Payment
 6.	API - Cart
