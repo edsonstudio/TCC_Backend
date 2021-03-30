@@ -1,0 +1,21 @@
+rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbit-ecom
+        environment:
+            RABBITMQ_DEFAULT_USER: "ecom"
+            RABBITMQ_DEFAULT_PASS: "ecom"
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+
+    sql-server:
+        image: tcc/ecom-sql-server:latest
+        container_name: ecom-sql-server
+        build: 
+            context: ../sql
+            dockerfile: ./Dockerfile
+        ports:
+            - "1433:1433"
+        environment:
+            SA_PASSWORD: "MeuDB@123"
+            ACCEPT_EULA: "Y"  

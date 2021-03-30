@@ -5,48 +5,49 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace ECOM.API.Identity
-{    
-        public class Program
-        {
-            public static void Main(string[] args)
-            {
-                CreateHostBuilder(args).Build().Run();
-            }
-
-            public static IHostBuilder CreateHostBuilder(string[] args) =>
-                Host.CreateDefaultBuilder(args)
-                    .ConfigureWebHostDefaults(webBuilder =>
-                    {
-                        webBuilder.UseStartup<Startup>();
-                    });
-        }
-    
-    //public static void Main(string[] args)
+{
+    public class Program { 
     //{
-    //    var host = CreateHostBuilder(args).Build();
+    //    public static void Main(string[] args)
+    //    {
+    //        CreateHostBuilder(args).Build().Run();
+    //    }
 
-    //    //using (var scope = host.Services.CreateScope())
-    //    //{
-    //    //    var services = scope.ServiceProvider;
-
-    //    //    try
-    //    //    {
-    //    //        var context = services.GetRequiredService<ApplicationDbContext>();
-    //    //        DbInitializer.Initialize(context);
-    //    //    }
-    //    //    catch (Exception ex)
-    //    //    {
-    //    //        throw ex;
-    //    //    }
-    //    //}
-
-    //    host.Run();
-    //}
-    //public static IHostBuilder CreateHostBuilder(string[] args) =>
+    //    public static IHostBuilder CreateHostBuilder(string[] args) =>
     //        Host.CreateDefaultBuilder(args)
     //            .ConfigureWebHostDefaults(webBuilder =>
     //            {
     //                webBuilder.UseStartup<Startup>();
     //            });
     //}
+
+    public static void Main(string[] args)
+    {
+        var host = CreateHostBuilder(args).Build();
+
+        using (var scope = host.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+
+            try
+            {
+                var context = services.GetRequiredService<ApplicationDbContext>();
+                DbInitializer.Initialize(context);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        host.Run();
+    }
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+    }
 }
+
