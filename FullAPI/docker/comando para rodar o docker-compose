@@ -1,0 +1,1 @@
+docker-compose -f ecom_producao.yml up --build

@@ -35,11 +35,12 @@ services:
         restart: always 
         environment: 
             - ASPNETCORE_ENVIRONMENT=Production
-            - ASPNETCORE_URLS=https://+:5101;http://+5102
-            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
-            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
-        volumes:
-            - ./certs:/https:ro
+            - ASPNETCORE_URLS=http://*:5101
+#            - ASPNETCORE_URLS=https://+:5101;http://+5102            
+#            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
+#            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
+#        volumes:
+#            - ./certs:/https:ro
         depends_on:
             - rabbitmq
             - sql-server
@@ -55,11 +56,12 @@ services:
         restart: always 
         environment: 
             - ASPNETCORE_ENVIRONMENT=Production
-            - ASPNETCORE_URLS=https://+:5301;http://+5302
-            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
-            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
-        volumes:
-            - ./certs:/https:ro    
+            - ASPNETCORE_URLS=http://*:5301            
+#            - ASPNETCORE_URLS=https://+:5301;http://+5302
+#            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
+#            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
+#        volumes:
+#            - ./certs:/https:ro    
         depends_on:
             - rabbitmq
             - api-identity
@@ -76,11 +78,12 @@ services:
         restart: always 
         environment: 
             - ASPNETCORE_ENVIRONMENT=Production
-            - ASPNETCORE_URLS=https://+:5401;http://+5402
-            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
-            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
-        volumes:
-            - ./certs:/https:ro 
+            - ASPNETCORE_URLS=http://*:5401            
+#            - ASPNETCORE_URLS=https://+:5401;http://+5402
+#            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
+#            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
+#        volumes:
+#            - ./certs:/https:ro 
         depends_on:
             - rabbitmq
             - api-identity
@@ -97,11 +100,12 @@ services:
         restart: always
         environment: 
             - ASPNETCORE_ENVIRONMENT=Production
-            - ASPNETCORE_URLS=https://+:5201;http://+5202
-            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
-            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
-        volumes:
-            - ./certs:/https:ro
+            - ASPNETCORE_URLS=http://*:5201            
+#            - ASPNETCORE_URLS=https://+:5201;http://+5202
+#            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
+#            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
+#        volumes:
+#            - ./certs:/https:ro
         depends_on:
             - rabbitmq
             - api-identity
@@ -118,11 +122,12 @@ services:
         restart: always
         environment: 
             - ASPNETCORE_ENVIRONMENT=Production
-            - ASPNETCORE_URLS=https://+:5501;http://+5502
-            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
-            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
-        volumes:
-            - ./certs:/https:ro
+            - ASPNETCORE_URLS=http://*:5501            
+#            - ASPNETCORE_URLS=https://+:5501;http://+5502
+#            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
+#            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
+#        volumes:
+#            - ./certs:/https:ro
         depends_on:
             - rabbitmq
             - api-identity
@@ -141,11 +146,12 @@ services:
         restart: always  
         environment: 
             - ASPNETCORE_ENVIRONMENT=Production
-            - ASPNETCORE_URLS=https://+:5601;http://+5602
-            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
-            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
-        volumes:
-            - ./certs:/https:ro
+            - ASPNETCORE_URLS=http://*:5601            
+#            - ASPNETCORE_URLS=https://+:5601;http://+5602
+#            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
+#            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
+#        volumes:
+#            - ./certs:/https:ro
         depends_on:
             - rabbitmq
             - api-identity
@@ -163,11 +169,12 @@ services:
         restart: always  
         environment: 
             - ASPNETCORE_ENVIRONMENT=Production
-            - ASPNETCORE_URLS=https://+:5701;http://+5702
-            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
-            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
-        volumes:
-            - ./certs:/https:ro
+            - ASPNETCORE_URLS=http://*:5701            
+#            - ASPNETCORE_URLS=https://+:5701;http://+5702
+#            - ASPNETCORE_Kestrel__Certificates__Default__Password=ecom
+#            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ecom-certificate.pfx
+#        volumes:
+#            - ./certs:/https:ro
         depends_on:
             - rabbitmq
             - sql-server
