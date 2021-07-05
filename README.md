@@ -149,7 +149,7 @@ Finally your API is hosted on Heroku, and to access it just log into your Dashbo
 
 <table>    
   <tr>
-    <td align="center"><a href="https://github.com/edsonstudio"><img src="https://avatars1.githubusercontent.com/u/55901214?v=4?s=100" width="100px;"  alt=""/><br /><sub><b>Edson Costa</b></sub></a><br /><a href="https://github.com/edsonstudio/TCC_Backend/commits?author=edsont8" title="Documentation">📖 Commits</a></td>
+    <td align="center"><a href="https://github.com/edsonstudio"><img src="https://avatars1.githubusercontent.com/u/55901214?v=4?s=100" width="100px;"  alt=""/><br /><sub><b>Edson Costa</b></sub></a><br /><a href="https://github.com/edsonstudio/TCC_Backend/commits?author=edsonstudio" title="Documentation">📖 Commits</a></td>
     <td align="center"><a href="https://github.com/miguellz67"><img src="https://avatars1.githubusercontent.com/u/55901848?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Luiz Miguel</b></sub></a><br /><a href="https://github.com/edsonstudio/TCC_Backend/commits?author=miguellz67" title="Documentation">📖 Commits</a></td>
     <td align="center"><a href="https://github.com/Pereiracode"><img src="https://avatars2.githubusercontent.com/u/55901172?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mateus Pereira</b></sub></a><br /><a href="https://github.com/edsonstudio/TCC_Backend/commits?author=Pereiracode" title="Documentation">📖 Commits</a></td>
   </tr>
